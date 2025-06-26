@@ -468,59 +468,70 @@
     }
 
     /* Responsive Design */
-    @media (max-width: 768px) {
-      .hero-title {
-        font-size: 2.5rem;
-      }
-      
-      .nav-tabs {
-        flex-direction: column;
-        align-items: center;
-      }
-      
-      .filter-group {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      
-      .filter-input, .filter-select {
-        width: 100%;
-      }
-      
-      .player-card {
-        flex-direction: column;
-        text-align: center;
-        gap: 1rem;
-      }
-      
-      .player-info-section {
-        order: 2;
-      }
-      
-      .rating-badge {
-        order: 1;
-        font-size: 1.5rem;
-        padding: 0.75rem 1rem;
-        min-width: 80px;
-      }
-      
-      .stats-container {
-        order: 3;
-        width: 100%;
-      }
-      
-      .stats-grid {
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      }
-      
-      .formation-selector {
-        flex-direction: column;
-      }
-      
-      .team-criteria {
-        grid-template-columns: 1fr;
-      }
-    }
+/* Trong @media (max-width: 768px) */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .nav-tabs {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .filter-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .filter-input, .filter-select {
+    width: 100%;
+  }
+  
+  .player-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
+  .player-info-section {
+    order: 1;
+  }
+  
+  .stats-container {
+    order: 2;
+    width: 100%;
+  }
+  
+  .rating-badge, .player-info.price {
+    order: 3;
+    margin-top: 1rem;
+  }
+  
+  .rating-badge {
+    font-size: 1.5rem;
+    padding: 0.75rem 1rem;
+    min-width: 80px;
+  }
+  
+  .player-info.price {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.6);
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
+  
+  .formation-selector {
+    flex-direction: column;
+  }
+  
+  .team-criteria {
+    grid-template-columns: 1fr;
+  }
+}
   </style>
 </head>
 <body>
@@ -560,6 +571,23 @@
             class="filter-input"
           />
           
+
+          <select id="positionFilter" class="filter-select">
+            <option value="">⚽ All Positions</option>
+            <option value="GK">GK - Goalkeeper</option>
+            <option value="CB">CB - Center Back</option>
+            <option value="LB">LB - Left Back</option>
+            <option value="RB">RB - Right Back</option>
+            <option value="CDM">CDM - Defensive Mid</option>
+            <option value="CM">CM - Central Mid</option>
+            <option value="CAM">CAM - Attacking Mid</option>
+            <option value="LM">LM - Left Mid</option>
+            <option value="RM">RM - Right Mid</option>
+            <option value="LW">LW - Left Wing</option>
+            <option value="RW">RW - Right Wing</option>
+            <option value="ST">ST - Striker</option>
+          </select>
+
           <select id="priceFilter" class="filter-select">
             <option value="">💰 All Prices</option>
             <option value="0-100">Under 100</option>
@@ -569,6 +597,15 @@
             <option value="1500-2000">1500 - 2000</option>
             <option value="2000-2500">2000 - 2500</option>
             <option value="2500+">Over 2500</option>
+          </select>
+
+          <select id="sortFilter" class="filter-select">
+            <option value="">🔄 Sort By</option>
+            <option value="rating-high">Rating (High to Low)</option>
+            <option value="rating-low">Rating (Low to High)</option>
+            <option value="price-high">Price (High to Low)</option>
+            <option value="price-low">Price (Low to High)</option>
+            <option value="name">Name (A-Z)</option>
           </select>
           
           <button id="clearFilters" class="clear-filters">
@@ -581,84 +618,97 @@
       <div id="playersGrid" class="flex flex-col gap-4 hidden"></div>
     </div>
 
-    <!-- Team Builder Tab -->
-    <div id="teamBuilderTab" class="hidden">
-      <div class="team-builder-section">
-        <h2 class="text-3xl font-bold text-center mb-6 text-white">🏆 Build Your Ultimate Team</h2>
-        
-        <!-- Formation Selector -->
-        <div class="formation-selector">
-          <button class="formation-btn active" onclick="selectFormation('4-3-3')">4-3-3</button>
-          <button class="formation-btn" onclick="selectFormation('4-4-2')">4-4-2</button>
-          <button class="formation-btn" onclick="selectFormation('3-5-2')">3-5-2</button>
-          <button class="formation-btn" onclick="selectFormation('4-2-3-1')">4-2-3-1</button>
-          <button class="formation-btn" onclick="selectFormation('5-3-2')">5-3-2</button>
-        </div>
-
-        <!-- Team Building Criteria -->
-        <div class="team-criteria">
-          <div class="criteria-item">
-            <label class="criteria-label">🎯 Priority</label>
-            <select id="buildPriority" class="filter-select">
-              <option value="rating">Best Rating</option>
-              <option value="value">Best Value</option>
-              <option value="balanced">Balanced Team</option>
-            </select>
-          </div>
-          
-          <div class="criteria-item">
-            <label class="criteria-label">💰 Budget (Millions)</label>
-            <input type="number" id="budgetLimit" placeholder="Enter budget..." class="filter-input" />
-          </div>
-          
-          <div class="criteria-item">
-            <label class="criteria-label">🌍 Country Preference</label>
-            <select id="teamCountryFilter" class="filter-select">
-              <option value="">Any Country</option>
-            </select>
-          </div>
-          
-          <div class="criteria-item">
-            <label class="criteria-label">🏟️ Club Preference</label>
-            <select id="teamClubFilter" class="filter-select">
-              <option value="">Any Club</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="text-center">
-          <button id="buildTeamBtn" class="build-team-btn text-lg px-6 py-3">
-            🚀 Build Team
-          </button>
-        </div>
-      </div>
-
-      <!-- Team Stats -->
-      <div id="teamStats" class="team-stats hidden">
-        <h3>📊 Team Statistics</h3>
-        <div class="team-stats-grid">
-          <div class="team-stat">
-            <div class="team-stat-value" id="teamRating">0</div>
-            <div class="team-stat-label">Average Rating</div>
-          </div>
-          <div class="team-stat">
-            <div class="team-stat-value" id="teamCost">0M</div>
-            <div class="team-stat-label">Total Cost</div>
-          </div>
-          <div class="team-stat">
-            <div class="team-stat-value" id="teamCountries">0</div>
-            <div class="team-stat-label">Countries</div>
-          </div>
-          <div class="team-stat">
-            <div class="team-stat-value" id="teamClubs">0</div>
-            <div class="team-stat-label">Clubs</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Built Team Display -->
-      <div id="builtTeam" class="flex flex-col gap-4 hidden"></div>
+<!-- Team Builder Tab -->
+<div id="teamBuilderTab" class="hidden">
+  <div class="team-builder-section">
+    <h2 class="text-3xl font-bold text-center mb-6 text-white">🏆 Build Your Ultimate Team</h2>
+    
+    <!-- Formation Selector -->
+    <div class="formation-selector">
+      <button class="formation-btn active" onclick="selectFormation('4-3-3')">4-3-3</button>
+      <button class="formation-btn" onclick="selectFormation('4-4-2')">4-4-2</button>
+      <button class="formation-btn" onclick="selectFormation('3-5-2')">3-5-2</button>
+      <button class="formation-btn" onclick="selectFormation('4-2-3-1')">4-2-3-1</button>
+      <button class="formation-btn" onclick="selectFormation('5-3-2')">5-3-2</button>
     </div>
+
+    <!-- Team Building Criteria -->
+    <div class="team-criteria">
+      <div class="criteria-item">
+        <label class="criteria-label">🎯 Priority</label>
+        <select id="buildPriority" class="filter-select">
+          <option value="rating">Best Rating</option>
+          <option value="value">Best Value</option>
+          <option value="balanced">Balanced Team</option>
+        </select>
+      </div>
+      
+      <div class="criteria-item">
+        <label class="criteria-label">💰 Budget (Millions)</label>
+        <input type="number" id="budgetLimit" placeholder="Enter budget..." class="filter-input" />
+      </div>
+      
+      <div class="criteria-item">
+        <label class="criteria-label">🌍 Country Preference</label>
+        <select id="teamCountryFilter" class="filter-select">
+          <option value="">Any Country</option>
+        </select>
+      </div>
+      
+      <div class="criteria-item">
+        <label class="criteria-label">🏟️ Club Preference</label>
+        <select id="teamClubFilter" class="filter-select">
+          <option value="">Any Club</option>
+        </select>
+      </div>
+      
+      <div class="criteria-item">
+        <label class="criteria-label">🌐 Continent Preference</label>
+        <select id="teamContinentFilter" class="filter-select">
+          <option value="">Any Continent</option>
+          <option value="Africa">Africa</option>
+          <option value="Asia">Asia</option>
+          <option value="Europe">Europe</option>
+          <option value="North America">North America</option>
+          <option value="South America">South America</option>
+          <option value="Oceania">Oceania</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="text-center">
+      <button id="buildTeamBtn" class="build-team-btn text-lg px-6 py-3">
+        🚀 Build Team
+      </button>
+    </div>
+  </div>
+
+  <!-- Team Stats -->
+  <div id="teamStats" class="team-stats hidden">
+    <h3>📊 Team Statistics</h3>
+    <div class="team-stats-grid">
+      <div class="team-stat">
+        <div class="team-stat-value" id="teamRating">0</div>
+        <div class="team-stat-label">Average Rating</div>
+      </div>
+      <div class="team-stat">
+        <div class="team-stat-value" id="teamCost">0M</div>
+        <div class="team-stat-label">Total Cost</div>
+      </div>
+      <div class="team-stat">
+        <div class="team-stat-value" id="teamCountries">0</div>
+        <div class="team-stat-label">Countries</div>
+      </div>
+      <div class="team-stat">
+        <div class="team-stat-value" id="teamClubs">0</div>
+        <div class="team-stat-label">Clubs</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Built Team Display -->
+  <div id="builtTeam" class="flex flex-col gap-4 hidden"></div>
+</div>
 
     <!-- Loading State -->
     <div id="loading" class="text-center">
@@ -871,78 +921,78 @@
       });
     }
   
-    function createPlayerCard(player, index) {
-      const card = document.createElement('div');
-      card.className = 'player-card fade-in';
-      card.style.animationDelay = `${index * 0.05}s`;
+function createPlayerCard(player, index) {
+  const card = document.createElement('div');
+  card.className = 'player-card fade-in';
+  card.style.animationDelay = `${index * 0.05}s`;
+
+  const headers = Object.keys(player);
+  const nameField = headers[0];
+  const ratingField = headers.find(h => h.toLowerCase().includes('rating') || h.toLowerCase().includes('ovr')) || headers[1];
   
-      const headers = Object.keys(player);
-      const nameField = headers[0];
-      const ratingField = headers.find(h => h.toLowerCase().includes('rating') || h.toLowerCase().includes('ovr')) || headers[1];
-      
-      const name = player[nameField] || 'Unknown Player';
-      const rating = player[ratingField] || '0';
-      const numRating = parseFloat(rating);
-      const country = player['Nationality'] || player['Country'] || '';
-      const club = player['Club'] || '';
-      const price = player['Price'] || player['Value'] || '';
-      const position = player['Position'] || player['Pos'] || '';
-  
-      const isGoalkeeper = position.toLowerCase().includes('gk');
-  
-      let ratingClass = '';
-      if (numRating >= 80) ratingClass = 'rating-legendary';
-      else if (numRating >= 70) ratingClass = 'rating-elite';
-      else if (numRating >= 60) ratingClass = 'rating-good';
-  
-      const statGroup1 = isGoalkeeper
-        ? ['Speed', 'Acceleration', 'Reactions (GK)', 'Strength']
-        : ['Speed', 'Acceleration', 'Stamina', 'Strength'];
-  
-      const statGroup2 = isGoalkeeper
-        ? ['Control', 'Passing', 'Handling (GK)', 'Tackling']
-        : ['Control', 'Passing', 'Shooting', 'Tackling'];
-  
-      const statRowHTML = group => `
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-2">
-          ${group.map(stat => {
-            const value = player[stat] || '0';
-            const isGKStat = stat.toLowerCase().includes('gk');
-            return `
-              <div class="stat-item ${isGKStat ? 'gk-stats' : ''}">
-                <span class="stat-name">${stat.replace('(GK)', '').trim()}</span>
-                <span class="stat-value">${value}</span>
-              </div>
-            `;
-          }).join('')}
-        </div>
-      `;
-  
-      card.innerHTML = `
-        <div class="player-info-section">
-          <div class="player-name">${name}</div>
-          <div class="player-details">
-            ${position ? `<div class="player-info">📍 ${position}</div>` : ''}
-            ${country ? `<div class="player-info">🌍 ${country}</div>` : ''}
-            ${club ? `<div class="player-info">🏟️ ${club}</div>` : ''}
+  const name = player[nameField] || 'Unknown Player';
+  const rating = player[ratingField] || '0';
+  const numRating = parseFloat(rating);
+  const country = player['Nationality'] || player['Country'] || '';
+  const club = player['Club'] || '';
+  const price = player['Price'] || player['Value'] || '';
+  const position = player['Position'] || player['Pos'] || '';
+
+  const isGoalkeeper = position.toLowerCase().includes('gk');
+
+  let ratingClass = '';
+  if (numRating >= 80) ratingClass = 'rating-legendary';
+  else if (numRating >= 70) ratingClass = 'rating-elite';
+  else if (numRating >= 60) ratingClass = 'rating-good';
+
+  const statGroup1 = isGoalkeeper
+    ? ['Speed', 'Acceleration', 'Reactions (GK)', 'Strength']
+    : ['Speed', 'Acceleration', 'Stamina', 'Strength'];
+
+  const statGroup2 = isGoalkeeper
+    ? ['Control', 'Passing', 'Handling (GK)', 'Tackling']
+    : ['Control', 'Passing', 'Shooting', 'Tackling'];
+
+  const statRowHTML = group => `
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-2">
+      ${group.map(stat => {
+        const value = player[stat] || '0';
+        const isGKStat = stat.toLowerCase().includes('gk');
+        return `
+          <div class="stat-item ${isGKStat ? 'gk-stats' : ''}">
+            <span class="stat-name">${stat.replace('(GK)', '').trim()}</span>
+            <span class="stat-value">${value}</span>
           </div>
-        </div>
-  
-        <div class="stats-container">
-          ${statRowHTML(statGroup1)}
-          ${statRowHTML(statGroup2)}
-        </div>
-        
-        <div class="flex flex-col items-center">
-          <div class="rating-badge ${ratingClass}">
-            ${rating}
-          </div>
-          ${price ? `<div class="player-info text-sm text-white mt-1">💰 ${price}${price.includes('M') ? '' : 'M'}</div>` : ''}
-        </div>
-      `;
-  
-      return card;
-    }
+        `;
+      }).join('')}
+    </div>
+  `;
+
+  card.innerHTML = `
+    <div class="player-info-section">
+      <div class="player-name">${name}</div>
+      <div class="player-details">
+        ${position ? `<div class="player-info">📍 ${position}</div>` : ''}
+        ${country ? `<div class="player-info">🌍 ${country}</div>` : ''}
+        ${club ? `<div class="player-info">🏟️ ${club}</div>` : ''}
+      </div>
+    </div>
+
+    <div class="stats-container">
+      ${statRowHTML(statGroup1)}
+      ${statRowHTML(statGroup2)}
+    </div>
+    
+    <div class="flex flex-col items-center">
+      <div class="rating-badge ${ratingClass}">
+        ${rating}
+      </div>
+       ${price ? `<div class="player-info price">💰 ${price}${price.includes('M') ? '' : 'M'}</div>` : ''}
+    </div>
+  `;
+
+  return card;
+}
   
     function buildTeam() {
       const priority = document.getElementById('buildPriority').value;
@@ -1140,6 +1190,207 @@
   
     // Initialize
     window.onload = loadData;
+
+    function applyFilters() {
+  const searchTerm = searchInput.value.toLowerCase().trim();
+  const selectedCountry = countryFilter.value.trim().toLowerCase();
+  const selectedPrice = priceFilter.value;
+  const selectedPosition = document.getElementById('positionFilter').value.toUpperCase();
+
+  filteredPlayers = allPlayers.filter(player => {
+    const matchesSearch = !searchTerm || Object.values(player).some(value => 
+      value.toString().toLowerCase().includes(searchTerm)
+    );
+
+    const playerCountry = (player['Nationality'] || player['Country'] || '').toLowerCase();
+    const matchesCountry = !selectedCountry || playerCountry.includes(selectedCountry);
+
+    let matchesPrice = true;
+    if (selectedPrice) {
+      const priceValue = parseFloat(player['Price'] || player['Value'] || '0');
+      const [min, max] = selectedPrice.split('-');
+      const minPrice = parseFloat(min);
+      const maxPrice = max ? parseFloat(max) : Infinity;
+
+      if (selectedPrice.includes('+')) {
+        matchesPrice = priceValue > minPrice;
+      } else {
+        matchesPrice = priceValue >= minPrice && priceValue < maxPrice;
+      }
+    }
+
+    const playerPos = (player['Position'] || player['Pos'] || '').toUpperCase();
+    const matchesPosition = !selectedPosition || positionMappings[selectedPosition].some(pos => playerPos.includes(pos));
+
+    return matchesSearch && matchesCountry && matchesPrice && matchesPosition;
+  });
+
+  renderPlayers();
+}
+
+// Thêm event listener cho positionFilter
+document.getElementById('positionFilter').addEventListener('change', applyFilters);
+
+function renderPlayers() {
+  playersGrid.innerHTML = '';
+  
+  if (filteredPlayers.length === 0) {
+    noResults.classList.remove('hidden');
+    playersGrid.classList.add('hidden');
+    return;
+  }
+  
+  noResults.classList.add('hidden');
+  playersGrid.classList.remove('hidden');
+
+  // Sắp xếp theo sortFilter
+  const sortFilter = document.getElementById('sortFilter').value;
+  const ratingField = getRatingField();
+  if (sortFilter) {
+    filteredPlayers.sort((a, b) => {
+      const ratingA = parseFloat(a[ratingField] || '0');
+      const ratingB = parseFloat(b[ratingField] || '0');
+      const priceA = parseFloat(a['Price'] || a['Value'] || '0');
+      const priceB = parseFloat(b['Price'] || b['Value'] || '0');
+      const nameA = a[Object.keys(a)[0]].toLowerCase();
+      const nameB = b[Object.keys(b)[0]].toLowerCase();
+
+      switch (sortFilter) {
+        case 'rating-high': return ratingB - ratingA;
+        case 'rating-low': return ratingA - ratingB;
+        case 'price-high': return priceB - priceA;
+        case 'price-low': return priceA - priceB;
+        case 'name': return nameA.localeCompare(nameB);
+        default: return 0;
+      }
+    });
+  }
+
+  filteredPlayers.forEach((player, index) => {
+    const playerCard = createPlayerCard(player, index);
+    playersGrid.appendChild(playerCard);
+  });
+}
+
+// Thêm event listener cho sortFilter
+document.getElementById('sortFilter').addEventListener('change', applyFilters);
+
+const countryToContinent = {
+  // Africa (54 countries)
+  'Algeria': 'Africa', 'Angola': 'Africa', 'Benin': 'Africa', 'Botswana': 'Africa', 'Burkina Faso': 'Africa',
+  'Burundi': 'Africa', 'Cabo Verde': 'Africa', 'Cameroon': 'Africa', 'Central African Republic': 'Africa',
+  'Chad': 'Africa', 'Comoros': 'Africa', 'Congo (Republic of the)': 'Africa', 'Congo (Democratic Republic of the)': 'Africa',
+  'Djibouti': 'Africa', 'Egypt': 'Africa', 'Equatorial Guinea': 'Africa', 'Eritrea': 'Africa', 'Eswatini': 'Africa',
+  'Ethiopia': 'Africa', 'Gabon': 'Africa', 'Gambia': 'Africa', 'Ghana': 'Africa', 'Guinea': 'Africa',
+  'Guinea-Bissau': 'Africa', 'Ivory Coast': 'Africa', 'Kenya': 'Africa', 'Lesotho': 'Africa', 'Liberia': 'Africa',
+  'Libya': 'Africa', 'Madagascar': 'Africa', 'Malawi': 'Africa', 'Mali': 'Africa', 'Mauritania': 'Africa',
+  'Mauritius': 'Africa', 'Mozambique': 'Africa', 'Namibia': 'Africa', 'Niger': 'Africa', 'Nigeria': 'Africa',
+  'Rwanda': 'Africa', 'Sao Tome and Principe': 'Africa', 'Senegal': 'Africa', 'Seychelles': 'Africa',
+  'Sierra Leone': 'Africa', 'Somalia': 'Africa', 'South Africa': 'Africa', 'South Sudan': 'Africa',
+  'Sudan': 'Africa', 'Tanzania': 'Africa', 'Togo': 'Africa', 'Tunisia': 'Africa', 'Uganda': 'Africa',
+  'Zambia': 'Africa', 'Zimbabwe': 'Africa',
+
+  // Asia (50 countries, including transcontinental countries classified by UN)
+  'Afghanistan': 'Asia', 'Armenia': 'Asia', 'Azerbaijan': 'Asia', 'Bahrain': 'Asia', 'Bangladesh': 'Asia',
+  'Bhutan': 'Asia', 'Brunei': 'Asia', 'Cambodia': 'Asia', 'China': 'Asia', 'Cyprus': 'Asia',
+  'East Timor': 'Asia', 'Georgia': 'Asia', 'India': 'Asia', 'Indonesia': 'Asia', 'Iran': 'Asia',
+  'Iraq': 'Asia', 'Israel': 'Asia', 'Japan': 'Asia', 'Jordan': 'Asia', 'Kazakhstan': 'Asia',
+  'Kuwait': 'Asia', 'Kyrgyzstan': 'Asia', 'Laos': 'Asia', 'Lebanon': 'Asia', 'Malaysia': 'Asia',
+  'Maldives': 'Asia', 'Mongolia': 'Asia', 'Myanmar': 'Asia', 'Nepal': 'Asia', 'North Korea': 'Asia',
+  'Oman': 'Asia', 'Pakistan': 'Asia', 'Palestine': 'Asia', 'Philippines': 'Asia', 'Qatar': 'Asia',
+  'Russia': 'Asia', 'Saudi Arabia': 'Asia', 'Singapore': 'Asia', 'South Korea': 'Asia', 'Sri Lanka': 'Asia',
+  'Syria': 'Asia', 'Tajikistan': 'Asia', 'Thailand': 'Asia', 'Turkey': 'Asia', 'Turkmenistan': 'Asia',
+  'United Arab Emirates': 'Asia', 'Uzbekistan': 'Asia', 'Vietnam': 'Asia', 'Yemen': 'Asia', 'Australia': 'Asia',
+
+  // Europe (51 countries, including transcontinental countries classified by UN)
+  'Albania': 'Europe', 'Andorra': 'Europe', 'Austria': 'Europe', 'Belarus': 'Europe', 'Belgium': 'Europe',
+  'Bosnia and Herzegovina': 'Europe', 'Bulgaria': 'Europe', 'Croatia': 'Europe', 'Czech Republic': 'Europe',
+  'Denmark': 'Europe', 'Estonia': 'Europe', 'Finland': 'Europe', 'France': 'Europe', 'Germany': 'Europe',
+  'Greece': 'Europe', 'Hungary': 'Europe', 'Iceland': 'Europe', 'Ireland': 'Europe', 'Italy': 'Europe',
+  'Latvia': 'Europe', 'Liechtenstein': 'Europe', 'Lithuania': 'Europe', 'Luxembourg': 'Europe',
+  'Malta': 'Europe', 'Moldova': 'Europe', 'Monaco': 'Europe', 'Montenegro': 'Europe', 'Netherlands': 'Europe',
+  'North Macedonia': 'Europe', 'Norway': 'Europe', 'Poland': 'Europe', 'Portugal': 'Europe',
+  'Romania': 'Europe', 'San Marino': 'Europe', 'Serbia': 'Europe', 'Slovakia': 'Europe', 'Slovenia': 'Europe',
+  'Spain': 'Europe', 'Sweden': 'Europe', 'Switzerland': 'Europe', 'Ukraine': 'Europe', 'United Kingdom': 'Europe',
+  'Vatican City': 'Europe',
+
+  // North America (23 countries)
+  'Antigua and Barbuda': 'North America', 'Bahamas': 'North America', 'Barbados': 'North America',
+  'Belize': 'North America', 'Canada': 'North America', 'Costa Rica': 'North America', 'Cuba': 'North America',
+  'Dominica': 'North America', 'Dominican Republic': 'North America', 'El Salvador': 'North America',
+  'Grenada': 'North America', 'Guatemala': 'North America', 'Haiti': 'North America', 'Honduras': 'North America',
+  'Jamaica': 'North America', 'Mexico': 'North America', 'Nicaragua': 'North America', 'Panama': 'North America',
+  'Saint Kitts and Nevis': 'North America', 'Saint Lucia': 'North America', 'Saint Vincent and the Grenadines': 'North America',
+  'Trinidad and Tobago': 'North America', 'United States': 'North America',
+
+  // South America (12 countries)
+  'Argentina': 'South America', 'Bolivia': 'South America', 'Brazil': 'South America', 'Chile': 'South America',
+  'Colombia': 'South America', 'Ecuador': 'South America', 'Guyana': 'South America', 'Paraguay': 'South America',
+  'Peru': 'South America', 'Suriname': 'South America', 'Uruguay': 'South America', 'Venezuela': 'South America',
+
+  // Australia/Oceania (14 countries)
+  'Fiji': 'Oceania', 'Kiribati': 'Oceania',
+  'Marshall Islands': 'Oceania', 'Micronesia': 'Oceania', 'Nauru': 'Oceania',
+  'New Zealand': 'Oceania', 'Palau': 'Oceania', 'Papua New Guinea': 'Oceania',
+  'Samoa': 'Oceania', 'Solomon Islands': 'Oceania', 'Tonga': 'Oceania',
+  'Tuvalu': 'Oceania', 'Vanuatu': 'Oceania'
+};
+
+function populateFilters() {
+  const countries = [...new Set(allPlayers.map(p => p['Nationality'] || p['Country'] || '').filter(c => c))].sort();
+  countryFilter.innerHTML = '<option value="">🌍 All Countries</option>';
+  const teamCountryFilter = document.getElementById('teamCountryFilter');
+  teamCountryFilter.innerHTML = '<option value="">Any Country</option>';
+  
+  countries.forEach(country => {
+    const option = document.createElement('option');
+    option.value = country;
+    option.textContent = country;
+    countryFilter.appendChild(option);
+    
+    const teamOption = option.cloneNode(true);
+    teamCountryFilter.appendChild(teamOption);
+  });
+
+  const clubs = [...new Set(allPlayers.map(p => p['Club'] || '').filter(c => c))].sort();
+  const teamClubFilter = document.getElementById('teamClubFilter');
+  teamClubFilter.innerHTML = '<option value="">Any Club</option>';
+  
+  clubs.forEach(club => {
+    const option = document.createElement('option');
+    option.value = club;
+    option.textContent = club;
+    teamClubFilter.appendChild(option);
+  });
+
+  // Thêm continent vào dữ liệu player nếu chưa có
+  allPlayers.forEach(player => {
+    player['Continent'] = countryToContinent[player['Nationality'] || player['Country']] || '';
+  });
+}
+
+// Cập nhật getPlayersForPosition trong buildTeam
+function getPlayersForPosition(position, preferredCountry, preferredClub) {
+  const validPositions = positionMappings[position] || [position];
+  const selectedContinent = document.getElementById('teamContinentFilter').value;
+
+  return allPlayers.filter(player => {
+    const playerPos = player['Position'] || player['Pos'] || '';
+    const playerCountry = player['Nationality'] || player['Country'] || '';
+    const playerClub = player['Club'] || '';
+    const playerContinent = player['Continent'] || '';
+
+    const positionMatch = validPositions.some(pos => 
+      playerPos.toUpperCase().includes(pos.toUpperCase())
+    );
+    
+    const countryMatch = !preferredCountry || playerCountry === preferredCountry;
+    const clubMatch = !preferredClub || playerClub === preferredClub;
+    const continentMatch = !selectedContinent || playerContinent === selectedContinent;
+    
+    return positionMatch && countryMatch && clubMatch && continentMatch;
+  });
+}
   </script>
 </body>
 </html>
