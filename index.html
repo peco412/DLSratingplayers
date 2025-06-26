@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DLS 2025 - Player Stats & Team Builder</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #000000 0%, #1a1a1a 25%, #0f1419 50%, #1a1a1a 75%, #000000 100%);
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+      color: #ffffff;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 30% 20%, rgba(34, 197, 94, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 20% 70%, rgba(5, 150, 105, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .hero-section {
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.4), rgba(15, 20, 25, 0.3));
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+      border-radius: 24px;
+      padding: 3rem;
+      margin-bottom: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, rgba(34, 197, 94, 0.05), rgba(16, 185, 129, 0.05));
+      animation: pulse 4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.7; }
+    }
+
+    .hero-title {
+      background: linear-gradient(135deg, #22c55e 0%, #10b981 50%, #059669 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 900;
+      font-size: 4rem;
+      text-align: center;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-subtitle {
+      text-align: center;
+      font-size: 1.25rem;
+      color: rgba(255, 255, 255, 0.7);
+      font-weight: 300;
+      position: relative;
+      z-index: 1;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      justify-content: center;
+    }
+
+    .nav-tab {
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+      border-radius: 12px;
+      padding: 1rem 2rem;
+      color: rgba(255, 255, 255, 0.7);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+
+    .nav-tab.active {
+      background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+      color: white;
+      border-color: #22c55e;
+    }
+
+    .nav-tab:hover:not(.active) {
+      border-color: rgba(34, 197, 94, 0.5);
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .filters-section {
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+      border-radius: 20px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .filter-input, .filter-select {
+      background: rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      border-radius: 12px;
+      padding: 0.75rem 1rem;
+      color: white;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .filter-input:focus, .filter-select:focus {
+      outline: none;
+      border-color: #22c55e;
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+    }
+
+    .filter-input::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .filter-select option {
+      background: #1a1a1a;
+      color: white;
+    }
+
+    .clear-filters, .build-team-btn {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 0.75rem 1.5rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .build-team-btn {
+      background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    }
+
+    .clear-filters:hover, .build-team-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
+    }
+
+    .build-team-btn:hover {
+      box-shadow: 0 8px 25px rgba(34, 197, 94, 0.4);
+    }
+
+    .player-card {
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+      border-radius: 20px;
+      padding: 1.5rem;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      min-height: 140px;
+    }
+
+    .player-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(16, 185, 129, 0.1));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .player-card:hover::before {
+      opacity: 1;
+    }
+
+    .player-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(34, 197, 94, 0.5);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .player-info-section {
+      flex: 1;
+      min-width: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .player-name {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 0.5rem;
+      word-wrap: break-word;
+      line-height: 1.3;
+    }
+
+    .player-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .player-info {
+      font-size: 0.875rem;
+      color: rgba(255, 255, 255, 0.6);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .rating-badge {
+      background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+      color: white;
+      font-weight: 900;
+      font-size: 2rem;
+      padding: 1rem 1.5rem;
+      border-radius: 20px;
+      text-align: center;
+      min-width: 100px;
+      box-shadow: 0 8px 25px rgba(34, 197, 94, 0.3);
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .rating-legendary {
+      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+      box-shadow: 0 8px 25px rgba(251, 191, 36, 0.4);
+    }
+
+    .rating-elite {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+    }
+
+    .rating-good {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+    }
+
+    .stats-container {
+      flex: 2;
+      position: relative;
+      z-index: 1;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .stat-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0.75rem;
+      background: rgba(34, 197, 94, 0.1);
+      border-radius: 10px;
+      border: 1px solid rgba(34, 197, 94, 0.2);
+    }
+
+    .stat-name {
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 0.8rem;
+    }
+
+    .stat-value {
+      font-weight: 700;
+      color: white;
+      font-size: 0.9rem;
+    }
+
+    .gk-stats {
+      border-color: rgba(59, 130, 246, 0.3);
+      background: rgba(59, 130, 246, 0.1);
+    }
+
+    /* Team Builder Styles */
+    .team-builder-section {
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+      border-radius: 20px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .formation-selector {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .formation-btn {
+      background: rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      border-radius: 12px;
+      padding: 0.75rem 1.5rem;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+
+    .formation-btn.active {
+      background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+      border-color: #22c55e;
+    }
+
+    .formation-btn:hover:not(.active) {
+      border-color: rgba(34, 197, 94, 0.5);
+    }
+
+    .team-criteria {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .criteria-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .criteria-label {
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 0.9rem;
+    }
+
+    .team-stats {
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .team-stats h3 {
+      color: #22c55e;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .team-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+    }
+
+    .team-stat {
+      text-align: center;
+      padding: 0.75rem;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+    }
+
+    .team-stat-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #22c55e;
+    }
+
+    .team-stat-label {
+      font-size: 0.875rem;
+      color: rgba(255, 255, 255, 0.7);
+      margin-top: 0.25rem;
+    }
+
+    .loading-spinner {
+      border: 3px solid rgba(34, 197, 94, 0.3);
+      border-top: 3px solid #22c55e;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      margin: 2rem auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .no-results-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+    }
+
+    .error-message {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      border-radius: 16px;
+      padding: 2rem;
+      margin: 2rem 0;
+      color: #fca5a5;
+      text-align: center;
+    }
+
+    .fade-in {
+      animation: fadeIn 0.6s ease-out forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2.5rem;
+      }
+      
+      .nav-tabs {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .filter-group {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      .filter-input, .filter-select {
+        width: 100%;
+      }
+      
+      .player-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+      }
+      
+      .player-info-section {
+        order: 2;
+      }
+      
+      .rating-badge {
+        order: 1;
+        font-size: 1.5rem;
+        padding: 0.75rem 1rem;
+        min-width: 80px;
+      }
+      
+      .stats-container {
+        order: 3;
+        width: 100%;
+      }
+      
+      .stats-grid {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      }
+      
+      .formation-selector {
+        flex-direction: column;
+      }
+      
+      .team-criteria {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container mx-auto px-4 py-8 max-w-7xl">
+    <!-- Hero Section -->
+    <div class="hero-section">
+      <h1 class="hero-title">⚽ DLS 2025</h1>
+      <p class="hero-subtitle">Discover Players & Build Your Ultimate Team</p>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="nav-tabs">
+      <div class="nav-tab active" onclick="switchTab('players')">
+        🔍 Player Database
+      </div>
+      <div class="nav-tab" onclick="switchTab('team-builder')">
+        ⚽ Team Builder
+      </div>
+    </div>
+
+    <!-- Players Tab -->
+    <div id="playersTab">
+      <!-- Filters Section -->
+      <div class="filters-section">
+        <div class="filter-group">
+          <input 
+            type="text" 
+            id="searchInput" 
+            placeholder="🔍 Search players..." 
+            class="filter-input flex-1 min-w-64"
+          />
+          
+          <input 
+            type="text"
+            id="countryFilter"
+            placeholder="🌍 Filter by Country..."
+            class="filter-input"
+          />
+          
+          <select id="priceFilter" class="filter-select">
+            <option value="">💰 All Prices</option>
+            <option value="0-100">Under 100</option>
+            <option value="100-500">100 - 500</option>
+            <option value="500-1000">500 - 1000</option>
+            <option value="1000-1500">1000 - 1500</option>
+            <option value="1500-2000">1500 - 2000</option>
+            <option value="2000-2500">2000 - 2500</option>
+            <option value="2500+">Over 2500</option>
+          </select>
+          
+          <button id="clearFilters" class="clear-filters">
+            Clear Filters
+          </button>
+        </div>
+      </div>
+
+      <!-- Players Grid -->
+      <div id="playersGrid" class="flex flex-col gap-4 hidden"></div>
+    </div>
+
+    <!-- Team Builder Tab -->
+    <div id="teamBuilderTab" class="hidden">
+      <div class="team-builder-section">
+        <h2 class="text-3xl font-bold text-center mb-6 text-white">🏆 Build Your Ultimate Team</h2>
+        
+        <!-- Formation Selector -->
+        <div class="formation-selector">
+          <button class="formation-btn active" onclick="selectFormation('4-3-3')">4-3-3</button>
+          <button class="formation-btn" onclick="selectFormation('4-4-2')">4-4-2</button>
+          <button class="formation-btn" onclick="selectFormation('3-5-2')">3-5-2</button>
+          <button class="formation-btn" onclick="selectFormation('4-2-3-1')">4-2-3-1</button>
+          <button class="formation-btn" onclick="selectFormation('5-3-2')">5-3-2</button>
+        </div>
+
+        <!-- Team Building Criteria -->
+        <div class="team-criteria">
+          <div class="criteria-item">
+            <label class="criteria-label">🎯 Priority</label>
+            <select id="buildPriority" class="filter-select">
+              <option value="rating">Best Rating</option>
+              <option value="value">Best Value</option>
+              <option value="balanced">Balanced Team</option>
+            </select>
+          </div>
+          
+          <div class="criteria-item">
+            <label class="criteria-label">💰 Budget (Millions)</label>
+            <input type="number" id="budgetLimit" placeholder="Enter budget..." class="filter-input" />
+          </div>
+          
+          <div class="criteria-item">
+            <label class="criteria-label">🌍 Country Preference</label>
+            <select id="teamCountryFilter" class="filter-select">
+              <option value="">Any Country</option>
+            </select>
+          </div>
+          
+          <div class="criteria-item">
+            <label class="criteria-label">🏟️ Club Preference</label>
+            <select id="teamClubFilter" class="filter-select">
+              <option value="">Any Club</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="text-center">
+          <button id="buildTeamBtn" class="build-team-btn text-lg px-6 py-3">
+            🚀 Build Team
+          </button>
+        </div>
+      </div>
+
+      <!-- Team Stats -->
+      <div id="teamStats" class="team-stats hidden">
+        <h3>📊 Team Statistics</h3>
+        <div class="team-stats-grid">
+          <div class="team-stat">
+            <div class="team-stat-value" id="teamRating">0</div>
+            <div class="team-stat-label">Average Rating</div>
+          </div>
+          <div class="team-stat">
+            <div class="team-stat-value" id="teamCost">0M</div>
+            <div class="team-stat-label">Total Cost</div>
+          </div>
+          <div class="team-stat">
+            <div class="team-stat-value" id="teamCountries">0</div>
+            <div class="team-stat-label">Countries</div>
+          </div>
+          <div class="team-stat">
+            <div class="team-stat-value" id="teamClubs">0</div>
+            <div class="team-stat-label">Clubs</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Built Team Display -->
+      <div id="builtTeam" class="flex flex-col gap-4 hidden"></div>
+    </div>
+
+    <!-- Loading State -->
+    <div id="loading" class="text-center">
+      <div class="loading-spinner"></div>
+      <p class="text-gray-400 mt-4 text-lg">Loading player data...</p>
+    </div>
+
+    <!-- Error State -->
+    <div id="error" class="error-message hidden">
+      <h3 class="font-bold text-xl mb-3">❌ Data Loading Error</h3>
+      <p class="text-lg">Unable to connect to Google Sheets. Please check your network connection.</p>
+    </div>
+
+    <!-- No Results -->
+    <div id="noResults" class="no-results hidden">
+      <div class="no-results-icon">🔍</div>
+      <h3 class="text-2xl font-bold mb-3">No Players Found</h3>
+      <p class="text-lg">Try adjusting your filters or search terms</p>
+    </div>
+  </div>
+
+  <script>
+    const sheetId = "11AlXgZFlKkASFkvcgp1cxcu72aL7nfR74BjNes--gNw";
+    const apiKey = "AIzaSyCI6bXgK-_l0bU1F0bJaYH-idxAuNQW1YM"; // Key từ mã cũ
+    const range = "players!A1:Z1000";
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`;
+  
+    let allPlayers = [];
+    let filteredPlayers = [];
+    let currentTab = 'players';
+    let currentFormation = '4-3-3';
+    let builtTeam = [];
+  
+    // Formation configurations
+    const formations = {
+      '4-3-3': { GK: 1, CB: 2, LB: 1, RB: 1, CM: 2, CAM: 1, LW: 1, RW: 1, ST: 1 },
+      '4-4-2': { GK: 1, CB: 2, LB: 1, RB: 1, LM: 1, RM: 1, CM: 2, ST: 2 },
+      '3-5-2': { GK: 1, CB: 3, LM: 1, RM: 1, CM: 3, ST: 2 },
+      '4-2-3-1': { GK: 1, CB: 2, LB: 1, RB: 1, CDM: 2, CAM: 2, LW: 1, ST: 1 },
+      '5-3-2': { GK: 1, CB: 3, LB: 1, RB: 1, CM: 3, ST: 2 }
+    };
+  
+    // Position mappings
+    const positionMappings = {
+      'GK': ['GK'],
+      'CB': ['CB', 'SW'],
+      'LB': ['LB', 'LWB'],
+      'RB': ['RB', 'RWB'],
+      'CDM': ['CDM', 'DM'],
+      'CM': ['CM', 'LM', 'RM'],
+      'CAM': ['CAM', 'AM'],
+      'LM': ['LM', 'LW'],
+      'RM': ['RM', 'RW'],
+      'LW': ['LW', 'LM'],
+      'RW': ['RW', 'RM'],
+      'ST': ['ST', 'CF', 'LF', 'RF']
+    };
+  
+    // DOM Elements
+    const loading = document.getElementById('loading');
+    const error = document.getElementById('error');
+    const playersGrid = document.getElementById('playersGrid');
+    const noResults = document.getElementById('noResults');
+    const searchInput = document.getElementById('searchInput');
+    const countryFilter = document.getElementById('countryFilter');
+    const priceFilter = document.getElementById('priceFilter');
+    const clearFilters = document.getElementById('clearFilters');
+    const playersTab = document.getElementById('playersTab');
+    const teamBuilderTab = document.getElementById('teamBuilderTab');
+    const buildTeamBtn = document.getElementById('buildTeamBtn');
+    const builtTeamDiv = document.getElementById('builtTeam');
+    const teamStats = document.getElementById('teamStats');
+  
+    async function loadData() {
+      try {
+        const response = await fetch(url);
+        console.log('Response status:', response.status); // Chỉ log trạng thái
+  
+        if (!response.ok) {
+          const errorText = await response.text(); // Đọc body lỗi nếu có
+          throw new Error(`Lỗi mạng: ${response.status} ${response.statusText} - ${errorText}`);
+        }
+  
+        const data = await response.json(); // Đọc body một lần dưới dạng JSON
+        if (!data.values || data.values.length === 0) {
+          throw new Error('Không tìm thấy dữ liệu trong phạm vi đã chọn');
+        }
+  
+        const [headers, ...rows] = data.values;
+        
+        allPlayers = rows.map(row => {
+          const player = {};
+          headers.forEach((header, index) => {
+            player[header] = row[index] || '';
+          });
+          return player;
+        }).filter(player => player[headers[0]] && player[headers[0]].trim());
+  
+        filteredPlayers = [...allPlayers];
+        populateFilters();
+        renderPlayers();
+        showContent();
+        
+      } catch (err) {
+        console.error('Lỗi khi tải dữ liệu:', err);
+        error.innerHTML = `
+          <h3 class="font-bold text-xl mb-3">❌ Lỗi Tải Dữ Liệu</h3>
+          <p class="text-lg">${err.message}</p>
+        `;
+        showError();
+      }
+    }
+  
+    function populateFilters() {
+      const countries = [...new Set(allPlayers.map(p => p['Nationality'] || p['Country'] || '').filter(c => c))].sort();
+      countryFilter.innerHTML = '<option value="">🌍 All Countries</option>';
+      const teamCountryFilter = document.getElementById('teamCountryFilter');
+      teamCountryFilter.innerHTML = '<option value="">Any Country</option>';
+      
+      countries.forEach(country => {
+        const option = document.createElement('option');
+        option.value = country;
+        option.textContent = country;
+        countryFilter.appendChild(option);
+        
+        const teamOption = option.cloneNode(true);
+        teamCountryFilter.appendChild(teamOption);
+      });
+  
+      const clubs = [...new Set(allPlayers.map(p => p['Club'] || '').filter(c => c))].sort();
+      const teamClubFilter = document.getElementById('teamClubFilter');
+      teamClubFilter.innerHTML = '<option value="">Any Club</option>';
+      
+      clubs.forEach(club => {
+        const option = document.createElement('option');
+        option.value = club;
+        option.textContent = club;
+        teamClubFilter.appendChild(option);
+      });
+    }
+  
+    function switchTab(tab) {
+      currentTab = tab;
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+      event.target.classList.add('active');
+      
+      if (tab === 'players') {
+        playersTab.classList.remove('hidden');
+        teamBuilderTab.classList.add('hidden');
+      } else {
+        playersTab.classList.add('hidden');
+        teamBuilderTab.classList.remove('hidden');
+      }
+    }
+  
+    function selectFormation(formation) {
+      currentFormation = formation;
+      document.querySelectorAll('.formation-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+    }
+  
+    function applyFilters() {
+      const searchTerm = searchInput.value.toLowerCase().trim();
+      const selectedCountry = countryFilter.value.trim().toLowerCase();
+      const selectedPrice = priceFilter.value;
+  
+      filteredPlayers = allPlayers.filter(player => {
+        const matchesSearch = !searchTerm || Object.values(player).some(value => 
+          value.toString().toLowerCase().includes(searchTerm)
+        );
+  
+        const playerCountry = (player['Nationality'] || player['Country'] || '').toLowerCase();
+        const matchesCountry = !selectedCountry || playerCountry.includes(selectedCountry);
+  
+        let matchesPrice = true;
+        if (selectedPrice) {
+          const priceValue = parseFloat(player['Price'] || player['Value'] || '0');
+          const [min, max] = selectedPrice.split('-');
+          const minPrice = parseFloat(min);
+          const maxPrice = max ? parseFloat(max) : Infinity;
+  
+          if (selectedPrice.includes('+')) {
+            matchesPrice = priceValue > minPrice;
+          } else {
+            matchesPrice = priceValue >= minPrice && priceValue < maxPrice;
+          }
+        }
+  
+        return matchesSearch && matchesCountry && matchesPrice;
+      });
+  
+      renderPlayers();
+    }
+  
+    function renderPlayers() {
+      playersGrid.innerHTML = '';
+      
+      if (filteredPlayers.length === 0) {
+        noResults.classList.remove('hidden');
+        playersGrid.classList.add('hidden');
+        return;
+      }
+      
+      noResults.classList.add('hidden');
+      playersGrid.classList.remove('hidden');
+  
+      filteredPlayers.forEach((player, index) => {
+        const playerCard = createPlayerCard(player, index);
+        playersGrid.appendChild(playerCard);
+      });
+    }
+  
+    function createPlayerCard(player, index) {
+      const card = document.createElement('div');
+      card.className = 'player-card fade-in';
+      card.style.animationDelay = `${index * 0.05}s`;
+  
+      const headers = Object.keys(player);
+      const nameField = headers[0];
+      const ratingField = headers.find(h => h.toLowerCase().includes('rating') || h.toLowerCase().includes('ovr')) || headers[1];
+      
+      const name = player[nameField] || 'Unknown Player';
+      const rating = player[ratingField] || '0';
+      const numRating = parseFloat(rating);
+      const country = player['Nationality'] || player['Country'] || '';
+      const club = player['Club'] || '';
+      const price = player['Price'] || player['Value'] || '';
+      const position = player['Position'] || player['Pos'] || '';
+  
+      const isGoalkeeper = position.toLowerCase().includes('gk');
+  
+      let ratingClass = '';
+      if (numRating >= 80) ratingClass = 'rating-legendary';
+      else if (numRating >= 70) ratingClass = 'rating-elite';
+      else if (numRating >= 60) ratingClass = 'rating-good';
+  
+      const statGroup1 = isGoalkeeper
+        ? ['Speed', 'Acceleration', 'Reactions (GK)', 'Strength']
+        : ['Speed', 'Acceleration', 'Stamina', 'Strength'];
+  
+      const statGroup2 = isGoalkeeper
+        ? ['Control', 'Passing', 'Handling (GK)', 'Tackling']
+        : ['Control', 'Passing', 'Shooting', 'Tackling'];
+  
+      const statRowHTML = group => `
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-2">
+          ${group.map(stat => {
+            const value = player[stat] || '0';
+            const isGKStat = stat.toLowerCase().includes('gk');
+            return `
+              <div class="stat-item ${isGKStat ? 'gk-stats' : ''}">
+                <span class="stat-name">${stat.replace('(GK)', '').trim()}</span>
+                <span class="stat-value">${value}</span>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
+  
+      card.innerHTML = `
+        <div class="player-info-section">
+          <div class="player-name">${name}</div>
+          <div class="player-details">
+            ${position ? `<div class="player-info">📍 ${position}</div>` : ''}
+            ${country ? `<div class="player-info">🌍 ${country}</div>` : ''}
+            ${club ? `<div class="player-info">🏟️ ${club}</div>` : ''}
+          </div>
+        </div>
+  
+        <div class="stats-container">
+          ${statRowHTML(statGroup1)}
+          ${statRowHTML(statGroup2)}
+        </div>
+        
+        <div class="flex flex-col items-center">
+          <div class="rating-badge ${ratingClass}">
+            ${rating}
+          </div>
+          ${price ? `<div class="player-info text-sm text-white mt-1">💰 ${price}${price.includes('M') ? '' : 'M'}</div>` : ''}
+        </div>
+      `;
+  
+      return card;
+    }
+  
+    function buildTeam() {
+      const priority = document.getElementById('buildPriority').value;
+      const budget = parseFloat(document.getElementById('budgetLimit').value) || Infinity;
+      const preferredCountry = document.getElementById('teamCountryFilter').value;
+      const preferredClub = document.getElementById('teamClubFilter').value;
+  
+      const formation = formations[currentFormation];
+      const team = [];
+      let totalCost = 0;
+  
+      for (const [position, count] of Object.entries(formation)) {
+        const positionPlayers = getPlayersForPosition(position, preferredCountry, preferredClub);
+        
+        let sortedPlayers;
+        if (priority === 'rating') {
+          sortedPlayers = positionPlayers.sort((a, b) => {
+            const ratingA = parseFloat(a[getRatingField()] || '0');
+            const ratingB = parseFloat(b[getRatingField()] || '0');
+            return ratingB - ratingA;
+          });
+        } else if (priority === 'value') {
+          sortedPlayers = positionPlayers.sort((a, b) => {
+            const priceA = parseFloat(a['Price'] || a['Value'] || '0');
+            const priceB = parseFloat(b['Price'] || b['Value'] || '0');
+            const ratingA = parseFloat(a[getRatingField()] || '0');
+            const ratingB = parseFloat(b[getRatingField()] || '0');
+            
+            const valueA = ratingA / (priceA || 1);
+            const valueB = ratingB / (priceB || 1);
+            return valueB - valueA;
+          });
+        } else {
+          sortedPlayers = positionPlayers.sort((a, b) => {
+            const ratingA = parseFloat(a[getRatingField()] || '0');
+            const ratingB = parseFloat(b[getRatingField()] || '0');
+            return ratingB - ratingA;
+          });
+        }
+  
+        for (let i = 0; i < count; i++) {
+          let selectedPlayer = null;
+          
+          for (const player of sortedPlayers) {
+            const playerCost = parseFloat(player['Price'] || player['Value'] || '0');
+            
+            if (team.some(p => p[Object.keys(player)[0]] === player[Object.keys(player)[0]])) {
+              continue;
+            }
+  
+            if (totalCost + playerCost <= budget) {
+              selectedPlayer = { ...player, assignedPosition: position };
+              totalCost += playerCost;
+              break;
+            }
+          }
+  
+          if (selectedPlayer) {
+            team.push(selectedPlayer);
+          } else {
+            const cheapestPlayer = sortedPlayers.find(p => 
+              !team.some(tp => tp[Object.keys(p)[0]] === p[Object.keys(p)[0]])
+            );
+            if (cheapestPlayer) {
+              const playerCost = parseFloat(cheapestPlayer['Price'] || cheapestPlayer['Value'] || '0');
+              team.push({ ...cheapestPlayer, assignedPosition: position });
+              totalCost += playerCost;
+            }
+          }
+        }
+      }
+  
+      builtTeam = team;
+      displayBuiltTeam();
+      updateTeamStats();
+    }
+  
+    function getPlayersForPosition(position, preferredCountry, preferredClub) {
+      const validPositions = positionMappings[position] || [position];
+      
+      return allPlayers.filter(player => {
+        const playerPos = player['Position'] || player['Pos'] || '';
+        const playerCountry = player['Nationality'] || player['Country'] || '';
+        const playerClub = player['Club'] || '';
+        
+        const positionMatch = validPositions.some(pos => 
+          playerPos.toUpperCase().includes(pos.toUpperCase())
+        );
+        
+        const countryMatch = !preferredCountry || playerCountry === preferredCountry;
+        const clubMatch = !preferredClub || playerClub === preferredClub;
+        
+        return positionMatch && countryMatch && clubMatch;
+      });
+    }
+  
+    function getRatingField() {
+      const headers = Object.keys(allPlayers[0] || {});
+      return headers.find(h => h.toLowerCase().includes('rating') || h.toLowerCase().includes('ovr')) || headers[1];
+    }
+  
+    function displayBuiltTeam() {
+      builtTeamDiv.innerHTML = '';
+      builtTeamDiv.classList.remove('hidden');
+  
+      if (builtTeam.length === 0) {
+        builtTeamDiv.innerHTML = `
+          <div class="no-results">
+            <div class="no-results-icon">⚠️</div>
+            <h3 class="text-2xl font-bold mb-3">Can't Build a Team</h3>
+            <p class="text-lg">Cannot build a team with current criteria</p>
+          </div>
+        `;
+        return;
+      }
+  
+      const formationDisplay = document.createElement('div');
+      formationDisplay.innerHTML = `
+        <h3 class="text-2xl font-bold text-center mb-4 text-white">
+          🏆 Your ${currentFormation} team
+        </h3>
+      `;
+      builtTeamDiv.appendChild(formationDisplay);
+  
+      const positionGroups = {};
+      builtTeam.forEach(player => {
+        const pos = player.assignedPosition;
+        if (!positionGroups[pos]) positionGroups[pos] = [];
+        positionGroups[pos].push(player);
+      });
+  
+      Object.entries(positionGroups).forEach(([position, players]) => {
+        const positionSection = document.createElement('div');
+        positionSection.innerHTML = `
+          <h4 class="text-xl font-bold mb-3 text-green-400">${position} (${players.length})</h4>
+        `;
+        
+        players.forEach((player, index) => {
+          const playerCard = createPlayerCard(player, index);
+          positionSection.appendChild(playerCard);
+        });
+        
+        builtTeamDiv.appendChild(positionSection);
+      });
+    }
+  
+    function updateTeamStats() {
+      if (builtTeam.length === 0) {
+        teamStats.classList.add('hidden');
+        return;
+      }
+  
+      teamStats.classList.remove('hidden');
+  
+      const ratingField = getRatingField();
+      const ratings = builtTeam.map(p => parseFloat(p[ratingField] || '0'));
+      const costs = builtTeam.map(p => parseFloat(p['Price'] || p['Value'] || '0'));
+      const countries = [...new Set(builtTeam.map(p => p['Nationality'] || p['Country']).filter(c => c))];
+      const clubs = [...new Set(builtTeam.map(p => p['Club']).filter(c => c))];
+  
+      const avgRating = ratings.reduce((a, b) => a + b, 0) / ratings.length;
+      const totalCost = costs.reduce((a, b) => a + b, 0);
+  
+      document.getElementById('teamRating').textContent = avgRating.toFixed(1);
+      document.getElementById('teamCost').textContent = totalCost.toFixed(0) + 'M';
+      document.getElementById('teamCountries').textContent = countries.length;
+      document.getElementById('teamClubs').textContent = clubs.length;
+    }
+  
+    function showContent() {
+      loading.classList.add('hidden');
+      error.classList.add('hidden');
+      playersGrid.classList.remove('hidden');
+    }
+  
+    function showError() {
+      loading.classList.add('hidden');
+      error.classList.remove('hidden');
+      playersGrid.classList.add('hidden');
+    }
+  
+    // Event listeners
+    searchInput.addEventListener('input', applyFilters);
+    countryFilter.addEventListener('input', applyFilters);
+    priceFilter.addEventListener('change', applyFilters);
+    
+    clearFilters.addEventListener('click', () => {
+      searchInput.value = '';
+      countryFilter.value = '';
+      priceFilter.value = '';
+      applyFilters();
+    });
+  
+    buildTeamBtn.addEventListener('click', buildTeam);
+  
+    // Initialize
+    window.onload = loadData;
+  </script>
+</body>
+</html>
