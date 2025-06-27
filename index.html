@@ -628,101 +628,167 @@
     }
 
     /* Responsive Design */
-    @media (max-width: 768px) {
-      .hero-title {
-        font-size: 2.5rem;
-      }
-      
-      .nav-tabs {
-        flex-direction: column;
-        align-items: center;
-      }
-      
-      .filter-group {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 1rem;
-      }
-      
-      .filter-input, .filter-select {
-        width: 100%;
-        margin-bottom: 0.5rem;
-      }
-      
-      .player-card {
-        flex-direction: column;
-        text-align: center;
-        gap: 1rem;
-        padding: 1rem;
-      }
-      
-      .player-rank {
-        order: 1;
-        margin-bottom: 1rem;
-        font-size: 1rem;
-        padding: 0.5rem 0.75rem;
-        min-width: 50px;
-      }
-      
-      .player-info-section {
-        order: 2;
-      }
-      
-      .stats-container {
-        order: 3;
-        width: 100%;
-      }
-      
-      .rating-badge, .player-info.price {
-        order: 4;
-        margin-top: 1rem;
-      }
-      
-      .rating-badge {
-        font-size: 1.5rem;
-        padding: 0.75rem 1rem;
-        min-width: 80px;
-      }
-      
-      .stats-grid {
-        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-      }
-      
-      .formation-selector {
-        flex-direction: column;
-      }
-      
-      .team-criteria {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-      }
+@media (max-width: 768px) {
+  .player-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
+    background: #1a1a1a;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    gap: 0.75rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  }
 
-      .criteria-item {
-        min-height: auto;
-      }
+  .player-rank {
+    align-self: flex-start;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #00ffcc;
+    padding: 0.25rem 0.5rem;
+    background-color: #333;
+    border-radius: 4px;
+  }
 
-      .criteria-label {
-        font-size: 0.9rem;
-      }
+  .player-info-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75rem;
+  }
 
-      .formation-container {
-        margin: 1rem 0;
-        padding: 1.5rem;
-      }
+  .player-info img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
 
-      .player-position {
-        width: 60px;
-        height: 60px;
-        gap: 0.5rem;
-        border-radius: 8px;
-        padding: 0.25rem;
-        font-size: 0.6rem;
-      }
+  .player-info .name {
+    font-size: 1rem;
+    font-weight: bold;
+  }
 
-      .formation-line {
-        gap: 1rem;
-      }
-    }
+  .player-info .country {
+    font-size: 0.85rem;
+  }
+
+  .stats-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .stat-box {
+    background-color: #2a2a2a;
+    text-align: center;
+    padding: 0.5rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #fff;
+  }
+
+  .rating-badge {
+    font-size: 1.25rem;
+    font-weight: bold;
+    background: #222;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    color: #ffcc00;
+    margin-top: 0.5rem;
+  }
+
+  .team-builder-section {
+    padding: 1.25rem 1rem;
+    border-radius: 16px;
+  }
+
+  .formation-selector {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .formation-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .team-criteria {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .criteria-label {
+    font-size: 0.9rem;
+  }
+
+  .team-stats {
+    padding: 1rem;
+  }
+
+  .team-stats h3 {
+    font-size: 1.25rem;
+  }
+
+  .team-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  .team-stat {
+    padding: 0.5rem;
+  }
+
+  .team-stat-value {
+    font-size: 1.25rem;
+  }
+
+  /* Formation Display */
+  .formation-container {
+    padding: 1.25rem 1rem;
+    margin: 1rem 0;
+    border-radius: 16px;
+  }
+
+  .formation-container::before {
+    height: 1px;
+  }
+
+  .formation-container::after {
+    width: 80px;
+    height: 80px;
+    border-width: 1.5px;
+  }
+
+  .formation-display {
+    gap: 1.25rem;
+  }
+
+  .formation-line {
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .player-position {
+    width: 60px;
+    height: 60px;
+    font-size: 0.6rem;
+    padding: 0.25rem;
+    border-radius: 10px;
+  }
+
+  .player-position .name,
+  .player-position .position-label {
+    font-size: 0.55rem;
+  }
+}
+
+
   </style>
 </head>
 <body>
@@ -834,16 +900,21 @@
         </div>
 
         <!-- Team Building Criteria -->
-        <div class="team-criteria">
-          <div class="criteria-item">
-            <label class="criteria-label">🎯 Priority</label>
-            <select id="buildPriority" class="filter-select">
-              <option value="best-value">Highest value (including alternate playing position)</option>
-              <option value="cheapest">Lowest value (including alternate playing position)</option>
-              <option value="exact-best-rating">Right position with highest rating</option>
-              <option value="exact-low-rating">Right position with lowest rating</option>
-            </select>
-          </div>
+<div class="team-criteria">
+  <div class="criteria-item">
+    <label class="criteria-label">🎯 Priority</label>
+    <select id="buildPriority" class="filter-select">
+      <option value="best-value">Best value (any position)</option>
+      <option value="cheapest">Cheapest player (any position)</option>
+      <option value="exact-best-rating">Highest rating (right position)</option>
+      <option value="exact-low-rating">Lowest rating (right position)</option>
+      <option value="most-expensive-exact-position">Most expensive (right position)</option>
+      <option value="most-expensive-any-position">Most expensive (any position)</option>
+      <option value="cheapest-any-position">Cheapest (any position)</option>
+    </select>
+  </div>
+</div>
+
           
           <div class="criteria-item">
             <label class="criteria-label">💰 Budget (Millions)</label>
@@ -954,6 +1025,19 @@
     let currentFormation = '4-3-3';
     let builtTeam = [];
   
+    const statLabels = {
+  SPE: "Speed",
+  ACC: "Acceleration",
+  GKR: "Reactions (GK)",
+  STR: "Strength",
+  CON: "Control",
+  PAS: "Passing",
+  GKH: "Handling (GK)",
+  TAC: "Tackling",
+  STA: "Stamina",
+  SHO: "Shooting"
+};
+
     // Formation configurations with positions and variants
     const formations = {
       // 4-4-2 Family
@@ -969,7 +1053,7 @@
         lines: [
           { positions: ['GK'], line: 'defense' },
           { positions: ['LB', 'CB', 'CB', 'RB'], line: 'defense' },
-          { positions: ['CDM'], line: 'midfield' },
+          { positions: ['DM'], line: 'midfield' },
           { positions: ['CM', 'CM'], line: 'midfield' },
           { positions: ['CAM'], line: 'midfield' },
           { positions: ['ST', 'ST'], line: 'attack' }
@@ -980,7 +1064,7 @@
           { positions: ['GK'], line: 'defense' },
           { positions: ['LB', 'CB', 'CB', 'RB'], line: 'defense' },
           { positions: ['CM', 'CM', 'CM'], line: 'midfield' },
-          { positions: ['CAM'], line: 'midfield' },
+          { positions: ['AM'], line: 'midfield' },
           { positions: ['ST', 'ST'], line: 'attack' }
         ]
       },
@@ -988,8 +1072,8 @@
         lines: [
           { positions: ['GK'], line: 'defense' },
           { positions: ['LB', 'CB', 'CB', 'RB'], line: 'defense' },
-          { positions: ['CDM', 'CDM'], line: 'midfield' },
-          { positions: ['CAM', 'CAM'], line: 'midfield' },
+          { positions: ['DM', 'DM'], line: 'midfield' },
+          { positions: ['AM', 'AM'], line: 'midfield' },
           { positions: ['ST', 'ST'], line: 'attack' }
         ]
       },
@@ -1006,8 +1090,8 @@
         lines: [
           { positions: ['GK'], line: 'defense' },
           { positions: ['LB', 'CB', 'CB', 'RB'], line: 'defense' },
-          { positions: ['CDM'], line: 'midfield' },
-          { positions: ['LM', 'CAM', 'RM'], line: 'midfield' },
+          { positions: ['DM'], line: 'midfield' },
+          { positions: ['LM', 'AM', 'RM'], line: 'midfield' },
           { positions: ['ST', 'ST'], line: 'attack' }
         ]
       },
@@ -1025,7 +1109,7 @@
         lines: [
           { positions: ['GK'], line: 'defense' },
           { positions: ['LB', 'CB', 'CB', 'RB'], line: 'defense' },
-          { positions: ['CDM'], line: 'midfield' },
+          { positions: ['DM'], line: 'midfield' },
           { positions: ['LM', 'CM', 'CM', 'RM'], line: 'midfield' },
           { positions: ['ST'], line: 'attack' }
         ]
@@ -1034,8 +1118,8 @@
         lines: [
           { positions: ['GK'], line: 'defense' },
           { positions: ['LB', 'CB', 'CB', 'RB'], line: 'defense' },
-          { positions: ['CDM', 'CDM'], line: 'midfield' },
-          { positions: ['LW', 'CAM', 'RW'], line: 'midfield' },
+          { positions: ['DM', 'DM'], line: 'midfield' },
+          { positions: ['LW', 'AM', 'RW'], line: 'midfield' },
           { positions: ['ST'], line: 'attack' }
         ]
       },
@@ -1062,7 +1146,7 @@
         lines: [
           { positions: ['GK'], line: 'defense' },
           { positions: ['LB', 'CB', 'CB', 'RB'], line: 'defense' },
-          { positions: ['CDM'], line: 'midfield' },
+          { positions: ['DM'], line: 'midfield' },
           { positions: ['CM', 'CM'], line: 'midfield' },
           { positions: ['LW', 'ST', 'RW'], line: 'attack' }
         ]
@@ -1071,8 +1155,8 @@
         lines: [
           { positions: ['GK'], line: 'defense' },
           { positions: ['LB', 'CB', 'CB', 'RB'], line: 'defense' },
-          { positions: ['CDM', 'CDM'], line: 'midfield' },
-          { positions: ['CAM'], line: 'midfield' },
+          { positions: ['DM', 'DM'], line: 'midfield' },
+          { positions: ['AM'], line: 'midfield' },
           { positions: ['LW', 'ST', 'RW'], line: 'attack' }
         ]
       },
@@ -1090,8 +1174,8 @@
         lines: [
           { positions: ['GK'], line: 'defense' },
           { positions: ['LWB', 'CB', 'CB', 'CB', 'RWB'], line: 'defense' },
-          { positions: ['CDM', 'CDM'], line: 'midfield' },
-          { positions: ['CAM'], line: 'midfield' },
+          { positions: ['DM', 'DM'], line: 'midfield' },
+          { positions: ['AM'], line: 'midfield' },
           { positions: ['ST', 'ST'], line: 'attack' }
         ]
       },
@@ -1101,7 +1185,7 @@
         lines: [
           { positions: ['GK'], line: 'defense' },
           { positions: ['LWB', 'CB', 'CB', 'CB', 'RWB'], line: 'defense' },
-          { positions: ['CDM', 'CDM'], line: 'midfield' },
+          { positions: ['DM', 'DM'], line: 'midfield' },
           { positions: ['LW', 'ST', 'RW'], line: 'attack' }
         ]
       },
@@ -1109,7 +1193,7 @@
         lines: [
           { positions: ['GK'], line: 'defense' },
           { positions: ['LWB', 'CB', 'CB', 'CB', 'RWB'], line: 'defense' },
-          { positions: ['CDM', 'CDM'], line: 'midfield' },
+          { positions: ['DM', 'DM'], line: 'midfield' },
           { positions: ['LW', 'RW'], line: 'midfield' },
           { positions: ['ST'], line: 'attack' }
         ]
@@ -1128,9 +1212,9 @@
         lines: [
           { positions: ['GK'], line: 'defense' },
           { positions: ['LWB', 'CB', 'CB', 'CB', 'RWB'], line: 'defense' },
-          { positions: ['CDM'], line: 'midfield' },
+          { positions: ['DM'], line: 'midfield' },
           { positions: ['CM', 'CM'], line: 'midfield' },
-          { positions: ['CAM'], line: 'midfield' },
+          { positions: ['AM'], line: 'midfield' },
           { positions: ['ST'], line: 'attack' }
         ]
       },
@@ -1148,8 +1232,8 @@
         lines: [
           { positions: ['GK'], line: 'defense' },
           { positions: ['CB', 'CB', 'CB'], line: 'defense' },
-          { positions: ['CDM', 'CDM'], line: 'midfield' },
-          { positions: ['LM', 'CAM', 'RM'], line: 'midfield' },
+          { positions: ['DM', 'DM'], line: 'midfield' },
+          { positions: ['LM', 'AM', 'RM'], line: 'midfield' },
           { positions: ['ST', 'ST'], line: 'attack' }
         ]
       },
@@ -1157,7 +1241,7 @@
         lines: [
           { positions: ['GK'], line: 'defense' },
           { positions: ['CB', 'CB', 'CB'], line: 'defense' },
-          { positions: ['CDM'], line: 'midfield' },
+          { positions: ['DM'], line: 'midfield' },
           { positions: ['LM', 'CM', 'CM', 'RM'], line: 'midfield' },
           { positions: ['ST', 'ST'], line: 'attack' }
         ]
@@ -1167,7 +1251,7 @@
           { positions: ['GK'], line: 'defense' },
           { positions: ['CB', 'CB', 'CB'], line: 'defense' },
           { positions: ['LM', 'CM', 'CM', 'RM'], line: 'midfield' },
-          { positions: ['CAM'], line: 'midfield' },
+          { positions: ['AM'], line: 'midfield' },
           { positions: ['ST', 'ST'], line: 'attack' }
         ]
       },
@@ -1203,9 +1287,9 @@
         lines: [
           { positions: ['GK'], line: 'defense' },
           { positions: ['CB', 'CB', 'CB'], line: 'defense' },
-          { positions: ['CDM'], line: 'midfield' },
+          { positions: ['DM'], line: 'midfield' },
           { positions: ['CM', 'CM'], line: 'midfield' },
-          { positions: ['CAM'], line: 'midfield' },
+          { positions: ['AM'], line: 'midfield' },
           { positions: ['LW', 'ST', 'RW'], line: 'attack' }
         ]
       },
@@ -1214,7 +1298,7 @@
           { positions: ['GK'], line: 'defense' },
           { positions: ['CB', 'CB', 'CB'], line: 'defense' },
           { positions: ['LM', 'CM', 'RM'], line: 'midfield' },
-          { positions: ['CAM'], line: 'midfield' },
+          { positions: ['AM'], line: 'midfield' },
           { positions: ['LW', 'ST', 'RW'], line: 'attack' }
         ]
       }
@@ -1235,33 +1319,30 @@
     // Enhanced position mappings with flexible substitution rules
     const positionSubstitutions = {
       // Left side positions can substitute for each other
-      'LW': ['LW', 'LWB', 'LB', 'LM'],
+      'LW': ['LW', 'LWB', 'LM'],
       'LWB': ['LWB', 'LW', 'LB', 'LM'],
-      'LB': ['LB', 'LWB', 'LW', 'LM'],
-      'LM': ['LM', 'LW', 'LWB', 'LB'],
+      'LB': ['LB', 'LWB'],
+      'LM': ['LM', 'LW', 'LWB'],
       
       // Right side positions can substitute for each other  
-      'RW': ['RW', 'RWB', 'RB', 'RM'],
+      'RW': ['RW', 'RWB', 'RM'],
       'RWB': ['RWB', 'RW', 'RB', 'RM'],
-      'RB': ['RB', 'RWB', 'RW', 'RM'],
-      'RM': ['RM', 'RW', 'RWB', 'RB'],
+      'RB': ['RB', 'RWB'],
+      'RM': ['RM', 'RW', 'RWB'],
       
       // Midfield positions can substitute for each other
-      'CM': ['CM', 'CAM', 'CDM', 'AM', 'DM'],
-      'CAM': ['CAM', 'CM', 'AM', 'SS', 'CDM'],
-      'CDM': ['CDM', 'CM', 'DM', 'CAM'],
-      'AM': ['AM', 'CAM', 'CM', 'SS'],
-      'DM': ['DM', 'CDM', 'CM'],
+      'CM': ['CM', 'DM', 'AM'],
+      'AM': ['AM', 'CM', 'SS'],
+      'DM': ['DM', 'CM'],
       
       // Forward positions can substitute for each other
       'ST': ['ST', 'CF', 'SS'],
-      'CF': ['CF', 'ST', 'SS'],
-      'SS': ['SS', 'ST', 'CF', 'AM', 'CAM'],
+      'CF': ['CF', 'ST'],
+      'SS': ['SS', 'ST', 'AM'],
       
       // Goalkeeper and center back are position-specific
       'GK': ['GK'],
-      'CB': ['CB', 'SW'],
-      'SW': ['SW', 'CB']
+      'CB': ['CB']
     };
 
     // Country to continent mapping
@@ -1569,54 +1650,74 @@
       });
     }
   
-    function createPlayerCard(player, index) {
-      const card = document.createElement('div');
-      card.className = 'player-card fade-in';
-      card.style.animationDelay = `${index * 0.05}s`;
+function createPlayerCard(player, index) {
+  const card = document.createElement('div');
+  card.className = 'player-card fade-in';
+  card.style.animationDelay = `${index * 0.05}s`;
 
-      const headers = Object.keys(player);
-      const nameField = headers[0];
-      const ratingField = getRatingField();
-      
-      const name = player[nameField] || 'Unknown Player';
-      const rating = player[ratingField] || '0';
-      const numRating = parseFloat(rating);
-      const country = player['Nationality'] || player['Country'] || '';
-      const club = player['Club'] || '';
-      const price = player['Price'] || player['Value'] || '';
-      const position = player['Position'] || player['Pos'] || '';
-      const rank = player.rank || 0;
+  const headers = Object.keys(player);
+  const nameField = headers[0];
+  const ratingField = getRatingField();
 
-      const isGoalkeeper = position.toLowerCase().includes('gk');
+  const name = player[nameField] || 'Unknown Player';
+  const rating = player[ratingField] || '0';
+  const numRating = parseFloat(rating);
+  const country = player['Nationality'] || player['Country'] || '';
+  const club = player['Club'] || '';
+  const price = player['Price'] || player['Value'] || '';
+  const position = player['Position'] || player['Pos'] || '';
+  const rank = player.rank || 0;
 
-      let ratingClass = '';
-      if (numRating >= 80) ratingClass = 'rating-legendary';
-      else if (numRating >= 70) ratingClass = 'rating-elite';
-      else if (numRating >= 60) ratingClass = 'rating-good';
-      else ratingClass = 'rating-basic';
+  const isGoalkeeper = position.toLowerCase().includes('gk');
 
-      const statGroup1 = isGoalkeeper
-        ? ['Speed', 'Acceleration', 'Reactions (GK)', 'Strength']
-        : ['Speed', 'Acceleration', 'Stamina', 'Strength'];
+  let ratingClass = '';
+  if (numRating >= 80) ratingClass = 'rating-legendary';
+  else if (numRating >= 70) ratingClass = 'rating-elite';
+  else if (numRating >= 60) ratingClass = 'rating-good';
+  else ratingClass = 'rating-basic';
 
-      const statGroup2 = isGoalkeeper
-        ? ['Control', 'Passing', 'Handling (GK)', 'Tackling']
-        : ['Control', 'Passing', 'Shooting', 'Tackling'];
+  const statGroup1 = isGoalkeeper
+    ? ['Speed', 'Acceleration', 'Reactions (GK)', 'Strength']
+    : ['Speed', 'Acceleration', 'Stamina', 'Strength'];
 
-      const statRowHTML = group => `
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-2">
-          ${group.map(stat => {
-            const value = player[stat] || '0';
-            const isGKStat = stat.toLowerCase().includes('gk');
-            return `
-              <div class="stat-item ${isGKStat ? 'gk-stats' : ''}">
-                <span class="stat-name">${stat.replace('(GK)', '').trim()}</span>
-                <span class="stat-value">${value}</span>
-              </div>
-            `;
-          }).join('')}
-        </div>
-      `;
+  const statGroup2 = isGoalkeeper
+    ? ['Control', 'Passing', 'Handling (GK)', 'Tackling']
+    : ['Control', 'Passing', 'Shooting', 'Tackling'];
+
+  // ✅ Thêm bảng viết tắt
+  const statShortLabels = {
+    'Speed': 'SPE',
+    'Acceleration': 'ACC',
+    'Reactions (GK)': 'GKR',
+    'Strength': 'STR',
+    'Control': 'CON',
+    'Passing': 'PAS',
+    'Handling (GK)': 'GKH',
+    'Tackling': 'TAC',
+    'Stamina': 'STA',
+    'Shooting': 'SHO'
+  };
+
+  // ✅ Cập nhật statRowHTML để hỗ trợ mobile
+  const statRowHTML = group => {
+    const isMobile = window.innerWidth <= 768;
+    return `
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-2">
+        ${group.map(stat => {
+          const value = player[stat] || '0';
+          const isGKStat = stat.toLowerCase().includes('gk');
+          const label = isMobile ? (statShortLabels[stat] || stat) : stat;
+          return `
+            <div class="stat-item ${isGKStat ? 'gk-stats' : ''}">
+              <span class="stat-name">${label.replace('(GK)', '').trim()}</span>
+              <span class="stat-value">${value}</span>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    `;
+  };
+
 
       card.innerHTML = `
         <div class="player-rank ${getRankClass(rank)}">#${rank}</div>
@@ -1686,51 +1787,80 @@
         let sortedPlayers;
         const ratingField = getRatingField();
         
-        switch (priority) {
-          case 'best-value':
-            sortedPlayers = positionPlayers.sort((a, b) => {
-              const priceA = parseFloat(a['Price'] || a['Value'] || '0') || 1;
-              const priceB = parseFloat(b['Price'] || b['Value'] || '0') || 1;
-              const ratingA = parseFloat(a[ratingField] || '0');
-              const ratingB = parseFloat(b[ratingField] || '0');
-              
-              const valueA = ratingA / priceA;
-              const valueB = ratingB / priceB;
-              return valueB - valueA;
-            });
-            break;
-            
-          case 'exact-best-rating':
-            sortedPlayers = positionPlayers.sort((a, b) => {
-              const ratingA = parseFloat(a[ratingField] || '0');
-              const ratingB = parseFloat(b[ratingField] || '0');
-              return ratingB - ratingA;
-            });
-            break;
-            
-          case 'cheapest':
-            sortedPlayers = positionPlayers.sort((a, b) => {
-              const priceA = parseFloat(a['Price'] || a['Value'] || '0');
-              const priceB = parseFloat(b['Price'] || b['Value'] || '0');
-              return priceA - priceB;
-            });
-            break;
-            
-          case 'exact-low-rating':
-            sortedPlayers = positionPlayers.sort((a, b) => {
-              const ratingA = parseFloat(a[ratingField] || '0');
-              const ratingB = parseFloat(b[ratingField] || '0');
-              return ratingA - ratingB;
-            });
-            break;
-            
-          default:
-            sortedPlayers = positionPlayers.sort((a, b) => {
-              const ratingA = parseFloat(a[ratingField] || '0');
-              const ratingB = parseFloat(b[ratingField] || '0');
-              return ratingB - ratingA;
-            });
-        }
+switch (priority) {
+case 'best-value':
+  sortedPlayers = positionPlayers.sort((a, b) => {
+    const priceA = parseFloat(a['Price'] || a['Value'] || '0');
+    const priceB = parseFloat(b['Price'] || b['Value'] || '0');
+    const ratingA = parseFloat(a[ratingField] || '0');
+    const ratingB = parseFloat(b[ratingField] || '0');
+
+    // Sắp theo giá cao trước, nếu bằng nhau thì xét tiếp rating
+    if (priceB !== priceA) {
+      return priceB - priceA;
+    } else {
+      return ratingB - ratingA;
+    }
+  });
+  break;
+
+
+  case 'exact-best-rating':
+    sortedPlayers = positionPlayers.sort((a, b) => {
+      const ratingA = parseFloat(a[ratingField] || '0');
+      const ratingB = parseFloat(b[ratingField] || '0');
+      return ratingB - ratingA;
+    });
+    break;
+
+  case 'cheapest':
+    sortedPlayers = positionPlayers.sort((a, b) => {
+      const priceA = parseFloat(a['Price'] || a['Value'] || '0');
+      const priceB = parseFloat(b['Price'] || b['Value'] || '0');
+      return priceA - priceB;
+    });
+    break;
+
+  case 'exact-low-rating':
+    sortedPlayers = positionPlayers.sort((a, b) => {
+      const ratingA = parseFloat(a[ratingField] || '0');
+      const ratingB = parseFloat(b[ratingField] || '0');
+      return ratingA - ratingB;
+    });
+    break;
+
+  case 'most-expensive-exact-position':
+    sortedPlayers = positionPlayers.sort((a, b) => {
+      const priceA = parseFloat(a['Price'] || a['Value'] || '0');
+      const priceB = parseFloat(b['Price'] || b['Value'] || '0');
+      return priceB - priceA;
+    });
+    break;
+
+  case 'most-expensive-any-position':
+    sortedPlayers = allPlayers.sort((a, b) => {
+      const priceA = parseFloat(a['Price'] || a['Value'] || '0');
+      const priceB = parseFloat(b['Price'] || b['Value'] || '0');
+      return priceB - priceA;
+    });
+    break;
+
+  case 'cheapest-any-position':
+    sortedPlayers = allPlayers.sort((a, b) => {
+      const priceA = parseFloat(a['Price'] || a['Value'] || '0');
+      const priceB = parseFloat(b['Price'] || b['Value'] || '0');
+      return priceA - priceB;
+    });
+    break;
+
+  default:
+    sortedPlayers = positionPlayers.sort((a, b) => {
+      const ratingA = parseFloat(a[ratingField] || '0');
+      const ratingB = parseFloat(b[ratingField] || '0');
+      return ratingB - ratingA;
+    });
+}
+
 
         let selectedPlayer = null;
         
@@ -2007,7 +2137,6 @@
     window.onload = () => {
       loadData();
       updateFormationVariants('4-3-3');
-      displayFormation();
     };
   </script>
 </body>
