@@ -219,6 +219,33 @@
       box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
     }
 
+    .player-rank {
+      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+      color: #000;
+      font-weight: 900;
+      font-size: 1.2rem;
+      padding: 0.5rem 1rem;
+      border-radius: 15px;
+      text-align: center;
+      min-width: 60px;
+      box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);
+      flex-shrink: 0;
+      position: relative;
+      z-index: 2;
+    }
+
+    .player-rank.top10 {
+      background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+      color: white;
+      box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
+    }
+
+    .player-rank.top50 {
+      background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+      color: white;
+      box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
+    }
+
     .player-info-section {
       flex: 1;
       min-width: 0;
@@ -272,13 +299,19 @@
     }
 
     .rating-elite {
-      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-      box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
     }
 
     .rating-good {
-      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-      box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+      background: linear-gradient(135deg, #cd7f32 0%, #b8860b 100%);
+      box-shadow: 0 8px 25px rgba(205, 127, 50, 0.4);
+    }
+
+    .rating-basic {
+      background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+      color: #374151;
+      box-shadow: 0 8px 25px rgba(156, 163, 175, 0.4);
     }
 
     .stats-container {
@@ -359,21 +392,25 @@
 
     .team-criteria {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
       margin-bottom: 2rem;
     }
 
     .criteria-item {
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: 0.75rem;
+      min-height: 80px;
     }
 
     .criteria-label {
       font-weight: 600;
-      color: rgba(255, 255, 255, 0.8);
-      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1rem;
+      white-space: nowrap;
+      overflow: visible;
+      line-height: 1.4;
     }
 
     .team-stats {
@@ -415,6 +452,129 @@
       font-size: 0.875rem;
       color: rgba(255, 255, 255, 0.7);
       margin-top: 0.25rem;
+    }
+
+    /* Formation Display */
+    .formation-container {
+      background: 
+        linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%),
+        linear-gradient(45deg, 
+          rgba(34, 197, 94, 0.03) 25%, 
+          transparent 25%, 
+          transparent 75%, 
+          rgba(34, 197, 94, 0.03) 75%);
+      background-size: 100% 100%, 40px 40px;
+      border: 2px solid rgba(34, 197, 94, 0.3);
+      border-radius: 24px;
+      padding: 2rem;
+      margin: 2rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .formation-container::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.4), transparent);
+      transform: translateY(-50%);
+    }
+
+    .formation-container::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 120px;
+      height: 120px;
+      border: 2px solid rgba(34, 197, 94, 0.3);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .formation-display {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      align-items: center;
+      position: relative;
+      z-index: 10;
+    }
+
+    .formation-line {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .formation-line.defense {
+      order: 1;
+    }
+
+    .formation-line.midfield {
+      order: 2;
+    }
+
+    .formation-line.attack {
+      order: 3;
+    }
+
+    .player-position {
+      width: 80px;
+      height: 80px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(31, 41, 55, 0.8) 100%);
+      border: 3px solid rgba(34, 197, 94, 0.6);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      font-size: 0.7rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      padding: 0.25rem;
+      line-height: 1.1;
+    }
+
+    .player-position:hover {
+      transform: translateY(-4px) scale(1.05);
+      border-color: #22c55e;
+      box-shadow: 0 10px 30px rgba(34, 197, 94, 0.4);
+    }
+
+    .player-position.filled {
+      background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+      border-color: #ffffff;
+    }
+
+    .player-position .name {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      width: 100%;
+      text-align: center;
+      padding: 0 0.25rem;
+      line-height: 1.1;
+    }
+
+    .player-position .position-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.1;
     }
 
     .loading-spinner {
@@ -468,70 +628,101 @@
     }
 
     /* Responsive Design */
-/* Trong @media (max-width: 768px) */
-@media (max-width: 768px) {
-  .hero-title {
-    font-size: 2.5rem;
-  }
-  
-  .nav-tabs {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .filter-group {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  
-  .filter-input, .filter-select {
-    width: 100%;
-  }
-  
-  .player-card {
-    flex-direction: column;
-    text-align: center;
-    gap: 1rem;
-    padding: 1rem;
-  }
-  
-  .player-info-section {
-    order: 1;
-  }
-  
-  .stats-container {
-    order: 2;
-    width: 100%;
-  }
-  
-  .rating-badge, .player-info.price {
-    order: 3;
-    margin-top: 1rem;
-  }
-  
-  .rating-badge {
-    font-size: 1.5rem;
-    padding: 0.75rem 1rem;
-    min-width: 80px;
-  }
-  
-  .player-info.price {
-    font-size: 0.875rem;
-    color: rgba(255, 255, 255, 0.6);
-  }
-  
-  .stats-grid {
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  }
-  
-  .formation-selector {
-    flex-direction: column;
-  }
-  
-  .team-criteria {
-    grid-template-columns: 1fr;
-  }
-}
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2.5rem;
+      }
+      
+      .nav-tabs {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .filter-group {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+      }
+      
+      .filter-input, .filter-select {
+        width: 100%;
+        margin-bottom: 0.5rem;
+      }
+      
+      .player-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+        padding: 1rem;
+      }
+      
+      .player-rank {
+        order: 1;
+        margin-bottom: 1rem;
+        font-size: 1rem;
+        padding: 0.5rem 0.75rem;
+        min-width: 50px;
+      }
+      
+      .player-info-section {
+        order: 2;
+      }
+      
+      .stats-container {
+        order: 3;
+        width: 100%;
+      }
+      
+      .rating-badge, .player-info.price {
+        order: 4;
+        margin-top: 1rem;
+      }
+      
+      .rating-badge {
+        font-size: 1.5rem;
+        padding: 0.75rem 1rem;
+        min-width: 80px;
+      }
+      
+      .stats-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      }
+      
+      .formation-selector {
+        flex-direction: column;
+      }
+      
+      .team-criteria {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .criteria-item {
+        min-height: auto;
+      }
+
+      .criteria-label {
+        font-size: 0.9rem;
+      }
+
+      .formation-container {
+        margin: 1rem 0;
+        padding: 1.5rem;
+      }
+
+      .player-position {
+        width: 60px;
+        height: 60px;
+        gap: 0.5rem;
+        border-radius: 8px;
+        padding: 0.25rem;
+        font-size: 0.6rem;
+      }
+
+      .formation-line {
+        gap: 1rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -570,7 +761,6 @@
             placeholder="🌍 Filter by Country..."
             class="filter-input"
           />
-          
 
           <select id="positionFilter" class="filter-select">
             <option value="">⚽ All Positions</option>
@@ -578,6 +768,8 @@
             <option value="CB">CB - Center Back</option>
             <option value="LB">LB - Left Back</option>
             <option value="RB">RB - Right Back</option>
+            <option value="LWB">LWB - Left Wing Back</option>
+            <option value="RWB">RWB - Right Wing Back</option>
             <option value="CDM">CDM - Defensive Mid</option>
             <option value="CM">CM - Central Mid</option>
             <option value="CAM">CAM - Attacking Mid</option>
@@ -586,6 +778,8 @@
             <option value="LW">LW - Left Wing</option>
             <option value="RW">RW - Right Wing</option>
             <option value="ST">ST - Striker</option>
+            <option value="CF">CF - Center Forward</option>
+            <option value="SS">SS - Second Striker</option>
           </select>
 
           <select id="priceFilter" class="filter-select">
@@ -600,8 +794,7 @@
           </select>
 
           <select id="sortFilter" class="filter-select">
-            <option value="">🔄 Sort By</option>
-            <option value="rating-high">Rating (High to Low)</option>
+            <option value="rating-high">🔄 Rating (High to Low)</option>
             <option value="rating-low">Rating (Low to High)</option>
             <option value="price-high">Price (High to Low)</option>
             <option value="price-low">Price (Low to High)</option>
@@ -618,97 +811,116 @@
       <div id="playersGrid" class="flex flex-col gap-4 hidden"></div>
     </div>
 
-<!-- Team Builder Tab -->
-<div id="teamBuilderTab" class="hidden">
-  <div class="team-builder-section">
-    <h2 class="text-3xl font-bold text-center mb-6 text-white">🏆 Build Your Ultimate Team</h2>
-    
-    <!-- Formation Selector -->
-    <div class="formation-selector">
-      <button class="formation-btn active" onclick="selectFormation('4-3-3')">4-3-3</button>
-      <button class="formation-btn" onclick="selectFormation('4-4-2')">4-4-2</button>
-      <button class="formation-btn" onclick="selectFormation('3-5-2')">3-5-2</button>
-      <button class="formation-btn" onclick="selectFormation('4-2-3-1')">4-2-3-1</button>
-      <button class="formation-btn" onclick="selectFormation('5-3-2')">5-3-2</button>
-    </div>
+    <!-- Team Builder Tab -->
+    <div id="teamBuilderTab" class="hidden">
+      <div class="team-builder-section">
+        <h2 class="text-3xl font-bold text-center mb-6 text-white">🏆 Build Your Ultimate Team</h2>
+        
+        <!-- Formation Selector -->
+        <div class="formation-selector">
+          <button class="formation-btn active" onclick="selectFormation('4-3-3')">4-3-3</button>
+          <button class="formation-btn" onclick="selectFormation('4-4-2')">4-4-2</button>
+          <button class="formation-btn" onclick="selectFormation('4-5-1')">4-5-1</button>
+          <button class="formation-btn" onclick="selectFormation('5-3-2')">5-3-2</button>
+          <button class="formation-btn" onclick="selectFormation('5-2-3')">5-2-3</button>
+          <button class="formation-btn" onclick="selectFormation('5-4-1')">5-4-1</button>
+          <button class="formation-btn" onclick="selectFormation('3-5-2')">3-5-2</button>
+          <button class="formation-btn" onclick="selectFormation('3-4-3')">3-4-3</button>
+        </div>
 
-    <!-- Team Building Criteria -->
-    <div class="team-criteria">
-      <div class="criteria-item">
-        <label class="criteria-label">🎯 Priority</label>
-        <select id="buildPriority" class="filter-select">
-          <option value="rating">Best Rating</option>
-          <option value="value">Best Value</option>
-          <option value="balanced">Balanced Team</option>
-        </select>
-      </div>
-      
-      <div class="criteria-item">
-        <label class="criteria-label">💰 Budget (Millions)</label>
-        <input type="number" id="budgetLimit" placeholder="Enter budget..." class="filter-input" />
-      </div>
-      
-      <div class="criteria-item">
-        <label class="criteria-label">🌍 Country Preference</label>
-        <select id="teamCountryFilter" class="filter-select">
-          <option value="">Any Country</option>
-        </select>
-      </div>
-      
-      <div class="criteria-item">
-        <label class="criteria-label">🏟️ Club Preference</label>
-        <select id="teamClubFilter" class="filter-select">
-          <option value="">Any Club</option>
-        </select>
-      </div>
-      
-      <div class="criteria-item">
-        <label class="criteria-label">🌐 Continent Preference</label>
-        <select id="teamContinentFilter" class="filter-select">
-          <option value="">Any Continent</option>
-          <option value="Africa">Africa</option>
-          <option value="Asia">Asia</option>
-          <option value="Europe">Europe</option>
-          <option value="North America">North America</option>
-          <option value="South America">South America</option>
-          <option value="Oceania">Oceania</option>
-        </select>
-      </div>
-    </div>
+        <!-- Formation Variants -->
+        <div id="formationVariants" class="formation-selector" style="margin-top: 1rem; border-top: 1px solid rgba(34, 197, 94, 0.2); padding-top: 1rem;">
+          <!-- Variants will be populated by JavaScript -->
+        </div>
 
-    <div class="text-center">
-      <button id="buildTeamBtn" class="build-team-btn text-lg px-6 py-3">
-        🚀 Build Team
-      </button>
-    </div>
-  </div>
+        <!-- Team Building Criteria -->
+        <div class="team-criteria">
+          <div class="criteria-item">
+            <label class="criteria-label">🎯 Priority</label>
+            <select id="buildPriority" class="filter-select">
+              <option value="best-value">Highest value (including alternate playing position)</option>
+              <option value="cheapest">Lowest value (including alternate playing position)</option>
+              <option value="exact-best-rating">Right position with highest rating</option>
+              <option value="exact-low-rating">Right position with lowest rating</option>
+            </select>
+          </div>
+          
+          <div class="criteria-item">
+            <label class="criteria-label">💰 Budget (Millions)</label>
+            <input type="number" id="budgetLimit" placeholder="Enter budget..." class="filter-input" />
+          </div>
+          
+          <div class="criteria-item">
+            <label class="criteria-label">🌍 Country Preference</label>
+            <select id="teamCountryFilter" class="filter-select">
+              <option value="">Any Country</option>
+            </select>
+          </div>
+          
+          <div class="criteria-item">
+            <label class="criteria-label">🏟️ Club Preference</label>
+            <select id="teamClubFilter" class="filter-select">
+              <option value="">Any Club</option>
+            </select>
+          </div>
+          
+          <div class="criteria-item">
+            <label class="criteria-label">🌐 Continent Preference</label>
+            <select id="teamContinentFilter" class="filter-select">
+              <option value="">Any Continent</option>
+              <option value="Africa">Africa</option>
+              <option value="Asia">Asia</option>
+              <option value="Europe">Europe</option>
+              <option value="North America">North America</option>
+              <option value="South America">South America</option>
+              <option value="Oceania">Oceania</option>
+            </select>
+          </div>
+        </div>
 
-  <!-- Team Stats -->
-  <div id="teamStats" class="team-stats hidden">
-    <h3>📊 Team Statistics</h3>
-    <div class="team-stats-grid">
-      <div class="team-stat">
-        <div class="team-stat-value" id="teamRating">0</div>
-        <div class="team-stat-label">Average Rating</div>
+        <div class="text-center">
+          <button id="buildTeamBtn" class="build-team-btn text-lg px-6 py-3">
+            🚀 Build Team
+          </button>
+        </div>
       </div>
-      <div class="team-stat">
-        <div class="team-stat-value" id="teamCost">0M</div>
-        <div class="team-stat-label">Total Cost</div>
-      </div>
-      <div class="team-stat">
-        <div class="team-stat-value" id="teamCountries">0</div>
-        <div class="team-stat-label">Countries</div>
-      </div>
-      <div class="team-stat">
-        <div class="team-stat-value" id="teamClubs">0</div>
-        <div class="team-stat-label">Clubs</div>
-      </div>
-    </div>
-  </div>
 
-  <!-- Built Team Display -->
-  <div id="builtTeam" class="flex flex-col gap-4 hidden"></div>
-</div>
+      <!-- Team Stats -->
+      <div id="teamStats" class="team-stats hidden">
+        <h3>📊 Team Statistics</h3>
+        <div class="team-stats-grid">
+          <div class="team-stat">
+            <div class="team-stat-value" id="teamRating">0</div>
+            <div class="team-stat-label">Average Rating</div>
+          </div>
+          <div class="team-stat">
+            <div class="team-stat-value" id="teamCost">0M</div>
+            <div class="team-stat-label">Total Cost</div>
+          </div>
+          <div class="team-stat">
+            <div class="team-stat-value" id="teamCountries">0</div>
+            <div class="team-stat-label">Countries</div>
+          </div>
+          <div class="team-stat">
+            <div class="team-stat-value" id="teamClubs">0</div>
+            <div class="team-stat-label">Clubs</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Formation Display -->
+      <div id="formationDisplay" class="formation-container hidden">
+        <h3 class="text-2xl font-bold text-center mb-4 text-white">
+          🏆 Your <span id="currentFormationTitle">4-3-3</span> Team
+        </h3>
+        <div class="formation-display" id="formationField">
+          <!-- Formation will be populated by JavaScript -->
+        </div>
+      </div>
+
+      <!-- Built Team Display -->
+      <div id="builtTeam" class="flex flex-col gap-4 hidden"></div>
+    </div>
 
     <!-- Loading State -->
     <div id="loading" class="text-center">
@@ -732,7 +944,7 @@
 
   <script>
     const sheetId = "11AlXgZFlKkASFkvcgp1cxcu72aL7nfR74BjNes--gNw";
-    const apiKey = "AIzaSyCI6bXgK-_l0bU1F0bJaYH-idxAuNQW1YM"; // Key từ mã cũ
+    const apiKey = "AIzaSyCI6bXgK-_l0bU1F0bJaYH-idxAuNQW1YM";
     const range = "players!A1:Z1000";
     const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`;
   
@@ -742,29 +954,368 @@
     let currentFormation = '4-3-3';
     let builtTeam = [];
   
-    // Formation configurations
+    // Formation configurations with positions and variants
     const formations = {
-      '4-3-3': { GK: 1, CB: 2, LB: 1, RB: 1, CM: 2, CAM: 1, LW: 1, RW: 1, ST: 1 },
-      '4-4-2': { GK: 1, CB: 2, LB: 1, RB: 1, LM: 1, RM: 1, CM: 2, ST: 2 },
-      '3-5-2': { GK: 1, CB: 3, LM: 1, RM: 1, CM: 3, ST: 2 },
-      '4-2-3-1': { GK: 1, CB: 2, LB: 1, RB: 1, CDM: 2, CAM: 2, LW: 1, ST: 1 },
-      '5-3-2': { GK: 1, CB: 3, LB: 1, RB: 1, CM: 3, ST: 2 }
+      // 4-4-2 Family
+      '4-4-2': {
+        lines: [
+          { positions: ['GK'], line: 'defense' },
+          { positions: ['LB', 'CB', 'CB', 'RB'], line: 'defense' },
+          { positions: ['LM', 'CM', 'CM', 'RM'], line: 'midfield' },
+          { positions: ['ST', 'ST'], line: 'attack' }
+        ]
+      },
+      '4-1-2-1-2': {
+        lines: [
+          { positions: ['GK'], line: 'defense' },
+          { positions: ['LB', 'CB', 'CB', 'RB'], line: 'defense' },
+          { positions: ['CDM'], line: 'midfield' },
+          { positions: ['CM', 'CM'], line: 'midfield' },
+          { positions: ['CAM'], line: 'midfield' },
+          { positions: ['ST', 'ST'], line: 'attack' }
+        ]
+      },
+      '4-3-1-2': {
+        lines: [
+          { positions: ['GK'], line: 'defense' },
+          { positions: ['LB', 'CB', 'CB', 'RB'], line: 'defense' },
+          { positions: ['CM', 'CM', 'CM'], line: 'midfield' },
+          { positions: ['CAM'], line: 'midfield' },
+          { positions: ['ST', 'ST'], line: 'attack' }
+        ]
+      },
+      '4-2-2-2': {
+        lines: [
+          { positions: ['GK'], line: 'defense' },
+          { positions: ['LB', 'CB', 'CB', 'RB'], line: 'defense' },
+          { positions: ['CDM', 'CDM'], line: 'midfield' },
+          { positions: ['CAM', 'CAM'], line: 'midfield' },
+          { positions: ['ST', 'ST'], line: 'attack' }
+        ]
+      },
+      '4-4-1-1': {
+        lines: [
+          { positions: ['GK'], line: 'defense' },
+          { positions: ['LB', 'CB', 'CB', 'RB'], line: 'defense' },
+          { positions: ['LM', 'CM', 'CM', 'RM'], line: 'midfield' },
+          { positions: ['CF'], line: 'midfield' },
+          { positions: ['ST'], line: 'attack' }
+        ]
+      },
+      '4-1-3-2': {
+        lines: [
+          { positions: ['GK'], line: 'defense' },
+          { positions: ['LB', 'CB', 'CB', 'RB'], line: 'defense' },
+          { positions: ['CDM'], line: 'midfield' },
+          { positions: ['LM', 'CAM', 'RM'], line: 'midfield' },
+          { positions: ['ST', 'ST'], line: 'attack' }
+        ]
+      },
+
+      // 4-5-1 Family
+      '4-5-1': {
+        lines: [
+          { positions: ['GK'], line: 'defense' },
+          { positions: ['LB', 'CB', 'CB', 'RB'], line: 'defense' },
+          { positions: ['LM', 'CM', 'CM', 'CM', 'RM'], line: 'midfield' },
+          { positions: ['ST'], line: 'attack' }
+        ]
+      },
+      '4-1-4-1': {
+        lines: [
+          { positions: ['GK'], line: 'defense' },
+          { positions: ['LB', 'CB', 'CB', 'RB'], line: 'defense' },
+          { positions: ['CDM'], line: 'midfield' },
+          { positions: ['LM', 'CM', 'CM', 'RM'], line: 'midfield' },
+          { positions: ['ST'], line: 'attack' }
+        ]
+      },
+      '4-2-3-1': {
+        lines: [
+          { positions: ['GK'], line: 'defense' },
+          { positions: ['LB', 'CB', 'CB', 'RB'], line: 'defense' },
+          { positions: ['CDM', 'CDM'], line: 'midfield' },
+          { positions: ['LW', 'CAM', 'RW'], line: 'midfield' },
+          { positions: ['ST'], line: 'attack' }
+        ]
+      },
+      '4-3-2-1': {
+        lines: [
+          { positions: ['GK'], line: 'defense' },
+          { positions: ['LB', 'CB', 'CB', 'RB'], line: 'defense' },
+          { positions: ['CM', 'CM', 'CM'], line: 'midfield' },
+          { positions: ['LW', 'RW'], line: 'midfield' },
+          { positions: ['ST'], line: 'attack' }
+        ]
+      },
+
+      // 4-3-3 Family
+      '4-3-3': {
+        lines: [
+          { positions: ['GK'], line: 'defense' },
+          { positions: ['LB', 'CB', 'CB', 'RB'], line: 'defense' },
+          { positions: ['CM', 'CM', 'CM'], line: 'midfield' },
+          { positions: ['LW', 'ST', 'RW'], line: 'attack' }
+        ]
+      },
+      '4-1-2-3': {
+        lines: [
+          { positions: ['GK'], line: 'defense' },
+          { positions: ['LB', 'CB', 'CB', 'RB'], line: 'defense' },
+          { positions: ['CDM'], line: 'midfield' },
+          { positions: ['CM', 'CM'], line: 'midfield' },
+          { positions: ['LW', 'ST', 'RW'], line: 'attack' }
+        ]
+      },
+      '4-2-1-3': {
+        lines: [
+          { positions: ['GK'], line: 'defense' },
+          { positions: ['LB', 'CB', 'CB', 'RB'], line: 'defense' },
+          { positions: ['CDM', 'CDM'], line: 'midfield' },
+          { positions: ['CAM'], line: 'midfield' },
+          { positions: ['LW', 'ST', 'RW'], line: 'attack' }
+        ]
+      },
+
+      // 5-3-2 Family
+      '5-3-2': {
+        lines: [
+          { positions: ['GK'], line: 'defense' },
+          { positions: ['LWB', 'CB', 'CB', 'CB', 'RWB'], line: 'defense' },
+          { positions: ['CM', 'CM', 'CM'], line: 'midfield' },
+          { positions: ['ST', 'ST'], line: 'attack' }
+        ]
+      },
+      '5-2-1-2': {
+        lines: [
+          { positions: ['GK'], line: 'defense' },
+          { positions: ['LWB', 'CB', 'CB', 'CB', 'RWB'], line: 'defense' },
+          { positions: ['CDM', 'CDM'], line: 'midfield' },
+          { positions: ['CAM'], line: 'midfield' },
+          { positions: ['ST', 'ST'], line: 'attack' }
+        ]
+      },
+
+      // 5-2-3 Family
+      '5-2-3': {
+        lines: [
+          { positions: ['GK'], line: 'defense' },
+          { positions: ['LWB', 'CB', 'CB', 'CB', 'RWB'], line: 'defense' },
+          { positions: ['CDM', 'CDM'], line: 'midfield' },
+          { positions: ['LW', 'ST', 'RW'], line: 'attack' }
+        ]
+      },
+      '5-2-2-1': {
+        lines: [
+          { positions: ['GK'], line: 'defense' },
+          { positions: ['LWB', 'CB', 'CB', 'CB', 'RWB'], line: 'defense' },
+          { positions: ['CDM', 'CDM'], line: 'midfield' },
+          { positions: ['LW', 'RW'], line: 'midfield' },
+          { positions: ['ST'], line: 'attack' }
+        ]
+      },
+
+      // 5-4-1 Family
+      '5-4-1': {
+        lines: [
+          { positions: ['GK'], line: 'defense' },
+          { positions: ['LWB', 'CB', 'CB', 'CB', 'RWB'], line: 'defense' },
+          { positions: ['LM', 'CM', 'CM', 'RM'], line: 'midfield' },
+          { positions: ['ST'], line: 'attack' }
+        ]
+      },
+      '5-1-2-1-1': {
+        lines: [
+          { positions: ['GK'], line: 'defense' },
+          { positions: ['LWB', 'CB', 'CB', 'CB', 'RWB'], line: 'defense' },
+          { positions: ['CDM'], line: 'midfield' },
+          { positions: ['CM', 'CM'], line: 'midfield' },
+          { positions: ['CAM'], line: 'midfield' },
+          { positions: ['ST'], line: 'attack' }
+        ]
+      },
+
+      // 3-5-2 Family
+      '3-5-2': {
+        lines: [
+          { positions: ['GK'], line: 'defense' },
+          { positions: ['CB', 'CB', 'CB'], line: 'defense' },
+          { positions: ['LWB', 'CM', 'CM', 'CM', 'RWB'], line: 'midfield' },
+          { positions: ['ST', 'ST'], line: 'attack' }
+        ]
+      },
+      '3-2-3-2': {
+        lines: [
+          { positions: ['GK'], line: 'defense' },
+          { positions: ['CB', 'CB', 'CB'], line: 'defense' },
+          { positions: ['CDM', 'CDM'], line: 'midfield' },
+          { positions: ['LM', 'CAM', 'RM'], line: 'midfield' },
+          { positions: ['ST', 'ST'], line: 'attack' }
+        ]
+      },
+      '3-1-4-2': {
+        lines: [
+          { positions: ['GK'], line: 'defense' },
+          { positions: ['CB', 'CB', 'CB'], line: 'defense' },
+          { positions: ['CDM'], line: 'midfield' },
+          { positions: ['LM', 'CM', 'CM', 'RM'], line: 'midfield' },
+          { positions: ['ST', 'ST'], line: 'attack' }
+        ]
+      },
+      '3-4-1-2': {
+        lines: [
+          { positions: ['GK'], line: 'defense' },
+          { positions: ['CB', 'CB', 'CB'], line: 'defense' },
+          { positions: ['LM', 'CM', 'CM', 'RM'], line: 'midfield' },
+          { positions: ['CAM'], line: 'midfield' },
+          { positions: ['ST', 'ST'], line: 'attack' }
+        ]
+      },
+      '3-5-1-1': {
+        lines: [
+          { positions: ['GK'], line: 'defense' },
+          { positions: ['CB', 'CB', 'CB'], line: 'defense' },
+          { positions: ['LWB', 'CM', 'CM', 'CM', 'RWB'], line: 'midfield' },
+          { positions: ['CF'], line: 'midfield' },
+          { positions: ['ST'], line: 'attack' }
+        ]
+      },
+
+      // 3-4-3 Family
+      '3-4-3': {
+        lines: [
+          { positions: ['GK'], line: 'defense' },
+          { positions: ['CB', 'CB', 'CB'], line: 'defense' },
+          { positions: ['LM', 'CM', 'CM', 'RM'], line: 'midfield' },
+          { positions: ['LW', 'ST', 'RW'], line: 'attack' }
+        ]
+      },
+      '3-4-2-1': {
+        lines: [
+          { positions: ['GK'], line: 'defense' },
+          { positions: ['CB', 'CB', 'CB'], line: 'defense' },
+          { positions: ['LM', 'CM', 'CM', 'RM'], line: 'midfield' },
+          { positions: ['LW', 'RW'], line: 'midfield' },
+          { positions: ['ST'], line: 'attack' }
+        ]
+      },
+      '3-1-2-1-3': {
+        lines: [
+          { positions: ['GK'], line: 'defense' },
+          { positions: ['CB', 'CB', 'CB'], line: 'defense' },
+          { positions: ['CDM'], line: 'midfield' },
+          { positions: ['CM', 'CM'], line: 'midfield' },
+          { positions: ['CAM'], line: 'midfield' },
+          { positions: ['LW', 'ST', 'RW'], line: 'attack' }
+        ]
+      },
+      '3-3-1-3': {
+        lines: [
+          { positions: ['GK'], line: 'defense' },
+          { positions: ['CB', 'CB', 'CB'], line: 'defense' },
+          { positions: ['LM', 'CM', 'RM'], line: 'midfield' },
+          { positions: ['CAM'], line: 'midfield' },
+          { positions: ['LW', 'ST', 'RW'], line: 'attack' }
+        ]
+      }
+    };
+
+    // Formation families for variant selection
+    const formationFamilies = {
+      '4-4-2': ['4-4-2', '4-1-2-1-2', '4-3-1-2', '4-2-2-2', '4-4-1-1', '4-1-3-2'],
+      '4-5-1': ['4-5-1', '4-1-4-1', '4-2-3-1', '4-3-2-1'],
+      '4-3-3': ['4-3-3', '4-1-2-3', '4-2-1-3'],
+      '5-3-2': ['5-3-2', '5-2-1-2'],
+      '5-2-3': ['5-2-3', '5-2-2-1'],
+      '5-4-1': ['5-4-1', '5-1-2-1-1'],
+      '3-5-2': ['3-5-2', '3-2-3-2', '3-1-4-2', '3-4-1-2', '3-5-1-1'],
+      '3-4-3': ['3-4-3', '3-4-2-1', '3-1-2-1-3', '3-3-1-3']
     };
   
-    // Position mappings
-    const positionMappings = {
+    // Enhanced position mappings with flexible substitution rules
+    const positionSubstitutions = {
+      // Left side positions can substitute for each other
+      'LW': ['LW', 'LWB', 'LB', 'LM'],
+      'LWB': ['LWB', 'LW', 'LB', 'LM'],
+      'LB': ['LB', 'LWB', 'LW', 'LM'],
+      'LM': ['LM', 'LW', 'LWB', 'LB'],
+      
+      // Right side positions can substitute for each other  
+      'RW': ['RW', 'RWB', 'RB', 'RM'],
+      'RWB': ['RWB', 'RW', 'RB', 'RM'],
+      'RB': ['RB', 'RWB', 'RW', 'RM'],
+      'RM': ['RM', 'RW', 'RWB', 'RB'],
+      
+      // Midfield positions can substitute for each other
+      'CM': ['CM', 'CAM', 'CDM', 'AM', 'DM'],
+      'CAM': ['CAM', 'CM', 'AM', 'SS', 'CDM'],
+      'CDM': ['CDM', 'CM', 'DM', 'CAM'],
+      'AM': ['AM', 'CAM', 'CM', 'SS'],
+      'DM': ['DM', 'CDM', 'CM'],
+      
+      // Forward positions can substitute for each other
+      'ST': ['ST', 'CF', 'SS'],
+      'CF': ['CF', 'ST', 'SS'],
+      'SS': ['SS', 'ST', 'CF', 'AM', 'CAM'],
+      
+      // Goalkeeper and center back are position-specific
       'GK': ['GK'],
       'CB': ['CB', 'SW'],
-      'LB': ['LB', 'LWB'],
-      'RB': ['RB', 'RWB'],
-      'CDM': ['CDM', 'DM'],
-      'CM': ['CM', 'LM', 'RM'],
-      'CAM': ['CAM', 'AM'],
-      'LM': ['LM', 'LW'],
-      'RM': ['RM', 'RW'],
-      'LW': ['LW', 'LM'],
-      'RW': ['RW', 'RM'],
-      'ST': ['ST', 'CF', 'LF', 'RF']
+      'SW': ['SW', 'CB']
+    };
+
+    // Country to continent mapping
+    const countryToContinent = {
+      'Algeria': 'Africa', 'Angola': 'Africa', 'Benin': 'Africa', 'Botswana': 'Africa', 'Burkina Faso': 'Africa',
+      'Burundi': 'Africa', 'Cabo Verde': 'Africa', 'Cameroon': 'Africa', 'Central African Republic': 'Africa',
+      'Chad': 'Africa', 'Comoros': 'Africa', 'Congo': 'Africa', 'Djibouti': 'Africa', 'Egypt': 'Africa',
+      'Equatorial Guinea': 'Africa', 'Eritrea': 'Africa', 'Eswatini': 'Africa', 'Ethiopia': 'Africa',
+      'Gabon': 'Africa', 'Gambia': 'Africa', 'Ghana': 'Africa', 'Guinea': 'Africa', 'Guinea-Bissau': 'Africa',
+      'Ivory Coast': 'Africa', 'Kenya': 'Africa', 'Lesotho': 'Africa', 'Liberia': 'Africa', 'Libya': 'Africa',
+      'Madagascar': 'Africa', 'Malawi': 'Africa', 'Mali': 'Africa', 'Mauritania': 'Africa', 'Mauritius': 'Africa',
+      'Morocco': 'Africa', 'Mozambique': 'Africa', 'Namibia': 'Africa', 'Niger': 'Africa', 'Nigeria': 'Africa',
+      'Rwanda': 'Africa', 'Senegal': 'Africa', 'Seychelles': 'Africa', 'Sierra Leone': 'Africa', 'Somalia': 'Africa',
+      'South Africa': 'Africa', 'South Sudan': 'Africa', 'Sudan': 'Africa', 'Tanzania': 'Africa', 'Togo': 'Africa',
+      'Tunisia': 'Africa', 'Uganda': 'Africa', 'Zambia': 'Africa', 'Zimbabwe': 'Africa',
+
+      'Afghanistan': 'Asia', 'Armenia': 'Asia', 'Azerbaijan': 'Asia', 'Bahrain': 'Asia', 'Bangladesh': 'Asia',
+      'Bhutan': 'Asia', 'Brunei': 'Asia', 'Cambodia': 'Asia', 'China': 'Asia', 'Cyprus': 'Asia',
+      'East Timor': 'Asia', 'Georgia': 'Asia', 'India': 'Asia', 'Indonesia': 'Asia', 'Iran': 'Asia',
+      'Iraq': 'Asia', 'Israel': 'Asia', 'Japan': 'Asia', 'Jordan': 'Asia', 'Kazakhstan': 'Asia',
+      'Kuwait': 'Asia', 'Kyrgyzstan': 'Asia', 'Laos': 'Asia', 'Lebanon': 'Asia', 'Malaysia': 'Asia',
+      'Maldives': 'Asia', 'Mongolia': 'Asia', 'Myanmar': 'Asia', 'Nepal': 'Asia', 'North Korea': 'Asia',
+      'Oman': 'Asia', 'Pakistan': 'Asia', 'Palestine': 'Asia', 'Philippines': 'Asia', 'Qatar': 'Asia',
+      'Russia': 'Asia', 'Saudi Arabia': 'Asia', 'Singapore': 'Asia', 'South Korea': 'Asia', 'Sri Lanka': 'Asia',
+      'Syria': 'Asia', 'Tajikistan': 'Asia', 'Thailand': 'Asia', 'Turkey': 'Asia', 'Turkmenistan': 'Asia',
+      'United Arab Emirates': 'Asia', 'Uzbekistan': 'Asia', 'Vietnam': 'Asia', 'Yemen': 'Asia',
+
+      'Albania': 'Europe', 'Andorra': 'Europe', 'Austria': 'Europe', 'Belarus': 'Europe', 'Belgium': 'Europe',
+      'Bosnia and Herzegovina': 'Europe', 'Bulgaria': 'Europe', 'Croatia': 'Europe', 'Czech Republic': 'Europe',
+      'Denmark': 'Europe', 'Estonia': 'Europe', 'Finland': 'Europe', 'France': 'Europe', 'Germany': 'Europe',
+      'Greece': 'Europe', 'Hungary': 'Europe', 'Iceland': 'Europe', 'Ireland': 'Europe', 'Italy': 'Europe',
+      'Latvia': 'Europe', 'Liechtenstein': 'Europe', 'Lithuania': 'Europe', 'Luxembourg': 'Europe',
+      'Malta': 'Europe', 'Moldova': 'Europe', 'Monaco': 'Europe', 'Montenegro': 'Europe', 'Netherlands': 'Europe',
+      'North Macedonia': 'Europe', 'Norway': 'Europe', 'Poland': 'Europe', 'Portugal': 'Europe',
+      'Romania': 'Europe', 'San Marino': 'Europe', 'Serbia': 'Europe', 'Slovakia': 'Europe', 'Slovenia': 'Europe',
+      'Spain': 'Europe', 'Sweden': 'Europe', 'Switzerland': 'Europe', 'Ukraine': 'Europe', 'United Kingdom': 'Europe',
+      'Vatican City': 'Europe', 'England': 'Europe', 'Scotland': 'Europe', 'Wales': 'Europe',
+
+      'Antigua and Barbuda': 'North America', 'Bahamas': 'North America', 'Barbados': 'North America',
+      'Belize': 'North America', 'Canada': 'North America', 'Costa Rica': 'North America', 'Cuba': 'North America',
+      'Dominica': 'North America', 'Dominican Republic': 'North America', 'El Salvador': 'North America',
+      'Grenada': 'North America', 'Guatemala': 'North America', 'Haiti': 'North America', 'Honduras': 'North America',
+      'Jamaica': 'North America', 'Mexico': 'North America', 'Nicaragua': 'North America', 'Panama': 'North America',
+      'Saint Kitts and Nevis': 'North America', 'Saint Lucia': 'North America', 'Saint Vincent and the Grenadines': 'North America',
+      'Trinidad and Tobago': 'North America', 'United States': 'North America',
+
+      'Argentina': 'South America', 'Bolivia': 'South America', 'Brazil': 'South America', 'Chile': 'South America',
+      'Colombia': 'South America', 'Ecuador': 'South America', 'Guyana': 'South America', 'Paraguay': 'South America',
+      'Peru': 'South America', 'Suriname': 'South America', 'Uruguay': 'South America', 'Venezuela': 'South America',
+
+      'Australia': 'Oceania', 'Fiji': 'Oceania', 'Kiribati': 'Oceania', 'Marshall Islands': 'Oceania',
+      'Micronesia': 'Oceania', 'Nauru': 'Oceania', 'New Zealand': 'Oceania', 'Palau': 'Oceania',
+      'Papua New Guinea': 'Oceania', 'Samoa': 'Oceania', 'Solomon Islands': 'Oceania', 'Tonga': 'Oceania',
+      'Tuvalu': 'Oceania', 'Vanuatu': 'Oceania'
     };
   
     // DOM Elements
@@ -781,20 +1332,21 @@
     const buildTeamBtn = document.getElementById('buildTeamBtn');
     const builtTeamDiv = document.getElementById('builtTeam');
     const teamStats = document.getElementById('teamStats');
+    const formationDisplay = document.getElementById('formationDisplay');
+    const formationField = document.getElementById('formationField');
   
     async function loadData() {
       try {
         const response = await fetch(url);
-        console.log('Response status:', response.status); // Chỉ log trạng thái
-  
+        
         if (!response.ok) {
-          const errorText = await response.text(); // Đọc body lỗi nếu có
-          throw new Error(`Lỗi mạng: ${response.status} ${response.statusText} - ${errorText}`);
+          const errorText = await response.text();
+          throw new Error(`Network error: ${response.status} ${response.statusText} - ${errorText}`);
         }
   
-        const data = await response.json(); // Đọc body một lần dưới dạng JSON
+        const data = await response.json();
         if (!data.values || data.values.length === 0) {
-          throw new Error('Không tìm thấy dữ liệu trong phạm vi đã chọn');
+          throw new Error('No data found in the selected range');
         }
   
         const [headers, ...rows] = data.values;
@@ -806,16 +1358,34 @@
           });
           return player;
         }).filter(player => player[headers[0]] && player[headers[0]].trim());
-  
+
+        // Calculate rankings based on rating
+        const ratingField = getRatingField();
+        allPlayers.sort((a, b) => {
+          const ratingA = parseFloat(a[ratingField] || '0');
+          const ratingB = parseFloat(b[ratingField] || '0');
+          return ratingB - ratingA;
+        });
+
+        // Add ranking to each player
+        allPlayers.forEach((player, index) => {
+          player.rank = index + 1;
+        });
+
+        // Add continent data
+        allPlayers.forEach(player => {
+          player['Continent'] = countryToContinent[player['Nationality'] || player['Country']] || '';
+        });
+
         filteredPlayers = [...allPlayers];
         populateFilters();
         renderPlayers();
         showContent();
         
       } catch (err) {
-        console.error('Lỗi khi tải dữ liệu:', err);
+        console.error('Error loading data:', err);
         error.innerHTML = `
-          <h3 class="font-bold text-xl mb-3">❌ Lỗi Tải Dữ Liệu</h3>
+          <h3 class="font-bold text-xl mb-3">❌ Data Loading Error</h3>
           <p class="text-lg">${err.message}</p>
         `;
         showError();
@@ -837,7 +1407,7 @@
         const teamOption = option.cloneNode(true);
         teamCountryFilter.appendChild(teamOption);
       });
-  
+
       const clubs = [...new Set(allPlayers.map(p => p['Club'] || '').filter(c => c))].sort();
       const teamClubFilter = document.getElementById('teamClubFilter');
       teamClubFilter.innerHTML = '<option value="">Any Club</option>';
@@ -866,43 +1436,98 @@
   
     function selectFormation(formation) {
       currentFormation = formation;
+      
+      // Update main formation buttons
       document.querySelectorAll('.formation-btn').forEach(btn => btn.classList.remove('active'));
       event.target.classList.add('active');
+      
+      // Show formation variants
+      updateFormationVariants(formation);
+      
+      // Show formation structure (empty positions)
+      displayFormation();
+    }
+
+    function selectFormationVariant(variant) {
+      currentFormation = variant;
+      
+      // Update variant buttons
+      document.querySelectorAll('#formationVariants .formation-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      
+      // Show formation structure (empty positions)
+      displayFormation();
+    }
+
+    function updateFormationVariants(mainFormation) {
+      const variantsContainer = document.getElementById('formationVariants');
+      const variants = formationFamilies[mainFormation] || [];
+      
+      if (variants.length <= 1) {
+        variantsContainer.style.display = 'none';
+        return;
+      }
+      
+      variantsContainer.style.display = 'flex';
+      variantsContainer.innerHTML = '';
+      
+      variants.forEach((variant, index) => {
+        const btn = document.createElement('button');
+        btn.className = `formation-btn ${index === 0 ? 'active' : ''}`;
+        btn.textContent = variant;
+        btn.onclick = () => selectFormationVariant(variant);
+        variantsContainer.appendChild(btn);
+      });
+      
+      // Set first variant as current if it's different
+      if (variants[0] !== currentFormation) {
+        currentFormation = variants[0];
+      }
+    }
+
+    function getRankClass(rank) {
+      if (rank <= 10) return 'top10';
+      if (rank <= 50) return 'top50';
+      return '';
     }
   
     function applyFilters() {
       const searchTerm = searchInput.value.toLowerCase().trim();
       const selectedCountry = countryFilter.value.trim().toLowerCase();
       const selectedPrice = priceFilter.value;
-  
+      const selectedPosition = document.getElementById('positionFilter').value.toUpperCase();
+
       filteredPlayers = allPlayers.filter(player => {
         const matchesSearch = !searchTerm || Object.values(player).some(value => 
           value.toString().toLowerCase().includes(searchTerm)
         );
-  
+
         const playerCountry = (player['Nationality'] || player['Country'] || '').toLowerCase();
         const matchesCountry = !selectedCountry || playerCountry.includes(selectedCountry);
-  
+
         let matchesPrice = true;
         if (selectedPrice) {
           const priceValue = parseFloat(player['Price'] || player['Value'] || '0');
           const [min, max] = selectedPrice.split('-');
           const minPrice = parseFloat(min);
           const maxPrice = max ? parseFloat(max) : Infinity;
-  
+
           if (selectedPrice.includes('+')) {
             matchesPrice = priceValue > minPrice;
           } else {
             matchesPrice = priceValue >= minPrice && priceValue < maxPrice;
           }
         }
-  
-        return matchesSearch && matchesCountry && matchesPrice;
+
+        const playerPos = (player['Position'] || player['Pos'] || '').toUpperCase();
+        const matchesPosition = !selectedPosition || (positionSubstitutions[selectedPosition] || [selectedPosition]).some(pos => playerPos.includes(pos));
+
+        return matchesSearch && matchesCountry && matchesPrice && matchesPosition;
       });
-  
+
       renderPlayers();
     }
-  
+
     function renderPlayers() {
       playersGrid.innerHTML = '';
       
@@ -914,179 +1539,365 @@
       
       noResults.classList.add('hidden');
       playersGrid.classList.remove('hidden');
-  
+
+      // Sort by current sort filter
+      const sortFilter = document.getElementById('sortFilter').value;
+      const ratingField = getRatingField();
+      if (sortFilter) {
+        filteredPlayers.sort((a, b) => {
+          const ratingA = parseFloat(a[ratingField] || '0');
+          const ratingB = parseFloat(b[ratingField] || '0');
+          const priceA = parseFloat(a['Price'] || a['Value'] || '0');
+          const priceB = parseFloat(b['Price'] || b['Value'] || '0');
+          const nameA = a[Object.keys(a)[0]].toLowerCase();
+          const nameB = b[Object.keys(b)[0]].toLowerCase();
+
+          switch (sortFilter) {
+            case 'rating-high': return ratingB - ratingA;
+            case 'rating-low': return ratingA - ratingB;
+            case 'price-high': return priceB - priceA;
+            case 'price-low': return priceA - priceB;
+            case 'name': return nameA.localeCompare(nameB);
+            default: return 0;
+          }
+        });
+      }
+
       filteredPlayers.forEach((player, index) => {
         const playerCard = createPlayerCard(player, index);
         playersGrid.appendChild(playerCard);
       });
     }
   
-function createPlayerCard(player, index) {
-  const card = document.createElement('div');
-  card.className = 'player-card fade-in';
-  card.style.animationDelay = `${index * 0.05}s`;
+    function createPlayerCard(player, index) {
+      const card = document.createElement('div');
+      card.className = 'player-card fade-in';
+      card.style.animationDelay = `${index * 0.05}s`;
 
-  const headers = Object.keys(player);
-  const nameField = headers[0];
-  const ratingField = headers.find(h => h.toLowerCase().includes('rating') || h.toLowerCase().includes('ovr')) || headers[1];
-  
-  const name = player[nameField] || 'Unknown Player';
-  const rating = player[ratingField] || '0';
-  const numRating = parseFloat(rating);
-  const country = player['Nationality'] || player['Country'] || '';
-  const club = player['Club'] || '';
-  const price = player['Price'] || player['Value'] || '';
-  const position = player['Position'] || player['Pos'] || '';
+      const headers = Object.keys(player);
+      const nameField = headers[0];
+      const ratingField = getRatingField();
+      
+      const name = player[nameField] || 'Unknown Player';
+      const rating = player[ratingField] || '0';
+      const numRating = parseFloat(rating);
+      const country = player['Nationality'] || player['Country'] || '';
+      const club = player['Club'] || '';
+      const price = player['Price'] || player['Value'] || '';
+      const position = player['Position'] || player['Pos'] || '';
+      const rank = player.rank || 0;
 
-  const isGoalkeeper = position.toLowerCase().includes('gk');
+      const isGoalkeeper = position.toLowerCase().includes('gk');
 
-  let ratingClass = '';
-  if (numRating >= 80) ratingClass = 'rating-legendary';
-  else if (numRating >= 70) ratingClass = 'rating-elite';
-  else if (numRating >= 60) ratingClass = 'rating-good';
+      let ratingClass = '';
+      if (numRating >= 80) ratingClass = 'rating-legendary';
+      else if (numRating >= 70) ratingClass = 'rating-elite';
+      else if (numRating >= 60) ratingClass = 'rating-good';
+      else ratingClass = 'rating-basic';
 
-  const statGroup1 = isGoalkeeper
-    ? ['Speed', 'Acceleration', 'Reactions (GK)', 'Strength']
-    : ['Speed', 'Acceleration', 'Stamina', 'Strength'];
+      const statGroup1 = isGoalkeeper
+        ? ['Speed', 'Acceleration', 'Reactions (GK)', 'Strength']
+        : ['Speed', 'Acceleration', 'Stamina', 'Strength'];
 
-  const statGroup2 = isGoalkeeper
-    ? ['Control', 'Passing', 'Handling (GK)', 'Tackling']
-    : ['Control', 'Passing', 'Shooting', 'Tackling'];
+      const statGroup2 = isGoalkeeper
+        ? ['Control', 'Passing', 'Handling (GK)', 'Tackling']
+        : ['Control', 'Passing', 'Shooting', 'Tackling'];
 
-  const statRowHTML = group => `
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-2">
-      ${group.map(stat => {
-        const value = player[stat] || '0';
-        const isGKStat = stat.toLowerCase().includes('gk');
-        return `
-          <div class="stat-item ${isGKStat ? 'gk-stats' : ''}">
-            <span class="stat-name">${stat.replace('(GK)', '').trim()}</span>
-            <span class="stat-value">${value}</span>
+      const statRowHTML = group => `
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-2">
+          ${group.map(stat => {
+            const value = player[stat] || '0';
+            const isGKStat = stat.toLowerCase().includes('gk');
+            return `
+              <div class="stat-item ${isGKStat ? 'gk-stats' : ''}">
+                <span class="stat-name">${stat.replace('(GK)', '').trim()}</span>
+                <span class="stat-value">${value}</span>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
+
+      card.innerHTML = `
+        <div class="player-rank ${getRankClass(rank)}">#${rank}</div>
+
+        <div class="player-info-section">
+          <div class="player-name">${name}</div>
+          <div class="player-details">
+            ${position ? `<div class="player-info">📍 ${position}</div>` : ''}
+            ${country ? `<div class="player-info">🌍 ${country}</div>` : ''}
+            ${club ? `<div class="player-info">🏟️ ${club}</div>` : ''}
           </div>
-        `;
-      }).join('')}
-    </div>
-  `;
+        </div>
 
-  card.innerHTML = `
-    <div class="player-info-section">
-      <div class="player-name">${name}</div>
-      <div class="player-details">
-        ${position ? `<div class="player-info">📍 ${position}</div>` : ''}
-        ${country ? `<div class="player-info">🌍 ${country}</div>` : ''}
-        ${club ? `<div class="player-info">🏟️ ${club}</div>` : ''}
-      </div>
-    </div>
+        <div class="stats-container">
+          ${statRowHTML(statGroup1)}
+          ${statRowHTML(statGroup2)}
+        </div>
+        
+        <div class="flex flex-col items-center">
+          <div class="rating-badge ${ratingClass}">
+            ${rating}
+          </div>
+           ${price ? `<div class="player-info price">💰 ${price}${price.includes('M') ? '' : 'M'}</div>` : ''}
+        </div>
+      `;
 
-    <div class="stats-container">
-      ${statRowHTML(statGroup1)}
-      ${statRowHTML(statGroup2)}
-    </div>
-    
-    <div class="flex flex-col items-center">
-      <div class="rating-badge ${ratingClass}">
-        ${rating}
-      </div>
-       ${price ? `<div class="player-info price">💰 ${price}${price.includes('M') ? '' : 'M'}</div>` : ''}
-    </div>
-  `;
-
-  return card;
-}
+      return card;
+    }
   
     function buildTeam() {
       const priority = document.getElementById('buildPriority').value;
       const budget = parseFloat(document.getElementById('budgetLimit').value) || Infinity;
       const preferredCountry = document.getElementById('teamCountryFilter').value;
       const preferredClub = document.getElementById('teamClubFilter').value;
-  
+      const preferredContinent = document.getElementById('teamContinentFilter').value;
+
       const formation = formations[currentFormation];
       const team = [];
       let totalCost = 0;
-  
-      for (const [position, count] of Object.entries(formation)) {
-        const positionPlayers = getPlayersForPosition(position, preferredCountry, preferredClub);
+
+      console.log('Building team with formation:', currentFormation, formation);
+
+      // Flatten formation structure for easier processing
+      const allPositions = [];
+      formation.lines.forEach(line => {
+        line.positions.forEach(pos => {
+          allPositions.push(pos);
+        });
+      });
+
+      console.log('All positions needed:', allPositions);
+
+      for (const position of allPositions) {
+        let positionPlayers;
+        
+        // Determine which players to search based on priority
+        if (priority === 'exact-best-rating' || priority === 'exact-low-rating') {
+          // Only exact position matches
+          positionPlayers = getPlayersForExactPosition(position, preferredCountry, preferredClub, preferredContinent);
+        } else {
+          // Include substitutions
+          positionPlayers = getPlayersForPosition(position, preferredCountry, preferredClub, preferredContinent);
+        }
+        
+        console.log(`Players available for ${position} (${priority}):`, positionPlayers.length);
         
         let sortedPlayers;
-        if (priority === 'rating') {
-          sortedPlayers = positionPlayers.sort((a, b) => {
-            const ratingA = parseFloat(a[getRatingField()] || '0');
-            const ratingB = parseFloat(b[getRatingField()] || '0');
-            return ratingB - ratingA;
-          });
-        } else if (priority === 'value') {
-          sortedPlayers = positionPlayers.sort((a, b) => {
-            const priceA = parseFloat(a['Price'] || a['Value'] || '0');
-            const priceB = parseFloat(b['Price'] || b['Value'] || '0');
-            const ratingA = parseFloat(a[getRatingField()] || '0');
-            const ratingB = parseFloat(b[getRatingField()] || '0');
+        const ratingField = getRatingField();
+        
+        switch (priority) {
+          case 'best-value':
+            sortedPlayers = positionPlayers.sort((a, b) => {
+              const priceA = parseFloat(a['Price'] || a['Value'] || '0') || 1;
+              const priceB = parseFloat(b['Price'] || b['Value'] || '0') || 1;
+              const ratingA = parseFloat(a[ratingField] || '0');
+              const ratingB = parseFloat(b[ratingField] || '0');
+              
+              const valueA = ratingA / priceA;
+              const valueB = ratingB / priceB;
+              return valueB - valueA;
+            });
+            break;
             
-            const valueA = ratingA / (priceA || 1);
-            const valueB = ratingB / (priceB || 1);
-            return valueB - valueA;
-          });
-        } else {
-          sortedPlayers = positionPlayers.sort((a, b) => {
-            const ratingA = parseFloat(a[getRatingField()] || '0');
-            const ratingB = parseFloat(b[getRatingField()] || '0');
-            return ratingB - ratingA;
-          });
+          case 'exact-best-rating':
+            sortedPlayers = positionPlayers.sort((a, b) => {
+              const ratingA = parseFloat(a[ratingField] || '0');
+              const ratingB = parseFloat(b[ratingField] || '0');
+              return ratingB - ratingA;
+            });
+            break;
+            
+          case 'cheapest':
+            sortedPlayers = positionPlayers.sort((a, b) => {
+              const priceA = parseFloat(a['Price'] || a['Value'] || '0');
+              const priceB = parseFloat(b['Price'] || b['Value'] || '0');
+              return priceA - priceB;
+            });
+            break;
+            
+          case 'exact-low-rating':
+            sortedPlayers = positionPlayers.sort((a, b) => {
+              const ratingA = parseFloat(a[ratingField] || '0');
+              const ratingB = parseFloat(b[ratingField] || '0');
+              return ratingA - ratingB;
+            });
+            break;
+            
+          default:
+            sortedPlayers = positionPlayers.sort((a, b) => {
+              const ratingA = parseFloat(a[ratingField] || '0');
+              const ratingB = parseFloat(b[ratingField] || '0');
+              return ratingB - ratingA;
+            });
         }
-  
-        for (let i = 0; i < count; i++) {
-          let selectedPlayer = null;
+
+        let selectedPlayer = null;
+        
+        for (const player of sortedPlayers) {
+          const playerCost = parseFloat(player['Price'] || player['Value'] || '0');
           
-          for (const player of sortedPlayers) {
-            const playerCost = parseFloat(player['Price'] || player['Value'] || '0');
-            
-            if (team.some(p => p[Object.keys(player)[0]] === player[Object.keys(player)[0]])) {
-              continue;
-            }
-  
-            if (totalCost + playerCost <= budget) {
-              selectedPlayer = { ...player, assignedPosition: position };
-              totalCost += playerCost;
-              break;
-            }
+          // Check if player is already selected
+          if (team.some(p => p[Object.keys(player)[0]] === player[Object.keys(player)[0]])) {
+            continue;
           }
-  
-          if (selectedPlayer) {
-            team.push(selectedPlayer);
+
+          if (totalCost + playerCost <= budget) {
+            selectedPlayer = { ...player, assignedPosition: position };
+            totalCost += playerCost;
+            break;
+          }
+        }
+
+        if (selectedPlayer) {
+          team.push(selectedPlayer);
+          console.log(`Selected player for ${position}:`, selectedPlayer[Object.keys(selectedPlayer)[0]]);
+        } else {
+          // Fallback: find cheapest available player for this position
+          const cheapestPlayer = sortedPlayers.find(p => 
+            !team.some(tp => tp[Object.keys(p)[0]] === p[Object.keys(p)[0]])
+          );
+          if (cheapestPlayer) {
+            const playerCost = parseFloat(cheapestPlayer['Price'] || cheapestPlayer['Value'] || '0');
+            const fallbackPlayer = { ...cheapestPlayer, assignedPosition: position };
+            team.push(fallbackPlayer);
+            totalCost += playerCost;
+            console.log(`Selected fallback player for ${position}:`, cheapestPlayer[Object.keys(cheapestPlayer)[0]]);
           } else {
-            const cheapestPlayer = sortedPlayers.find(p => 
-              !team.some(tp => tp[Object.keys(p)[0]] === p[Object.keys(p)[0]])
-            );
-            if (cheapestPlayer) {
-              const playerCost = parseFloat(cheapestPlayer['Price'] || cheapestPlayer['Value'] || '0');
-              team.push({ ...cheapestPlayer, assignedPosition: position });
-              totalCost += playerCost;
-            }
+            console.log(`No player found for position: ${position}`);
           }
         }
       }
-  
+
+      console.log('Final team:', team);
+      console.log('Team positions:', team.map(p => ({ name: p[Object.keys(p)[0]], position: p.assignedPosition })));
+      
       builtTeam = team;
       displayBuiltTeam();
       updateTeamStats();
+      displayFormation();
+    }
+
+    function displayFormation() {
+      formationDisplay.classList.remove('hidden');
+      formationField.innerHTML = '';
+      document.getElementById('currentFormationTitle').textContent = currentFormation;
+
+      const formation = formations[currentFormation];
+      
+      // Create a map to track which players have been assigned
+      const positionCounter = {};
+      
+      formation.lines.forEach((line, lineIndex) => {
+        const formationLine = document.createElement('div');
+        formationLine.className = `formation-line ${line.line}`;
+        
+        line.positions.forEach((position, posIndex) => {
+          // Track position occurrence for multiple same positions (like CB, CB)
+          if (!positionCounter[position]) {
+            positionCounter[position] = 0;
+          }
+          
+          // Find the player for this specific position occurrence
+          const playersInPosition = builtTeam.filter(p => p.assignedPosition === position);
+          const player = playersInPosition[positionCounter[position]];
+          positionCounter[position]++;
+          
+          const playerPos = document.createElement('div');
+          playerPos.className = `player-position ${player ? 'filled' : ''}`;
+          
+          if (player) {
+            const name = player[Object.keys(player)[0]] || 'Unknown';
+            // Get short name (last name or first name if short)
+            const shortName = name.length > 8 ? 
+              (name.split(' ').length > 1 ? name.split(' ').pop() : name.substring(0, 8)) : 
+              name;
+            
+            playerPos.innerHTML = `
+              <div class="name">${shortName}</div>
+            `;
+            
+            console.log(`Displaying ${name} (${shortName}) at position ${position} (occurrence ${positionCounter[position]-1})`);
+          } else {
+            playerPos.innerHTML = `
+              <div class="position-label">${position}</div>
+            `;
+            console.log(`Empty position: ${position} (occurrence ${positionCounter[position]-1})`);
+          }
+          
+          formationLine.appendChild(playerPos);
+        });
+        
+        formationField.appendChild(formationLine);
+      });
+      
+      console.log('Formation display completed. Built team:', builtTeam.map(p => ({ 
+        name: p[Object.keys(p)[0]], 
+        position: p.assignedPosition 
+      })));
     }
   
-    function getPlayersForPosition(position, preferredCountry, preferredClub) {
-      const validPositions = positionMappings[position] || [position];
-      
-      return allPlayers.filter(player => {
-        const playerPos = player['Position'] || player['Pos'] || '';
+    function getPlayersForExactPosition(position, preferredCountry, preferredClub, preferredContinent) {
+      // Only find players with exact position match
+      const filteredPlayers = allPlayers.filter(player => {
+        const playerPos = (player['Position'] || player['Pos'] || '').toUpperCase();
         const playerCountry = player['Nationality'] || player['Country'] || '';
         const playerClub = player['Club'] || '';
+        const playerContinent = player['Continent'] || '';
         
-        const positionMatch = validPositions.some(pos => 
-          playerPos.toUpperCase().includes(pos.toUpperCase())
-        );
+        // Check if player position exactly matches the target position
+        const positionMatch = playerPos.includes(position.toUpperCase());
         
+        // Check other criteria
         const countryMatch = !preferredCountry || playerCountry === preferredCountry;
         const clubMatch = !preferredClub || playerClub === preferredClub;
+        const continentMatch = !preferredContinent || playerContinent === preferredContinent;
         
-        return positionMatch && countryMatch && clubMatch;
+        return positionMatch && countryMatch && clubMatch && continentMatch;
       });
+      
+      console.log(`Found ${filteredPlayers.length} exact players for position ${position}`);
+      return filteredPlayers;
+    }
+  
+    function getPlayersForPosition(position, preferredCountry, preferredClub, preferredContinent) {
+      // Use the substitution rules to find suitable players
+      const searchPositions = positionSubstitutions[position.toUpperCase()] || [position];
+      
+      const filteredPlayers = allPlayers.filter(player => {
+        const playerPos = (player['Position'] || player['Pos'] || '').toUpperCase();
+        const playerCountry = player['Nationality'] || player['Country'] || '';
+        const playerClub = player['Club'] || '';
+        const playerContinent = player['Continent'] || '';
+        
+        // Check if player position matches any of the search positions
+        const positionMatch = searchPositions.some(searchPos => 
+          playerPos.includes(searchPos)
+        );
+        
+        // Check other criteria
+        const countryMatch = !preferredCountry || playerCountry === preferredCountry;
+        const clubMatch = !preferredClub || playerClub === preferredClub;
+        const continentMatch = !preferredContinent || playerContinent === preferredContinent;
+        
+        return positionMatch && countryMatch && clubMatch && continentMatch;
+      });
+      
+      // Sort by position priority (exact match first)
+      filteredPlayers.sort((a, b) => {
+        const posA = (a['Position'] || a['Pos'] || '').toUpperCase();
+        const posB = (b['Position'] || b['Pos'] || '').toUpperCase();
+        const targetPos = position.toUpperCase();
+        
+        // Exact match gets highest priority
+        if (posA.includes(targetPos) && !posB.includes(targetPos)) return -1;
+        if (!posA.includes(targetPos) && posB.includes(targetPos)) return 1;
+        
+        return 0;
+      });
+      
+      console.log(`Found ${filteredPlayers.length} players for position ${position} (with substitutions)`);
+      return filteredPlayers;
     }
   
     function getRatingField() {
@@ -1097,7 +1908,7 @@ function createPlayerCard(player, index) {
     function displayBuiltTeam() {
       builtTeamDiv.innerHTML = '';
       builtTeamDiv.classList.remove('hidden');
-  
+
       if (builtTeam.length === 0) {
         builtTeamDiv.innerHTML = `
           <div class="no-results">
@@ -1108,22 +1919,22 @@ function createPlayerCard(player, index) {
         `;
         return;
       }
-  
+
       const formationDisplay = document.createElement('div');
       formationDisplay.innerHTML = `
         <h3 class="text-2xl font-bold text-center mb-4 text-white">
-          🏆 Your ${currentFormation} team
+          🏆 Your ${currentFormation} Team Details
         </h3>
       `;
       builtTeamDiv.appendChild(formationDisplay);
-  
+
       const positionGroups = {};
       builtTeam.forEach(player => {
         const pos = player.assignedPosition;
         if (!positionGroups[pos]) positionGroups[pos] = [];
         positionGroups[pos].push(player);
       });
-  
+
       Object.entries(positionGroups).forEach(([position, players]) => {
         const positionSection = document.createElement('div');
         positionSection.innerHTML = `
@@ -1144,18 +1955,18 @@ function createPlayerCard(player, index) {
         teamStats.classList.add('hidden');
         return;
       }
-  
+
       teamStats.classList.remove('hidden');
-  
+
       const ratingField = getRatingField();
       const ratings = builtTeam.map(p => parseFloat(p[ratingField] || '0'));
       const costs = builtTeam.map(p => parseFloat(p['Price'] || p['Value'] || '0'));
       const countries = [...new Set(builtTeam.map(p => p['Nationality'] || p['Country']).filter(c => c))];
       const clubs = [...new Set(builtTeam.map(p => p['Club']).filter(c => c))];
-  
+
       const avgRating = ratings.reduce((a, b) => a + b, 0) / ratings.length;
       const totalCost = costs.reduce((a, b) => a + b, 0);
-  
+
       document.getElementById('teamRating').textContent = avgRating.toFixed(1);
       document.getElementById('teamCost').textContent = totalCost.toFixed(0) + 'M';
       document.getElementById('teamCountries').textContent = countries.length;
@@ -1178,219 +1989,26 @@ function createPlayerCard(player, index) {
     searchInput.addEventListener('input', applyFilters);
     countryFilter.addEventListener('input', applyFilters);
     priceFilter.addEventListener('change', applyFilters);
+    document.getElementById('positionFilter').addEventListener('change', applyFilters);
+    document.getElementById('sortFilter').addEventListener('change', applyFilters);
     
     clearFilters.addEventListener('click', () => {
       searchInput.value = '';
       countryFilter.value = '';
       priceFilter.value = '';
+      document.getElementById('positionFilter').value = '';
+      document.getElementById('sortFilter').value = 'rating-high';
       applyFilters();
     });
-  
+
     buildTeamBtn.addEventListener('click', buildTeam);
   
-    // Initialize
-    window.onload = loadData;
-
-    function applyFilters() {
-  const searchTerm = searchInput.value.toLowerCase().trim();
-  const selectedCountry = countryFilter.value.trim().toLowerCase();
-  const selectedPrice = priceFilter.value;
-  const selectedPosition = document.getElementById('positionFilter').value.toUpperCase();
-
-  filteredPlayers = allPlayers.filter(player => {
-    const matchesSearch = !searchTerm || Object.values(player).some(value => 
-      value.toString().toLowerCase().includes(searchTerm)
-    );
-
-    const playerCountry = (player['Nationality'] || player['Country'] || '').toLowerCase();
-    const matchesCountry = !selectedCountry || playerCountry.includes(selectedCountry);
-
-    let matchesPrice = true;
-    if (selectedPrice) {
-      const priceValue = parseFloat(player['Price'] || player['Value'] || '0');
-      const [min, max] = selectedPrice.split('-');
-      const minPrice = parseFloat(min);
-      const maxPrice = max ? parseFloat(max) : Infinity;
-
-      if (selectedPrice.includes('+')) {
-        matchesPrice = priceValue > minPrice;
-      } else {
-        matchesPrice = priceValue >= minPrice && priceValue < maxPrice;
-      }
-    }
-
-    const playerPos = (player['Position'] || player['Pos'] || '').toUpperCase();
-    const matchesPosition = !selectedPosition || positionMappings[selectedPosition].some(pos => playerPos.includes(pos));
-
-    return matchesSearch && matchesCountry && matchesPrice && matchesPosition;
-  });
-
-  renderPlayers();
-}
-
-// Thêm event listener cho positionFilter
-document.getElementById('positionFilter').addEventListener('change', applyFilters);
-
-function renderPlayers() {
-  playersGrid.innerHTML = '';
-  
-  if (filteredPlayers.length === 0) {
-    noResults.classList.remove('hidden');
-    playersGrid.classList.add('hidden');
-    return;
-  }
-  
-  noResults.classList.add('hidden');
-  playersGrid.classList.remove('hidden');
-
-  // Sắp xếp theo sortFilter
-  const sortFilter = document.getElementById('sortFilter').value;
-  const ratingField = getRatingField();
-  if (sortFilter) {
-    filteredPlayers.sort((a, b) => {
-      const ratingA = parseFloat(a[ratingField] || '0');
-      const ratingB = parseFloat(b[ratingField] || '0');
-      const priceA = parseFloat(a['Price'] || a['Value'] || '0');
-      const priceB = parseFloat(b['Price'] || b['Value'] || '0');
-      const nameA = a[Object.keys(a)[0]].toLowerCase();
-      const nameB = b[Object.keys(b)[0]].toLowerCase();
-
-      switch (sortFilter) {
-        case 'rating-high': return ratingB - ratingA;
-        case 'rating-low': return ratingA - ratingB;
-        case 'price-high': return priceB - priceA;
-        case 'price-low': return priceA - priceB;
-        case 'name': return nameA.localeCompare(nameB);
-        default: return 0;
-      }
-    });
-  }
-
-  filteredPlayers.forEach((player, index) => {
-    const playerCard = createPlayerCard(player, index);
-    playersGrid.appendChild(playerCard);
-  });
-}
-
-// Thêm event listener cho sortFilter
-document.getElementById('sortFilter').addEventListener('change', applyFilters);
-
-const countryToContinent = {
-  // Africa (54 countries)
-  'Algeria': 'Africa', 'Angola': 'Africa', 'Benin': 'Africa', 'Botswana': 'Africa', 'Burkina Faso': 'Africa',
-  'Burundi': 'Africa', 'Cabo Verde': 'Africa', 'Cameroon': 'Africa', 'Central African Republic': 'Africa',
-  'Chad': 'Africa', 'Comoros': 'Africa', 'Congo (Republic of the)': 'Africa', 'Congo (Democratic Republic of the)': 'Africa',
-  'Djibouti': 'Africa', 'Egypt': 'Africa', 'Equatorial Guinea': 'Africa', 'Eritrea': 'Africa', 'Eswatini': 'Africa',
-  'Ethiopia': 'Africa', 'Gabon': 'Africa', 'Gambia': 'Africa', 'Ghana': 'Africa', 'Guinea': 'Africa',
-  'Guinea-Bissau': 'Africa', 'Ivory Coast': 'Africa', 'Kenya': 'Africa', 'Lesotho': 'Africa', 'Liberia': 'Africa',
-  'Libya': 'Africa', 'Madagascar': 'Africa', 'Malawi': 'Africa', 'Mali': 'Africa', 'Mauritania': 'Africa',
-  'Mauritius': 'Africa', 'Mozambique': 'Africa', 'Namibia': 'Africa', 'Niger': 'Africa', 'Nigeria': 'Africa',
-  'Rwanda': 'Africa', 'Sao Tome and Principe': 'Africa', 'Senegal': 'Africa', 'Seychelles': 'Africa',
-  'Sierra Leone': 'Africa', 'Somalia': 'Africa', 'South Africa': 'Africa', 'South Sudan': 'Africa',
-  'Sudan': 'Africa', 'Tanzania': 'Africa', 'Togo': 'Africa', 'Tunisia': 'Africa', 'Uganda': 'Africa',
-  'Zambia': 'Africa', 'Zimbabwe': 'Africa',
-
-  // Asia (50 countries, including transcontinental countries classified by UN)
-  'Afghanistan': 'Asia', 'Armenia': 'Asia', 'Azerbaijan': 'Asia', 'Bahrain': 'Asia', 'Bangladesh': 'Asia',
-  'Bhutan': 'Asia', 'Brunei': 'Asia', 'Cambodia': 'Asia', 'China': 'Asia', 'Cyprus': 'Asia',
-  'East Timor': 'Asia', 'Georgia': 'Asia', 'India': 'Asia', 'Indonesia': 'Asia', 'Iran': 'Asia',
-  'Iraq': 'Asia', 'Israel': 'Asia', 'Japan': 'Asia', 'Jordan': 'Asia', 'Kazakhstan': 'Asia',
-  'Kuwait': 'Asia', 'Kyrgyzstan': 'Asia', 'Laos': 'Asia', 'Lebanon': 'Asia', 'Malaysia': 'Asia',
-  'Maldives': 'Asia', 'Mongolia': 'Asia', 'Myanmar': 'Asia', 'Nepal': 'Asia', 'North Korea': 'Asia',
-  'Oman': 'Asia', 'Pakistan': 'Asia', 'Palestine': 'Asia', 'Philippines': 'Asia', 'Qatar': 'Asia',
-  'Russia': 'Asia', 'Saudi Arabia': 'Asia', 'Singapore': 'Asia', 'South Korea': 'Asia', 'Sri Lanka': 'Asia',
-  'Syria': 'Asia', 'Tajikistan': 'Asia', 'Thailand': 'Asia', 'Turkey': 'Asia', 'Turkmenistan': 'Asia',
-  'United Arab Emirates': 'Asia', 'Uzbekistan': 'Asia', 'Vietnam': 'Asia', 'Yemen': 'Asia', 'Australia': 'Asia',
-
-  // Europe (51 countries, including transcontinental countries classified by UN)
-  'Albania': 'Europe', 'Andorra': 'Europe', 'Austria': 'Europe', 'Belarus': 'Europe', 'Belgium': 'Europe',
-  'Bosnia and Herzegovina': 'Europe', 'Bulgaria': 'Europe', 'Croatia': 'Europe', 'Czech Republic': 'Europe',
-  'Denmark': 'Europe', 'Estonia': 'Europe', 'Finland': 'Europe', 'France': 'Europe', 'Germany': 'Europe',
-  'Greece': 'Europe', 'Hungary': 'Europe', 'Iceland': 'Europe', 'Ireland': 'Europe', 'Italy': 'Europe',
-  'Latvia': 'Europe', 'Liechtenstein': 'Europe', 'Lithuania': 'Europe', 'Luxembourg': 'Europe',
-  'Malta': 'Europe', 'Moldova': 'Europe', 'Monaco': 'Europe', 'Montenegro': 'Europe', 'Netherlands': 'Europe',
-  'North Macedonia': 'Europe', 'Norway': 'Europe', 'Poland': 'Europe', 'Portugal': 'Europe',
-  'Romania': 'Europe', 'San Marino': 'Europe', 'Serbia': 'Europe', 'Slovakia': 'Europe', 'Slovenia': 'Europe',
-  'Spain': 'Europe', 'Sweden': 'Europe', 'Switzerland': 'Europe', 'Ukraine': 'Europe', 'United Kingdom': 'Europe',
-  'Vatican City': 'Europe',
-
-  // North America (23 countries)
-  'Antigua and Barbuda': 'North America', 'Bahamas': 'North America', 'Barbados': 'North America',
-  'Belize': 'North America', 'Canada': 'North America', 'Costa Rica': 'North America', 'Cuba': 'North America',
-  'Dominica': 'North America', 'Dominican Republic': 'North America', 'El Salvador': 'North America',
-  'Grenada': 'North America', 'Guatemala': 'North America', 'Haiti': 'North America', 'Honduras': 'North America',
-  'Jamaica': 'North America', 'Mexico': 'North America', 'Nicaragua': 'North America', 'Panama': 'North America',
-  'Saint Kitts and Nevis': 'North America', 'Saint Lucia': 'North America', 'Saint Vincent and the Grenadines': 'North America',
-  'Trinidad and Tobago': 'North America', 'United States': 'North America',
-
-  // South America (12 countries)
-  'Argentina': 'South America', 'Bolivia': 'South America', 'Brazil': 'South America', 'Chile': 'South America',
-  'Colombia': 'South America', 'Ecuador': 'South America', 'Guyana': 'South America', 'Paraguay': 'South America',
-  'Peru': 'South America', 'Suriname': 'South America', 'Uruguay': 'South America', 'Venezuela': 'South America',
-
-  // Australia/Oceania (14 countries)
-  'Fiji': 'Oceania', 'Kiribati': 'Oceania',
-  'Marshall Islands': 'Oceania', 'Micronesia': 'Oceania', 'Nauru': 'Oceania',
-  'New Zealand': 'Oceania', 'Palau': 'Oceania', 'Papua New Guinea': 'Oceania',
-  'Samoa': 'Oceania', 'Solomon Islands': 'Oceania', 'Tonga': 'Oceania',
-  'Tuvalu': 'Oceania', 'Vanuatu': 'Oceania'
-};
-
-function populateFilters() {
-  const countries = [...new Set(allPlayers.map(p => p['Nationality'] || p['Country'] || '').filter(c => c))].sort();
-  countryFilter.innerHTML = '<option value="">🌍 All Countries</option>';
-  const teamCountryFilter = document.getElementById('teamCountryFilter');
-  teamCountryFilter.innerHTML = '<option value="">Any Country</option>';
-  
-  countries.forEach(country => {
-    const option = document.createElement('option');
-    option.value = country;
-    option.textContent = country;
-    countryFilter.appendChild(option);
-    
-    const teamOption = option.cloneNode(true);
-    teamCountryFilter.appendChild(teamOption);
-  });
-
-  const clubs = [...new Set(allPlayers.map(p => p['Club'] || '').filter(c => c))].sort();
-  const teamClubFilter = document.getElementById('teamClubFilter');
-  teamClubFilter.innerHTML = '<option value="">Any Club</option>';
-  
-  clubs.forEach(club => {
-    const option = document.createElement('option');
-    option.value = club;
-    option.textContent = club;
-    teamClubFilter.appendChild(option);
-  });
-
-  // Thêm continent vào dữ liệu player nếu chưa có
-  allPlayers.forEach(player => {
-    player['Continent'] = countryToContinent[player['Nationality'] || player['Country']] || '';
-  });
-}
-
-// Cập nhật getPlayersForPosition trong buildTeam
-function getPlayersForPosition(position, preferredCountry, preferredClub) {
-  const validPositions = positionMappings[position] || [position];
-  const selectedContinent = document.getElementById('teamContinentFilter').value;
-
-  return allPlayers.filter(player => {
-    const playerPos = player['Position'] || player['Pos'] || '';
-    const playerCountry = player['Nationality'] || player['Country'] || '';
-    const playerClub = player['Club'] || '';
-    const playerContinent = player['Continent'] || '';
-
-    const positionMatch = validPositions.some(pos => 
-      playerPos.toUpperCase().includes(pos.toUpperCase())
-    );
-    
-    const countryMatch = !preferredCountry || playerCountry === preferredCountry;
-    const clubMatch = !preferredClub || playerClub === preferredClub;
-    const continentMatch = !selectedContinent || playerContinent === selectedContinent;
-    
-    return positionMatch && countryMatch && clubMatch && continentMatch;
-  });
-}
+    // Initialize with 4-3-3 and show formation immediately
+    window.onload = () => {
+      loadData();
+      updateFormationVariants('4-3-3');
+      displayFormation();
+    };
   </script>
 </body>
 </html>
