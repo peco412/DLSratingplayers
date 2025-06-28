@@ -38,54 +38,55 @@
       z-index: -1;
     }
 
-    .hero-section {
-      background: linear-gradient(135deg, rgba(0, 0, 0, 0.4), rgba(15, 20, 25, 0.3));
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(34, 197, 94, 0.2);
-      border-radius: 24px;
-      padding: 3rem;
-      margin-bottom: 3rem;
-      position: relative;
-      overflow: hidden;
-    }
+.hero-section {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(15, 20, 25, 0.4));
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(34, 197, 94, 0.15);
+  border-radius: 20px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
 
-    .hero-section::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(45deg, rgba(34, 197, 94, 0.05), rgba(16, 185, 129, 0.05));
-      animation: pulse 4s ease-in-out infinite;
-    }
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(34, 197, 94, 0.05), rgba(16, 185, 129, 0.05));
+  animation: pulse 4s ease-in-out infinite;
+  z-index: 0;
+}
 
-    @keyframes pulse {
-      0%, 100% { opacity: 0.3; }
-      50% { opacity: 0.7; }
-    }
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.7; }
+}
 
-    .hero-title {
-      background: linear-gradient(135deg, #22c55e 0%, #10b981 50%, #059669 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      font-weight: 900;
-      font-size: 4rem;
-      text-align: center;
-      margin-bottom: 1rem;
-      position: relative;
-      z-index: 1;
-    }
+.hero-title {
+  font-size: 2.25rem; /* nhỏ hơn trước */
+  font-weight: 800;
+  background: linear-gradient(135deg, #22c55e, #10b981, #059669);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+  position: relative;
+  z-index: 1;
+}
 
-    .hero-subtitle {
-      text-align: center;
-      font-size: 1.25rem;
-      color: rgba(255, 255, 255, 0.7);
-      font-weight: 300;
-      position: relative;
-      z-index: 1;
-    }
+.hero-subtitle {
+  font-size: 1rem; /* gọn hơn */
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.65);
+  position: relative;
+  z-index: 1;
+}
+
 
     .nav-tabs {
       display: flex;
@@ -792,17 +793,19 @@
   </style>
 </head>
 <body>
-  <div class="container mx-auto px-4 py-8 max-w-7xl">
-    <!-- Hero Section -->
-    <div class="hero-section">
-      <h1 class="hero-title">⚽ DLS 2025</h1>
-      <p class="hero-subtitle">Discover Players & Build Your Ultimate Team</p>
-    </div>
+<div class="container mx-auto px-4 py-8 max-w-7xl">
+  <!-- Hero Section -->
+  <div class="hero-section">
+    <h1 class="hero-title">DLS 2025</h1> 
+    <p class="hero-subtitle">Players Data & Build Formation</p> 
+  </div>
+
+
 
     <!-- Navigation Tabs -->
     <div class="nav-tabs">
       <div class="nav-tab active" onclick="switchTab('players')">
-        🔍 Player Database
+        🔍 Players Database
       </div>
       <div class="nav-tab" onclick="switchTab('team-builder')">
         ⚽ Team Builder
@@ -836,13 +839,13 @@
             <option value="RB">RB - Right Back</option>
             <option value="LWB">LWB - Left Wing Back</option>
             <option value="RWB">RWB - Right Wing Back</option>
-            <option value="CDM">CDM - Defensive Mid</option>
-            <option value="CM">CM - Central Mid</option>
-            <option value="CAM">CAM - Attacking Mid</option>
-            <option value="LM">LM - Left Mid</option>
-            <option value="RM">RM - Right Mid</option>
-            <option value="LW">LW - Left Wing</option>
-            <option value="RW">RW - Right Wing</option>
+            <option value="DM">DM - Defensive Midfielder</option>
+            <option value="CM">CM - Central Midfielder</option>
+            <option value="AM">AM - Attacking Midfielder</option>
+            <option value="LM">LM - Left Midfielder</option>
+            <option value="RM">RM - Right Midfielder</option>
+            <option value="LW">LW - Left Winger</option>
+            <option value="RW">RW - Right Winger</option>
             <option value="ST">ST - Striker</option>
             <option value="CF">CF - Center Forward</option>
             <option value="SS">SS - Second Striker</option>
@@ -1601,7 +1604,8 @@
         }
 
         const playerPos = (player['Position'] || player['Pos'] || '').toUpperCase();
-        const matchesPosition = !selectedPosition || (positionSubstitutions[selectedPosition] || [selectedPosition]).some(pos => playerPos.includes(pos));
+const matchesPosition = !selectedPosition || playerPos === selectedPosition;
+
 
         return matchesSearch && matchesCountry && matchesPrice && matchesPosition;
       });
