@@ -628,6 +628,262 @@
       display: none !important;
     }
 
+    /* Donate Section Styles */
+.donate-container {
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  border-radius: 20px;
+  padding: 2rem;
+  text-align: center;
+  backdrop-filter: blur(20px);
+  margin-bottom: 2rem;
+}
+
+.donate-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #22c55e;
+  margin-bottom: 1.5rem;
+}
+
+.qr-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.qr-box {
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  border-radius: 16px;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.qr-box img {
+  width: 160px;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+}
+
+.qr-box p {
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.qr-box:hover {
+  transform: translateY(-4px);
+  border-color: #22c55e;
+  box-shadow: 0 8px 30px rgba(34, 197, 94, 0.3);
+}
+
+#builtTeam {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  width: 300px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  display: none;
+  background: linear-gradient(to bottom, #f5e050, #d2b400);
+  color: #000;
+  overflow: hidden;
+}
+
+#builtTeam.show {
+  display: block;
+}
+
+#builtTeamOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  display: none;
+}
+
+#builtTeamOverlay.show {
+  display: block;
+}
+
+.close-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: #ff4444;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10; /* Thêm z-index cao để nút hiển thị trên tất cả */
+}
+
+.close-btn:hover {
+  background-color: #cc0000;
+}
+
+.player-detail-card {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  background: no-repeat center;
+  background-size: cover;
+  border: 2px solid #000;
+  overflow: hidden;
+}
+
+.flag-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  z-index: 1; /* Z-index thấp cho lá cờ */
+}
+
+.player-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7));
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+  z-index: 2; /* Z-index trung bình cho overlay */
+}
+
+.overall-rating {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  background: #ffd700;
+  border: 2px solid #000;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 3; /* Z-index cho rating */
+}
+
+.player-stat-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px;
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  z-index: 3; /* Z-index cho stats */
+}
+
+.player-stat-item {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 12px;
+  color: #000;
+  display: flex;
+  align-items: center;
+  width: 55px;
+}
+
+.player-stat-value {
+  font-weight: bold;
+  margin-left: 3px;
+}
+
+.player-info-name {
+  font-size: 18px;
+  font-weight: bold;
+  background: #ffd700;
+  padding: 5px;
+  border-top: 2px solid #000;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  z-index: 3; /* Z-index cho tên */
+}
+
+.player-detail-info {
+  font-size: 12px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.height-foot {
+  position: absolute;
+  display: grid;
+  top: 85px;
+  left: 10px;
+  z-index: 3; /* Z-index cho thông tin chiều cao */
+  width: 40px;
+}
+
+.height-foot-column {
+  display: grid;
+ text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.height-foot-column div {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+   width: 40px;
+       justify-content: center;
+
+}
+
+.flag-icon {
+ width: 40px;
+}
+
+.position {
+  position: absolute;
+  top: 55px;
+  width: 40px; /* Ô nhỏ hơn */
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  z-index: 3; /* Z-index cho vị trí */
+}
+
     /* Responsive Design */
 @media (max-width: 768px) {
   .player-card {
@@ -803,14 +1059,17 @@
 
 
     <!-- Navigation Tabs -->
-    <div class="nav-tabs">
-      <div class="nav-tab active" onclick="switchTab('players')">
-        🔍 Players Database
-      </div>
-      <div class="nav-tab" onclick="switchTab('team-builder')">
-        ⚽ Team Builder
-      </div>
-    </div>
+<div class="nav-tabs">
+  <div class="nav-tab active" onclick="switchTab('players', this)">
+    🔍 Players Database
+  </div>
+  <div class="nav-tab" onclick="switchTab('team-builder', this)">
+    ⚽ Team Builder
+  </div>
+  <div class="nav-tab" onclick="switchTab('donate', this)">
+    💖 Donate
+  </div>
+</div>
 
     <!-- Players Tab -->
     <div id="playersTab">
@@ -846,7 +1105,6 @@
             <option value="RM">RM - Right Midfielder</option>
             <option value="LW">LW - Left Winger</option>
             <option value="RW">RW - Right Winger</option>
-            <option value="ST">ST - Striker</option>
             <option value="CF">CF - Center Forward</option>
             <option value="SS">SS - Second Striker</option>
           </select>
@@ -993,6 +1251,7 @@
       </div>
 
       <!-- Built Team Display -->
+       <div id="builtTeamOverlay" class="hidden"></div>
       <div id="builtTeam" class="flex flex-col gap-4 hidden"></div>
     </div>
 
@@ -1014,6 +1273,22 @@
       <h3 class="text-2xl font-bold mb-3">No Players Found</h3>
       <p class="text-lg">Try adjusting your filters or search terms</p>
     </div>
+
+    <div id="donateTab" class="hidden">
+  <div class="donate-container">
+    <h2 class="donate-title">Ủng hộ dự án DLS 2025</h2>
+    <div class="qr-wrapper">
+      <div class="qr-box">
+        <img src="qr-momo.png" alt="QR MoMo" />
+        <p>MoMo</p>
+      </div>
+      <div class="qr-box">
+        <img src="qr-bank.png" alt="QR Ngân hàng" />
+        <p>Ngân hàng</p>
+      </div>
+    </div>
+  </div>
+</div>
   </div>
 
   <script>
@@ -1041,6 +1316,223 @@
   SHO: "Shooting"
 };
 
+// Định nghĩa countryMap (nên đặt ngoài hàm hoặc trong file script chung)
+const countryMap = {
+  'afghanistan': 'https://flagcdn.com/w40/af.png',
+  'albania': 'https://flagcdn.com/w40/al.png',
+  'algeria': 'https://flagcdn.com/w40/dz.png',
+  'andorra': 'https://flagcdn.com/w40/ad.png',
+  'angola': 'https://flagcdn.com/w40/ao.png',
+  'anguilla': 'https://flagcdn.com/w40/ai.png',
+  'antigua and barbuda': 'https://flagcdn.com/w40/ag.png',
+  'argentina': 'https://flagcdn.com/w40/ar.png',
+  'armenia': 'https://flagcdn.com/w40/am.png',
+  'aruba': 'https://flagcdn.com/w40/aw.png',
+  'australia': 'https://flagcdn.com/w40/au.png',
+  'austria': 'https://flagcdn.com/w40/at.png',
+  'azerbaijan': 'https://flagcdn.com/w40/az.png',
+  'bahamas': 'https://flagcdn.com/w40/bs.png',
+  'bahrain': 'https://flagcdn.com/w40/bh.png',
+  'bangladesh': 'https://flagcdn.com/w40/bd.png',
+  'barbados': 'https://flagcdn.com/w40/bb.png',
+  'belarus': 'https://flagcdn.com/w40/by.png',
+  'belgium': 'https://flagcdn.com/w40/be.png',
+  'belize': 'https://flagcdn.com/w40/bz.png',
+  'benin': 'https://flagcdn.com/w40/bj.png',
+  'bermuda': 'https://flagcdn.com/w40/bm.png',
+  'bhutan': 'https://flagcdn.com/w40/bt.png',
+  'bolivia': 'https://flagcdn.com/w40/bo.png',
+  'bosnia and herzegovina': 'https://flagcdn.com/w40/ba.png',
+  'botswana': 'https://flagcdn.com/w40/bw.png',
+  'brazil': 'https://flagcdn.com/w40/br.png',
+  'british virgin islands': 'https://flagcdn.com/w40/vg.png',
+  'brunei': 'https://flagcdn.com/w40/bn.png',
+  'bulgaria': 'https://flagcdn.com/w40/bg.png',
+  'burkina faso': 'https://flagcdn.com/w40/bf.png',
+  'burundi': 'https://flagcdn.com/w40/bi.png',
+  'cabo verde': 'https://flagcdn.com/w40/cv.png',
+  'cambodia': 'https://flagcdn.com/w40/kh.png',
+  'cameroon': 'https://flagcdn.com/w40/cm.png',
+  'canada': 'https://flagcdn.com/w40/ca.png',
+  'cayman islands': 'https://flagcdn.com/w40/ky.png',
+  'central african republic': 'https://flagcdn.com/w40/cf.png',
+  'chad': 'https://flagcdn.com/w40/td.png',
+  'chile': 'https://flagcdn.com/w40/cl.png',
+  'china pr': 'https://flagcdn.com/w40/cn.png',
+  'chinese taipei (taiwan)': 'https://flagcdn.com/w40/tw.png',
+  'colombia': 'https://flagcdn.com/w40/co.png',
+  'comoros': 'https://flagcdn.com/w40/km.png',
+  'congo': 'https://flagcdn.com/w40/cg.png',
+  'dr congo': 'https://flagcdn.com/w40/cd.png',
+  'cook islands': 'https://flagcdn.com/w40/ck.png',
+  'costa rica': 'https://flagcdn.com/w40/cr.png',
+  'côte d\'ivoire': 'https://flagcdn.com/w40/ci.png',
+  'croatia': 'https://flagcdn.com/w40/hr.png',
+  'cuba': 'https://flagcdn.com/w40/cu.png',
+  'curaçao': 'https://flagcdn.com/w40/cw.png',
+  'cyprus': 'https://flagcdn.com/w40/cy.png',
+  'czech republic': 'https://flagcdn.com/w40/cz.png',
+  'denmark': 'https://flagcdn.com/w40/dk.png',
+  'djibouti': 'https://flagcdn.com/w40/dj.png',
+  'dominica': 'https://flagcdn.com/w40/dm.png',
+  'dominican republic': 'https://flagcdn.com/w40/do.png',
+  'ecuador': 'https://flagcdn.com/w40/ec.png',
+  'egypt': 'https://flagcdn.com/w40/eg.png',
+  'el salvador': 'https://flagcdn.com/w40/sv.png',
+  'england': 'https://flagcdn.com/w40/gb.png',
+  'equatorial guinea': 'https://flagcdn.com/w40/gq.png',
+  'eritrea': 'https://flagcdn.com/w40/er.png',
+  'estonia': 'https://flagcdn.com/w40/ee.png',
+  'eswatini': 'https://flagcdn.com/w40/sz.png',
+  'ethiopia': 'https://flagcdn.com/w40/et.png',
+  'faroe islands': 'https://flagcdn.com/w40/fo.png',
+  'fiji': 'https://flagcdn.com/w40/fj.png',
+  'finland': 'https://flagcdn.com/w40/fi.png',
+  'france': 'https://flagcdn.com/w40/fr.png',
+  'gabon': 'https://flagcdn.com/w40/ga.png',
+  'gambia': 'https://flagcdn.com/w40/gm.png',
+  'georgia': 'https://flagcdn.com/w40/ge.png',
+  'germany': 'https://flagcdn.com/w40/de.png',
+  'ghana': 'https://flagcdn.com/w40/gh.png',
+  'gibraltar': 'https://flagcdn.com/w40/gi.png',
+  'greece': 'https://flagcdn.com/w40/gr.png',
+  'grenada': 'https://flagcdn.com/w40/gd.png',
+  'guam': 'https://flagcdn.com/w40/gu.png',
+  'guatemala': 'https://flagcdn.com/w40/gt.png',
+  'guinea': 'https://flagcdn.com/w40/gn.png',
+  'guinea-bissau': 'https://flagcdn.com/w40/gw.png',
+  'guyana': 'https://flagcdn.com/w40/gy.png',
+  'haiti': 'https://flagcdn.com/w40/ht.png',
+  'honduras': 'https://flagcdn.com/w40/hn.png',
+  'hong kong': 'https://flagcdn.com/w40/hk.png',
+  'hungary': 'https://flagcdn.com/w40/hu.png',
+  'iceland': 'https://flagcdn.com/w40/is.png',
+  'india': 'https://flagcdn.com/w40/in.png',
+  'indonesia': 'https://flagcdn.com/w40/id.png',
+  'iran': 'https://flagcdn.com/w40/ir.png',
+  'iraq': 'https://flagcdn.com/w40/iq.png',
+  'ireland': 'https://flagcdn.com/w40/ie.png',
+  'israel': 'https://flagcdn.com/w40/il.png',
+  'italy': 'https://flagcdn.com/w40/it.png',
+  'jamaica': 'https://flagcdn.com/w40/jm.png',
+  'japan': 'https://flagcdn.com/w40/jp.png',
+  'jordan': 'https://flagcdn.com/w40/jo.png',
+  'kazakhstan': 'https://flagcdn.com/w40/kz.png',
+  'kenya': 'https://flagcdn.com/w40/ke.png',
+  'kiribati': 'https://flagcdn.com/w40/ki.png',
+  'north korea': 'https://flagcdn.com/w40/kp.png',
+  'south korea': 'https://flagcdn.com/w40/kr.png',
+  'kosovo': 'https://flagcdn.com/w40/xk.png',
+  'kuwait': 'https://flagcdn.com/w40/kw.png',
+  'kyrgyz republic': 'https://flagcdn.com/w40/kg.png',
+  'laos': 'https://flagcdn.com/w40/la.png',
+  'latvia': 'https://flagcdn.com/w40/lv.png',
+  'lebanon': 'https://flagcdn.com/w40/lb.png',
+  'lesotho': 'https://flagcdn.com/w40/ls.png',
+  'liberia': 'https://flagcdn.com/w40/lr.png',
+  'libya': 'https://flagcdn.com/w40/ly.png',
+  'liechtenstein': 'https://flagcdn.com/w40/li.png',
+  'lithuania': 'https://flagcdn.com/w40/lt.png',
+  'luxembourg': 'https://flagcdn.com/w40/lu.png',
+  'macau': 'https://flagcdn.com/w40/mo.png',
+  'madagascar': 'https://flagcdn.com/w40/mg.png',
+  'malawi': 'https://flagcdn.com/w40/mw.png',
+  'malaysia': 'https://flagcdn.com/w40/my.png',
+  'maldives': 'https://flagcdn.com/w40/mv.png',
+  'mali': 'https://flagcdn.com/w40/ml.png',
+  'malta': 'https://flagcdn.com/w40/mt.png',
+  'marshall islands': 'https://flagcdn.com/w40/mh.png',
+  'mauritania': 'https://flagcdn.com/w40/mr.png',
+  'mauritius': 'https://flagcdn.com/w40/mu.png',
+  'mexico': 'https://flagcdn.com/w40/mx.png',
+  'micronesia': 'https://flagcdn.com/w40/fm.png',
+  'moldova': 'https://flagcdn.com/w40/md.png',
+  'monaco': 'https://flagcdn.com/w40/mc.png',
+  'mongolia': 'https://flagcdn.com/w40/mn.png',
+  'montenegro': 'https://flagcdn.com/w40/me.png',
+  'morocco': 'https://flagcdn.com/w40/ma.png',
+  'mozambique': 'https://flagcdn.com/w40/mz.png',
+  'myanmar': 'https://flagcdn.com/w40/mm.png',
+  'namibia': 'https://flagcdn.com/w40/na.png',
+  'nauru': 'https://flagcdn.com/w40/nr.png',
+  'nepal': 'https://flagcdn.com/w40/np.png',
+  'netherlands': 'https://flagcdn.com/w40/nl.png',
+  'new caledonia': 'https://flagcdn.com/w40/nc.png',
+  'new zealand': 'https://flagcdn.com/w40/nz.png',
+  'nicaragua': 'https://flagcdn.com/w40/ni.png',
+  'niger': 'https://flagcdn.com/w40/ne.png',
+  'nigeria': 'https://flagcdn.com/w40/ng.png',
+  'north macedonia': 'https://flagcdn.com/w40/mk.png',
+  'northern ireland': 'https://flagcdn.com/w40/gb.png',
+  'norway': 'https://flagcdn.com/w40/no.png',
+  'oman': 'https://flagcdn.com/w40/om.png',
+  'pakistan': 'https://flagcdn.com/w40/pk.png',
+  'palestine': 'https://flagcdn.com/w40/ps.png',
+  'panama': 'https://flagcdn.com/w40/pa.png',
+  'papua new guinea': 'https://flagcdn.com/w40/pg.png',
+  'paraguay': 'https://flagcdn.com/w40/py.png',
+  'peru': 'https://flagcdn.com/w40/pe.png',
+  'philippines': 'https://flagcdn.com/w40/ph.png',
+  'poland': 'https://flagcdn.com/w40/pl.png',
+  'portugal': 'https://flagcdn.com/w40/pt.png',
+  'puerto rico': 'https://flagcdn.com/w40/pr.png',
+  'qatar': 'https://flagcdn.com/w40/qa.png',
+  'romania': 'https://flagcdn.com/w40/ro.png',
+  'russia': 'https://flagcdn.com/w40/ru.png',
+  'rwanda': 'https://flagcdn.com/w40/rw.png',
+  'samoa': 'https://flagcdn.com/w40/ws.png',
+  'san marino': 'https://flagcdn.com/w40/sm.png',
+  'são tomé and príncipe': 'https://flagcdn.com/w40/st.png',
+  'saudi arabia': 'https://flagcdn.com/w40/sa.png',
+  'scotland': 'https://flagcdn.com/w40/gb.png',
+  'senegal': 'https://flagcdn.com/w40/sn.png',
+  'serbia': 'https://flagcdn.com/w40/rs.png',
+  'seychelles': 'https://flagcdn.com/w40/sc.png',
+  'sierra leone': 'https://flagcdn.com/w40/sl.png',
+  'singapore': 'https://flagcdn.com/w40/sg.png',
+  'slovakia': 'https://flagcdn.com/w40/sk.png',
+  'slovenia': 'https://flagcdn.com/w40/si.png',
+  'solomon islands': 'https://flagcdn.com/w40/sb.png',
+  'somalia': 'https://flagcdn.com/w40/so.png',
+  'south africa': 'https://flagcdn.com/w40/za.png',
+  'south sudan': 'https://flagcdn.com/w40/ss.png',
+  'spain': 'https://flagcdn.com/w40/es.png',
+  'sri lanka': 'https://flagcdn.com/w40/lk.png',
+  'st. kitts and nevis': 'https://flagcdn.com/w40/kn.png',
+  'st. lucia': 'https://flagcdn.com/w40/lc.png',
+  'st. vincent / grenadines': 'https://flagcdn.com/w40/vc.png',
+  'sudan': 'https://flagcdn.com/w40/sd.png',
+  'suriname': 'https://flagcdn.com/w40/sr.png',
+  'sweden': 'https://flagcdn.com/w40/se.png',
+  'switzerland': 'https://flagcdn.com/w40/ch.png',
+  'syria': 'https://flagcdn.com/w40/sy.png',
+  'tajikistan': 'https://flagcdn.com/w40/tj.png',
+  'tanzania': 'https://flagcdn.com/w40/tz.png',
+  'thailand': 'https://flagcdn.com/w40/th.png',
+  'timor-leste': 'https://flagcdn.com/w40/tl.png',
+  'togo': 'https://flagcdn.com/w40/tg.png',
+  'tonga': 'https://flagcdn.com/w40/to.png',
+  'trinidad and tobago': 'https://flagcdn.com/w40/tt.png',
+  'tunisia': 'https://flagcdn.com/w40/tn.png',
+  'turkey': 'https://flagcdn.com/w40/tr.png',
+  'turkmenistan': 'https://flagcdn.com/w40/tm.png',
+  'tuvalu': 'https://flagcdn.com/w40/tv.png',
+  'uganda': 'https://flagcdn.com/w40/ug.png',
+  'ukraine': 'https://flagcdn.com/w40/ua.png',
+  'united arab emirates': 'https://flagcdn.com/w40/ae.png',
+  'united states': 'https://flagcdn.com/w40/us.png',
+  'uruguay': 'https://flagcdn.com/w40/uy.png',
+  'uzbekistan': 'https://flagcdn.com/w40/uz.png',
+  'vanuatu': 'https://flagcdn.com/w40/vu.png',
+  'vatican': 'https://flagcdn.com/w40/va.png',
+  'venezuela': 'https://flagcdn.com/w40/ve.png',
+  'vietnam': 'https://flagcdn.com/w40/vn.png',
+  'wales': 'https://flagcdn.com/w40/gb.png',
+  'yemen': 'https://flagcdn.com/w40/ye.png',
+  'zambia': 'https://flagcdn.com/w40/zm.png',
+  'zimbabwe': 'https://flagcdn.com/w40/zw.png'
+};
+
     // Formation configurations with positions and variants
     const formations = {
       // 4-4-2 Family
@@ -1058,8 +1550,8 @@
           { positions: ['LB', 'CB', 'CB', 'RB'], line: 'defense' },
           { positions: ['DM'], line: 'midfield' },
           { positions: ['CM', 'CM'], line: 'midfield' },
-          { positions: ['CAM'], line: 'midfield' },
-          { positions: ['ST', 'ST'], line: 'attack' }
+          { positions: ['AM'], line: 'midfield' },
+          { positions: ['CF', 'CF'], line: 'attack' }
         ]
       },
       '4-3-1-2': {
@@ -1068,7 +1560,7 @@
           { positions: ['LB', 'CB', 'CB', 'RB'], line: 'defense' },
           { positions: ['CM', 'CM', 'CM'], line: 'midfield' },
           { positions: ['AM'], line: 'midfield' },
-          { positions: ['ST', 'ST'], line: 'attack' }
+          { positions: ['CF', 'CF'], line: 'attack' }
         ]
       },
       '4-2-2-2': {
@@ -1077,7 +1569,7 @@
           { positions: ['LB', 'CB', 'CB', 'RB'], line: 'defense' },
           { positions: ['DM', 'DM'], line: 'midfield' },
           { positions: ['AM', 'AM'], line: 'midfield' },
-          { positions: ['ST', 'ST'], line: 'attack' }
+          { positions: ['CF', 'CF'], line: 'attack' }
         ]
       },
       '4-4-1-1': {
@@ -1085,8 +1577,8 @@
           { positions: ['GK'], line: 'defense' },
           { positions: ['LB', 'CB', 'CB', 'RB'], line: 'defense' },
           { positions: ['LM', 'CM', 'CM', 'RM'], line: 'midfield' },
-          { positions: ['CF'], line: 'midfield' },
-          { positions: ['ST'], line: 'attack' }
+          { positions: ['SS'], line: 'midfield' },
+          { positions: ['CF'], line: 'attack' }
         ]
       },
       '4-1-3-2': {
@@ -1095,7 +1587,7 @@
           { positions: ['LB', 'CB', 'CB', 'RB'], line: 'defense' },
           { positions: ['DM'], line: 'midfield' },
           { positions: ['LM', 'AM', 'RM'], line: 'midfield' },
-          { positions: ['ST', 'ST'], line: 'attack' }
+          { positions: ['CF', 'CF'], line: 'attack' }
         ]
       },
 
@@ -1105,7 +1597,7 @@
           { positions: ['GK'], line: 'defense' },
           { positions: ['LB', 'CB', 'CB', 'RB'], line: 'defense' },
           { positions: ['LM', 'CM', 'CM', 'CM', 'RM'], line: 'midfield' },
-          { positions: ['ST'], line: 'attack' }
+          { positions: ['CF'], line: 'attack' }
         ]
       },
       '4-1-4-1': {
@@ -1114,7 +1606,7 @@
           { positions: ['LB', 'CB', 'CB', 'RB'], line: 'defense' },
           { positions: ['DM'], line: 'midfield' },
           { positions: ['LM', 'CM', 'CM', 'RM'], line: 'midfield' },
-          { positions: ['ST'], line: 'attack' }
+          { positions: ['CF'], line: 'attack' }
         ]
       },
       '4-2-3-1': {
@@ -1123,7 +1615,7 @@
           { positions: ['LB', 'CB', 'CB', 'RB'], line: 'defense' },
           { positions: ['DM', 'DM'], line: 'midfield' },
           { positions: ['LW', 'AM', 'RW'], line: 'midfield' },
-          { positions: ['ST'], line: 'attack' }
+          { positions: ['CF'], line: 'attack' }
         ]
       },
       '4-3-2-1': {
@@ -1132,7 +1624,7 @@
           { positions: ['LB', 'CB', 'CB', 'RB'], line: 'defense' },
           { positions: ['CM', 'CM', 'CM'], line: 'midfield' },
           { positions: ['LW', 'RW'], line: 'midfield' },
-          { positions: ['ST'], line: 'attack' }
+          { positions: ['CF'], line: 'attack' }
         ]
       },
 
@@ -1142,7 +1634,7 @@
           { positions: ['GK'], line: 'defense' },
           { positions: ['LB', 'CB', 'CB', 'RB'], line: 'defense' },
           { positions: ['CM', 'CM', 'CM'], line: 'midfield' },
-          { positions: ['LW', 'ST', 'RW'], line: 'attack' }
+          { positions: ['LW', 'CF', 'RW'], line: 'attack' }
         ]
       },
       '4-1-2-3': {
@@ -1151,7 +1643,7 @@
           { positions: ['LB', 'CB', 'CB', 'RB'], line: 'defense' },
           { positions: ['DM'], line: 'midfield' },
           { positions: ['CM', 'CM'], line: 'midfield' },
-          { positions: ['LW', 'ST', 'RW'], line: 'attack' }
+          { positions: ['LW', 'CF', 'RW'], line: 'attack' }
         ]
       },
       '4-2-1-3': {
@@ -1160,7 +1652,7 @@
           { positions: ['LB', 'CB', 'CB', 'RB'], line: 'defense' },
           { positions: ['DM', 'DM'], line: 'midfield' },
           { positions: ['AM'], line: 'midfield' },
-          { positions: ['LW', 'ST', 'RW'], line: 'attack' }
+          { positions: ['LW', 'CF', 'RW'], line: 'attack' }
         ]
       },
 
@@ -1170,7 +1662,7 @@
           { positions: ['GK'], line: 'defense' },
           { positions: ['LWB', 'CB', 'CB', 'CB', 'RWB'], line: 'defense' },
           { positions: ['CM', 'CM', 'CM'], line: 'midfield' },
-          { positions: ['ST', 'ST'], line: 'attack' }
+          { positions: ['CF', 'CF'], line: 'attack' }
         ]
       },
       '5-2-1-2': {
@@ -1179,7 +1671,7 @@
           { positions: ['LWB', 'CB', 'CB', 'CB', 'RWB'], line: 'defense' },
           { positions: ['DM', 'DM'], line: 'midfield' },
           { positions: ['AM'], line: 'midfield' },
-          { positions: ['ST', 'ST'], line: 'attack' }
+          { positions: ['CF', 'CF'], line: 'attack' }
         ]
       },
 
@@ -1189,7 +1681,7 @@
           { positions: ['GK'], line: 'defense' },
           { positions: ['LWB', 'CB', 'CB', 'CB', 'RWB'], line: 'defense' },
           { positions: ['DM', 'DM'], line: 'midfield' },
-          { positions: ['LW', 'ST', 'RW'], line: 'attack' }
+          { positions: ['LW', 'CF', 'RW'], line: 'attack' }
         ]
       },
       '5-2-2-1': {
@@ -1198,7 +1690,7 @@
           { positions: ['LWB', 'CB', 'CB', 'CB', 'RWB'], line: 'defense' },
           { positions: ['DM', 'DM'], line: 'midfield' },
           { positions: ['LW', 'RW'], line: 'midfield' },
-          { positions: ['ST'], line: 'attack' }
+          { positions: ['CF'], line: 'attack' }
         ]
       },
 
@@ -1208,7 +1700,7 @@
           { positions: ['GK'], line: 'defense' },
           { positions: ['LWB', 'CB', 'CB', 'CB', 'RWB'], line: 'defense' },
           { positions: ['LM', 'CM', 'CM', 'RM'], line: 'midfield' },
-          { positions: ['ST'], line: 'attack' }
+          { positions: ['CF'], line: 'attack' }
         ]
       },
       '5-1-2-1-1': {
@@ -1218,7 +1710,7 @@
           { positions: ['DM'], line: 'midfield' },
           { positions: ['CM', 'CM'], line: 'midfield' },
           { positions: ['AM'], line: 'midfield' },
-          { positions: ['ST'], line: 'attack' }
+          { positions: ['CF'], line: 'attack' }
         ]
       },
 
@@ -1228,7 +1720,7 @@
           { positions: ['GK'], line: 'defense' },
           { positions: ['CB', 'CB', 'CB'], line: 'defense' },
           { positions: ['LWB', 'CM', 'CM', 'CM', 'RWB'], line: 'midfield' },
-          { positions: ['ST', 'ST'], line: 'attack' }
+          { positions: ['CF', 'CF'], line: 'attack' }
         ]
       },
       '3-2-3-2': {
@@ -1237,7 +1729,7 @@
           { positions: ['CB', 'CB', 'CB'], line: 'defense' },
           { positions: ['DM', 'DM'], line: 'midfield' },
           { positions: ['LM', 'AM', 'RM'], line: 'midfield' },
-          { positions: ['ST', 'ST'], line: 'attack' }
+          { positions: ['CF', 'CF'], line: 'attack' }
         ]
       },
       '3-1-4-2': {
@@ -1246,7 +1738,7 @@
           { positions: ['CB', 'CB', 'CB'], line: 'defense' },
           { positions: ['DM'], line: 'midfield' },
           { positions: ['LM', 'CM', 'CM', 'RM'], line: 'midfield' },
-          { positions: ['ST', 'ST'], line: 'attack' }
+          { positions: ['CF', 'CF'], line: 'attack' }
         ]
       },
       '3-4-1-2': {
@@ -1255,7 +1747,7 @@
           { positions: ['CB', 'CB', 'CB'], line: 'defense' },
           { positions: ['LM', 'CM', 'CM', 'RM'], line: 'midfield' },
           { positions: ['AM'], line: 'midfield' },
-          { positions: ['ST', 'ST'], line: 'attack' }
+          { positions: ['CF', 'CF'], line: 'attack' }
         ]
       },
       '3-5-1-1': {
@@ -1263,8 +1755,8 @@
           { positions: ['GK'], line: 'defense' },
           { positions: ['CB', 'CB', 'CB'], line: 'defense' },
           { positions: ['LWB', 'CM', 'CM', 'CM', 'RWB'], line: 'midfield' },
-          { positions: ['CF'], line: 'midfield' },
-          { positions: ['ST'], line: 'attack' }
+          { positions: ['SS'], line: 'midfield' },
+          { positions: ['CF'], line: 'attack' }
         ]
       },
 
@@ -1274,7 +1766,7 @@
           { positions: ['GK'], line: 'defense' },
           { positions: ['CB', 'CB', 'CB'], line: 'defense' },
           { positions: ['LM', 'CM', 'CM', 'RM'], line: 'midfield' },
-          { positions: ['LW', 'ST', 'RW'], line: 'attack' }
+          { positions: ['LW', 'CF', 'RW'], line: 'attack' }
         ]
       },
       '3-4-2-1': {
@@ -1283,7 +1775,7 @@
           { positions: ['CB', 'CB', 'CB'], line: 'defense' },
           { positions: ['LM', 'CM', 'CM', 'RM'], line: 'midfield' },
           { positions: ['LW', 'RW'], line: 'midfield' },
-          { positions: ['ST'], line: 'attack' }
+          { positions: ['CF'], line: 'attack' }
         ]
       },
       '3-1-2-1-3': {
@@ -1293,7 +1785,7 @@
           { positions: ['DM'], line: 'midfield' },
           { positions: ['CM', 'CM'], line: 'midfield' },
           { positions: ['AM'], line: 'midfield' },
-          { positions: ['LW', 'ST', 'RW'], line: 'attack' }
+          { positions: ['LW', 'CF', 'RW'], line: 'attack' }
         ]
       },
       '3-3-1-3': {
@@ -1302,7 +1794,7 @@
           { positions: ['CB', 'CB', 'CB'], line: 'defense' },
           { positions: ['LM', 'CM', 'RM'], line: 'midfield' },
           { positions: ['AM'], line: 'midfield' },
-          { positions: ['LW', 'ST', 'RW'], line: 'attack' }
+          { positions: ['LW', 'CF', 'RW'], line: 'attack' }
         ]
       }
     };
@@ -1339,9 +1831,8 @@
       'DM': ['DM', 'CM'],
       
       // Forward positions can substitute for each other
-      'ST': ['ST', 'CF', 'SS'],
-      'CF': ['CF', 'ST'],
-      'SS': ['SS', 'ST', 'AM'],
+      'CF': ['CF', 'SS'],
+      'SS': ['SS', 'CF', 'AM'],
       
       // Goalkeeper and center back are position-specific
       'GK': ['GK'],
@@ -1413,6 +1904,7 @@
     const clearFilters = document.getElementById('clearFilters');
     const playersTab = document.getElementById('playersTab');
     const teamBuilderTab = document.getElementById('teamBuilderTab');
+    const donateTab = document.getElementById('donateTab');
     const buildTeamBtn = document.getElementById('buildTeamBtn');
     const builtTeamDiv = document.getElementById('builtTeam');
     const teamStats = document.getElementById('teamStats');
@@ -1504,20 +1996,43 @@
       });
     }
   
-    function switchTab(tab) {
-      currentTab = tab;
-      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-      event.target.classList.add('active');
-      
-      if (tab === 'players') {
-        playersTab.classList.remove('hidden');
-        teamBuilderTab.classList.add('hidden');
-      } else {
-        playersTab.classList.add('hidden');
-        teamBuilderTab.classList.remove('hidden');
-      }
+function switchTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+
+  // Ẩn modal, overlay, thống kê đội bóng và sơ đồ đội hình khi chuyển khỏi tab team-builder
+  if (tab !== 'team-builder') {
+    teamStats.classList.add('hidden');
+    formationDisplay.classList.add('hidden');
+    builtTeamDiv.classList.add('hidden');
+    builtTeamDiv.classList.remove('show');
+    document.getElementById('builtTeamOverlay').classList.remove('show');
+    builtTeam = []; // Xóa dữ liệu đội bóng
+  }
+
+  if (tab === 'players') {
+    playersTab.classList.remove('hidden');
+    teamBuilderTab.classList.add('hidden');
+    donateTab?.classList?.add('hidden');
+  } else if (tab === 'team-builder') {
+    playersTab.classList.add('hidden');
+    teamBuilderTab.classList.remove('hidden');
+    donateTab?.classList?.add('hidden');
+    if (builtTeam.lengthеркви
+
+ > 0) {
+      displayBuiltTeam();
+      updateTeamStats();
+      displayFormation();
     }
-  
+  } else if (tab === 'donate') {
+    playersTab.classList.add('hidden');
+    teamBuilderTab.classList.add('hidden');
+    donateTab?.classList?.remove('hidden');
+  }
+}
+
     function selectFormation(formation) {
       currentFormation = formation;
       
@@ -1912,64 +2427,167 @@ case 'best-value':
       displayFormation();
     }
 
-    function displayFormation() {
-      formationDisplay.classList.remove('hidden');
-      formationField.innerHTML = '';
-      document.getElementById('currentFormationTitle').textContent = currentFormation;
+function displayFormation() {
+  formationDisplay.classList.remove('hidden');
+  formationField.innerHTML = '';
+  document.getElementById('currentFormationTitle').textContent = currentFormation;
 
-      const formation = formations[currentFormation];
+  const formation = formations[currentFormation];
+  
+  const positionCounter = {};
+  
+  formation.lines.forEach((line, lineIndex) => {
+    const formationLine = document.createElement('div');
+    formationLine.className = `formation-line ${line.line}`;
+    
+    line.positions.forEach((position, posIndex) => {
+      if (!positionCounter[position]) {
+        positionCounter[position] = 0;
+      }
       
-      // Create a map to track which players have been assigned
-      const positionCounter = {};
+      const playersInPosition = builtTeam.filter(p => p.assignedPosition === position);
+      const player = playersInPosition[positionCounter[position]];
+      positionCounter[position]++;
       
-      formation.lines.forEach((line, lineIndex) => {
-        const formationLine = document.createElement('div');
-        formationLine.className = `formation-line ${line.line}`;
+      const playerPos = document.createElement('div');
+      playerPos.className = `player-position ${player ? 'filled' : ''}`;
+      
+      if (player) {
+        const name = player[Object.keys(player)[0]] || 'Unknown';
+        const shortName = name.length > 8 ? 
+          (name.split(' ').length > 1 ? name.split(' ').pop() : name.substring(0, 8)) : 
+          name;
         
-        line.positions.forEach((position, posIndex) => {
-          // Track position occurrence for multiple same positions (like CB, CB)
-          if (!positionCounter[position]) {
-            positionCounter[position] = 0;
-          }
-          
-          // Find the player for this specific position occurrence
-          const playersInPosition = builtTeam.filter(p => p.assignedPosition === position);
-          const player = playersInPosition[positionCounter[position]];
-          positionCounter[position]++;
-          
-          const playerPos = document.createElement('div');
-          playerPos.className = `player-position ${player ? 'filled' : ''}`;
-          
-          if (player) {
-            const name = player[Object.keys(player)[0]] || 'Unknown';
-            // Get short name (last name or first name if short)
-            const shortName = name.length > 8 ? 
-              (name.split(' ').length > 1 ? name.split(' ').pop() : name.substring(0, 8)) : 
-              name;
-            
-            playerPos.innerHTML = `
-              <div class="name">${shortName}</div>
-            `;
-            
-            console.log(`Displaying ${name} (${shortName}) at position ${position} (occurrence ${positionCounter[position]-1})`);
-          } else {
-            playerPos.innerHTML = `
-              <div class="position-label">${position}</div>
-            `;
-            console.log(`Empty position: ${position} (occurrence ${positionCounter[position]-1})`);
-          }
-          
-          formationLine.appendChild(playerPos);
+        playerPos.innerHTML = `
+          <div class="name">${shortName}</div>
+        `;
+        playerPos.addEventListener('click', () => {
+          displayPlayerDetails(player);
+          document.querySelectorAll('.player-position').forEach(p => p.classList.remove('selected'));
+          playerPos.classList.add('selected');
         });
         
-        formationField.appendChild(formationLine);
-      });
+        console.log(`Hiển thị ${name} (${shortName}) tại vị trí ${position} (lần xuất hiện ${positionCounter[position]-1})`);
+      } else {
+        playerPos.innerHTML = `
+          <div class="position-label">${position}</div>
+        `;
+        console.log(`Vị trí trống: ${position} (lần xuất hiện ${positionCounter[position]-1})`);
+      }
       
-      console.log('Formation display completed. Built team:', builtTeam.map(p => ({ 
-        name: p[Object.keys(p)[0]], 
-        position: p.assignedPosition 
-      })));
-    }
+      formationLine.appendChild(playerPos);
+    });
+    
+    formationField.appendChild(formationLine);
+  });
+  
+  console.log('Hoàn tất hiển thị đội hình. Đội đã xây:', builtTeam.map(p => ({ 
+    name: p[Object.keys(p)[0]], 
+    position: p.assignedPosition 
+  })));
+}
+
+function displayPlayerDetails(player) {
+  builtTeamDiv.innerHTML = '';
+  builtTeamDiv.classList.remove('hidden');
+  builtTeamDiv.classList.add('show');
+  document.getElementById('builtTeamOverlay').classList.add('show');
+
+  const closeBtn = document.createElement('button');
+  closeBtn.className = 'close-btn';
+  closeBtn.innerHTML = '×';
+  closeBtn.onclick = closePlayerDetails;
+  builtTeamDiv.appendChild(closeBtn);
+
+  const playerDetailCard = document.createElement('div');
+  playerDetailCard.className = 'player-detail-card';
+  
+  const flagBackground = document.createElement('div');
+  flagBackground.className = 'flag-background';
+  const playerImageUrl = player['Img player'] || 'https://via.placeholder.com/300x400?text=No+Image'; // Lấy trực tiếp từ Sheet
+  flagBackground.style.backgroundImage = `url('${playerImageUrl}')`;
+  playerDetailCard.appendChild(flagBackground);
+
+  const playerOverlay = document.createElement('div');
+  playerOverlay.className = 'player-overlay';
+
+  const overallRating = document.createElement('div');
+  overallRating.className = 'overall-rating';
+  const ratingField = getRatingField();
+  overallRating.textContent = player[ratingField] || '83';
+  playerOverlay.appendChild(overallRating);
+
+  const heightFoot = document.createElement('div');
+  heightFoot.className = 'player-detail-info height-foot';
+  const nationality = player['Nationality'] || 'Unknown';
+  const flagUrl = countryMap[nationality.toLowerCase()] || 'https://via.placeholder.com/16/000000/FFFFFF?text=?';
+  heightFoot.innerHTML = `
+    <img src="${flagUrl}" alt="${nationality} Flag" class="flag-icon" onerror="this.src='https://via.placeholder.com/16/000000/FFFFFF?text=?'">
+    <div class="height-foot-column">
+      <div alt="Height"> ${player['Height'] || '186'}cm</div>
+      <div alt="Foot"> ${player['Foot'] || 'R'}</div>
+    </div>
+  `;
+  playerOverlay.appendChild(heightFoot);
+
+  const position = document.createElement('div');
+  position.className = 'player-detail-info position';
+  position.style.backgroundColor = '#000';
+  position.style.color = '#fff';
+  position.style.padding = '2px 6px';
+  position.textContent = player['Position'] || 'CM';
+  playerOverlay.appendChild(position);
+
+  const stats = document.createElement('div');
+  stats.className = 'player-stat-container';
+  const isGoalkeeper = (player['Position'] || 'CM').toUpperCase() === 'GK';
+  const statShortLabels = {
+    'Speed': 'SPE',
+    'Acceleration': 'ACC',
+    'Reactions (GK)': 'GKR',
+    'Strength': 'STR',
+    'Control': 'CON',
+    'Passing': 'PAS',
+    'Handling (GK)': 'GKH',
+    'Tackling': 'TAC',
+    'Stamina': 'STA',
+    'Shooting': 'SHO'
+  };
+  const statsToShow = {
+    [statShortLabels['Speed']]: player['Speed'] || '76',
+    [statShortLabels['Acceleration']]: player['Acceleration'] || '77',
+    [isGoalkeeper ? statShortLabels['Reactions (GK)'] : statShortLabels['Stamina']]: isGoalkeeper ? (player['Goalkeeper Reflexes'] || '85') : (player['Stamina'] || '85'),
+    [statShortLabels['Strength']]: player['Strength'] || '75',
+    [statShortLabels['Control']]: player['Control'] || '86',
+    [statShortLabels['Passing']]: player['Passing'] || '82',
+    [isGoalkeeper ? statShortLabels['Handling (GK)'] : statShortLabels['Shooting']]: isGoalkeeper ? (player['Goalkeeper Handling'] || '79') : (player['Shooting'] || '79'),
+    [statShortLabels['Tackling']]: player['Tackling'] || '78'
+  };
+  for (const [stat, value] of Object.entries(statsToShow)) {
+    const statItem = document.createElement('div');
+    statItem.className = 'player-stat-item';
+    statItem.innerHTML = `${stat} <span class="player-stat-value">${value}</span>`;
+    stats.appendChild(statItem);
+  }
+  playerOverlay.appendChild(stats);
+
+  const playerNameDiv = document.createElement('div');
+  playerNameDiv.className = 'player-info-name';
+  playerNameDiv.textContent = player['Name'] || 'Unknown';
+  playerOverlay.appendChild(playerNameDiv);
+
+  playerDetailCard.appendChild(playerOverlay);
+  builtTeamDiv.appendChild(playerDetailCard);
+}
+
+function closePlayerDetails() {
+  builtTeamDiv.classList.remove('show');
+  builtTeamDiv.classList.add('hidden');
+  document.getElementById('builtTeamOverlay').classList.remove('show');
+  document.querySelectorAll('.player-position').forEach(p => p.classList.remove('selected'));
+  // Khôi phục thông báo mặc định
+  displayBuiltTeam();
+}
   
     function getPlayersForExactPosition(position, preferredCountry, preferredClub, preferredContinent) {
       // Only find players with exact position match
@@ -2039,56 +2657,79 @@ case 'best-value':
       return headers.find(h => h.toLowerCase().includes('rating') || h.toLowerCase().includes('ovr')) || headers[1];
     }
   
-    function displayBuiltTeam() {
-      builtTeamDiv.innerHTML = '';
-      builtTeamDiv.classList.remove('hidden');
+function displayBuiltTeam() {
+  builtTeamDiv.innerHTML = '';
+  builtTeamDiv.classList.remove('show');
+  builtTeamDiv.classList.add('hidden');
+  document.getElementById('builtTeamOverlay').classList.remove('show');
 
-      if (builtTeam.length === 0) {
-        builtTeamDiv.innerHTML = `
-          <div class="no-results">
-            <div class="no-results-icon">⚠️</div>
-            <h3 class="text-2xl font-bold mb-3">Can't Build a Team</h3>
-            <p class="text-lg">Cannot build a team with current criteria</p>
-          </div>
-        `;
-        return;
-      }
+  if (builtTeam.length === 0) {
+    builtTeamDiv.classList.remove('hidden');
+    builtTeamDiv.innerHTML = `
+      <div class="no-results">
+        <div class="no-results-icon">⚠️</div>
+        <h3 class="text-2xl font-bold mb-3">Không thể xây dựng đội</h3>
+        <p class="text-lg">Không thể xây dựng đội với tiêu chí hiện tại</p>
+      </div>
+    `;
+    return;
+  }
 
-      const formationDisplay = document.createElement('div');
-      formationDisplay.innerHTML = `
-        <h3 class="text-2xl font-bold text-center mb-4 text-white">
-          🏆 Your ${currentFormation} Team Details
-        </h3>
-      `;
-      builtTeamDiv.appendChild(formationDisplay);
+  builtTeamDiv.classList.remove('hidden');
+  builtTeamDiv.innerHTML = `
+    <div class="no-results">
+      <h3 class="text-2xl font-bold mb-3 text-white">Đội hình ${currentFormation} của bạn</h3>
+      <p class="text-lg">Nhấp vào một cầu thủ trong sơ đồ đội hình để xem chi tiết.</p>
+    </div>
+  `;
+}
 
-      const positionGroups = {};
-      builtTeam.forEach(player => {
-        const pos = player.assignedPosition;
-        if (!positionGroups[pos]) positionGroups[pos] = [];
-        positionGroups[pos].push(player);
-      });
+  // Hiển thị thông báo mặc định sau khi xây dựng đội
+  builtTeamDiv.innerHTML = `
+    <div class="no-results">
+      <h3 class="text-2xl font-bold mb-3 text-white">Đội hình ${currentFormation} của bạn</h3>
+      <p class="text-lg">Nhấp vào một cầu thủ trong sơ đồ đội hình để xem chi tiết.</p>
+    </div>
+  `;
 
-      Object.entries(positionGroups).forEach(([position, players]) => {
-        const positionSection = document.createElement('div');
-        positionSection.innerHTML = `
-          <h4 class="text-xl font-bold mb-3 text-green-400">${position} (${players.length})</h4>
-        `;
-        
-        players.forEach((player, index) => {
-          const playerCard = createPlayerCard(player, index);
-          positionSection.appendChild(playerCard);
-        });
-        
-        builtTeamDiv.appendChild(positionSection);
-      });
-    }
   
     function updateTeamStats() {
       if (builtTeam.length === 0) {
         teamStats.classList.add('hidden');
         return;
       }
+
+      function resetTeamBuilder() {
+  // Reset built team
+  builtTeam = [];
+  
+  // Hide formation display
+  formationDisplay.classList.add('hidden');
+  
+  // Hide built team display
+  builtTeamDiv.classList.add('hidden');
+  builtTeamDiv.innerHTML = '';
+  
+  // Hide team stats
+  teamStats.classList.add('hidden');
+  
+  // Reset formation to default
+  currentFormation = '4-3-3';
+  
+  // Reset formation buttons to default state
+  document.querySelectorAll('.formation-btn').forEach(btn => {
+    btn.classList.remove('active');
+    if (btn.textContent === '4-3-3') {
+      btn.classList.add('active');
+    }
+  });
+  
+  // Update formation variants
+  updateFormationVariants('4-3-3');
+  
+  console.log('Team builder reset completed');
+}
+
 
       teamStats.classList.remove('hidden');
 
