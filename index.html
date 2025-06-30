@@ -361,7 +361,6 @@
       border: 1px solid rgba(34, 197, 94, 0.2);
       border-radius: 20px;
       padding: 2rem;
-      margin-bottom: 2rem;
     }
 
     .formation-selector {
@@ -401,8 +400,9 @@
     .criteria-item {
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
+      gap: 0.25rem;
       min-height: 80px;
+      margin: 10px 0 10px;
     }
 
     .criteria-label {
@@ -812,15 +812,23 @@
   padding: 2px 6px;
   border-radius: 3px;
   font-size: 12px;
-  color: #000;
+  color: #797474;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   width: 55px;
+  font-weight: bold
 }
 
 .player-stat-value {
   font-weight: bold;
-  margin-left: 3px;
+  margin-left: auto;
+  align-items: end;
+  color: red;
+}
+
+.text-center {
+    text-align: center;
+    margin: 20px;
 }
 
 .player-info-name {
@@ -1111,6 +1119,14 @@
             class="filter-input"
           />
 
+          <input 
+  type="text"
+  id="clubFilter"
+  placeholder="🏟️ Filter by Club..."
+  class="filter-input"
+/>
+
+
           <select id="positionFilter" class="filter-select">
             <option value="">⚽ All Positions</option>
             <option value="GK">GK - Goalkeeper</option>
@@ -1182,7 +1198,7 @@
         </div>
 
         <!-- Team Building Criteria -->
-<div class="team-criteria">
+
   <div class="criteria-item">
     <label class="criteria-label">🎯 Priority</label>
 <select id="buildPriority" class="filter-select">
@@ -1197,7 +1213,7 @@
 <option value="both-feet">Both-Footed</option>
 </select>
   </div>
-</div>
+
 
           
           <div class="criteria-item">
@@ -1249,8 +1265,8 @@
             <div class="team-stat-label">Average Rating</div>
           </div>
           <div class="team-stat">
-            <div class="team-stat-value" id="teamCost">0M</div>
-            <div class="team-stat-label">Total Cost</div>
+            <div class="team-stat-value" id="teamCost">0</div>
+            <div class="team-stat-label">Total Coins</div>
           </div>
           <div class="team-stat">
             <div class="team-stat-value" id="teamCountries">0</div>
@@ -1402,7 +1418,7 @@ const countryMap = {
   'ecuador': 'https://flagcdn.com/w40/ec.png',
   'egypt': 'https://flagcdn.com/w40/eg.png',
   'el salvador': 'https://flagcdn.com/w40/sv.png',
-  'england': 'https://flagcdn.com/w40/gb.png',
+  'england': 'https://upload.wikimedia.org/wikipedia/en/b/be/Flag_of_England.svg',
   'equatorial guinea': 'https://flagcdn.com/w40/gq.png',
   'eritrea': 'https://flagcdn.com/w40/er.png',
   'estonia': 'https://flagcdn.com/w40/ee.png',
@@ -1486,7 +1502,7 @@ const countryMap = {
   'niger': 'https://flagcdn.com/w40/ne.png',
   'nigeria': 'https://flagcdn.com/w40/ng.png',
   'north macedonia': 'https://flagcdn.com/w40/mk.png',
-  'northern ireland': 'https://flagcdn.com/w40/gb.png',
+  'northern ireland': 'https://upload.wikimedia.org/wikipedia/commons/d/d0/Ulster_Banner.svg',
   'norway': 'https://flagcdn.com/w40/no.png',
   'oman': 'https://flagcdn.com/w40/om.png',
   'pakistan': 'https://flagcdn.com/w40/pk.png',
@@ -1507,7 +1523,7 @@ const countryMap = {
   'san marino': 'https://flagcdn.com/w40/sm.png',
   'são tomé and príncipe': 'https://flagcdn.com/w40/st.png',
   'saudi arabia': 'https://flagcdn.com/w40/sa.png',
-  'scotland': 'https://flagcdn.com/w40/gb.png',
+  'scotland': 'https://upload.wikimedia.org/wikipedia/commons/1/10/Flag_of_Scotland.svg',
   'senegal': 'https://flagcdn.com/w40/sn.png',
   'serbia': 'https://flagcdn.com/w40/rs.png',
   'seychelles': 'https://flagcdn.com/w40/sc.png',
@@ -1550,7 +1566,7 @@ const countryMap = {
   'vatican': 'https://flagcdn.com/w40/va.png',
   'venezuela': 'https://flagcdn.com/w40/ve.png',
   'vietnam': 'https://flagcdn.com/w40/vn.png',
-  'wales': 'https://flagcdn.com/w40/gb.png',
+  'wales': 'https://upload.wikimedia.org/wikipedia/commons/d/dc/Flag_of_Wales.svg',
   'yemen': 'https://flagcdn.com/w40/ye.png',
   'zambia': 'https://flagcdn.com/w40/zm.png',
   'zimbabwe': 'https://flagcdn.com/w40/zw.png'
@@ -2118,6 +2134,8 @@ function switchTab(tab) {
       const selectedCountry = countryFilter.value.trim().toLowerCase();
       const selectedPrice = priceFilter.value;
       const selectedPosition = document.getElementById('positionFilter').value.toUpperCase();
+      const selectedClub = document.getElementById('clubFilter').value.toLowerCase().trim();
+
 
       filteredPlayers = allPlayers.filter(player => {
         const matchesSearch = !searchTerm || Object.values(player).some(value => 
@@ -2144,8 +2162,10 @@ function switchTab(tab) {
         const playerPos = (player['Position'] || player['Pos'] || '').toUpperCase();
 const matchesPosition = !selectedPosition || playerPos === selectedPosition;
 
+const matchesClub = (player['Club'] || '').toLowerCase().includes(selectedClub);
 
-        return matchesSearch && matchesCountry && matchesPrice && matchesPosition;
+
+        return matchesSearch && matchesCountry && matchesPrice && matchesPosition && matchesClub;
       });
 
       renderPlayers();
@@ -2205,7 +2225,9 @@ function createPlayerCard(player, index) {
   const rating = player[ratingField] || '0';
   const numRating = parseFloat(rating);
   const country = player['Nationality'] || player['Country'] || '';
+  const flagUrl = countryMap[country.toLowerCase()] || 'https://via.placeholder.com/16/000000/FFFFFF?text=?';
   const club = player['Club'] || '';
+  const clubLogoUrl = player['Img Club'] || 'https://via.placeholder.com/16?text=?';
   const price = player['Price'] || player['Value'] || '';
   const position = player['Position'] || player['Pos'] || '';
   const rank = player.rank || 0;
@@ -2268,8 +2290,16 @@ function createPlayerCard(player, index) {
           <div class="player-name">${name}</div>
           <div class="player-details">
             ${position ? `<div class="player-info">📍 ${position}</div>` : ''}
-            ${country ? `<div class="player-info">🌍 ${country}</div>` : ''}
-            ${club ? `<div class="player-info">🏟️ ${club}</div>` : ''}
+            ${country ? `<div class="player-info">
+  <img src="${flagUrl}" alt="${country} Flag" class="flag-icon" style="width:16px;height:12px;margin-right:4px;vertical-align:middle;" onerror="this.src='https://via.placeholder.com/16/000000/FFFFFF?text=?'">
+  ${country}
+</div>` : ''}
+
+${club ? `<div class="player-info">
+  <img src="${clubLogoUrl}" alt="${club} Logo" style="width:16px;height:16px;margin-right:4px;vertical-align:middle;" onerror="this.src='https://via.placeholder.com/16?text=?'">
+  ${club}
+</div>` : ''}
+
           </div>
         </div>
 
@@ -2739,7 +2769,7 @@ function displayBuiltTeam() {
       const totalCost = costs.reduce((a, b) => a + b, 0);
 
       document.getElementById('teamRating').textContent = avgRating.toFixed(1);
-      document.getElementById('teamCost').textContent = totalCost.toFixed(0) + 'M';
+      document.getElementById('teamCost').textContent = totalCost.toFixed(0) ;
       document.getElementById('teamCountries').textContent = countries.length;
       document.getElementById('teamClubs').textContent = clubs.length;
     }
@@ -2762,7 +2792,8 @@ function displayBuiltTeam() {
     priceFilter.addEventListener('change', applyFilters);
     document.getElementById('positionFilter').addEventListener('change', applyFilters);
     document.getElementById('sortFilter').addEventListener('change', applyFilters);
-    
+    document.getElementById('clubFilter').addEventListener('input', applyFilters);
+
     clearFilters.addEventListener('click', () => {
       searchInput.value = '';
       countryFilter.value = '';
