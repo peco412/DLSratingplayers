@@ -967,29 +967,25 @@
     /* Responsive Design */
 /* Responsive Design - Mobile First */
 @media (max-width: 768px) {
-  /* HERO SECTION */
-  .hero-title {
-    font-size: 1.4rem;
-  }
 
-  .hero-subtitle {
-    font-size: 0.9rem;
-  }
-
-  /* NAV TABS */
+  /* Tabs */
   .nav-tabs {
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 0.5rem;
+    padding: 0 1rem;
   }
 
   .nav-tab {
-    padding: 0.5rem 1rem;
-    font-size: 0.875rem;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    text-align: center;
   }
 
-  /* FILTER SECTION */
+  /* Filters */
   .filters-section {
     padding: 1rem;
+    margin-bottom: 1rem;
   }
 
   .filter-group {
@@ -997,63 +993,21 @@
     gap: 0.75rem;
   }
 
-  .filter-input,
-  .filter-select {
-    width: 100%;
-  }
-
-  .clear-filters,
-  .build-team-btn {
-    width: 100%;
-    padding: 0.75rem;
-  }
-
-  /* PLAYER CARD */
-  .player-card {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 1rem;
-    gap: 1rem;
-  }
-
-  .player-name {
-    font-size: 1.25rem;
-  }
-
-  .rating-badge {
-    font-size: 1.5rem;
-    padding: 0.75rem 1rem;
-    min-width: 80px;
-  }
-
-  .player-rank {
-    font-size: 1rem;
-    padding: 0.25rem 0.75rem;
-    min-width: 50px;
-  }
-
-  .stat-item {
-    font-size: 0.75rem;
-    padding: 0.4rem 0.6rem;
-  }
-
-  .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  /* TEAM BUILDER */
-  .team-builder-section {
-    padding: 1rem;
-  }
-
+  /* Formation Selector */
   .formation-selector {
     flex-direction: column;
+    gap: 0.75rem;
   }
 
   .formation-btn {
     width: 100%;
-    padding: 0.75rem;
-    font-size: 0.875rem;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
+
+  /* Team Builder */
+  .team-builder-section {
+    padding: 1.25rem 1rem;
   }
 
   .team-criteria {
@@ -1061,92 +1015,135 @@
     gap: 1rem;
   }
 
-  /* FORMATION DISPLAY */
-  .formation-line {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    padding-bottom: 0.5rem;
+  .criteria-label {
+    font-size: 0.9rem;
   }
 
-  .player-position {
-    width: 70px;
-    height: 70px;
-    font-size: 0.55rem;
-  }
-
-  .player-grid .name {
-    font-size: 0.6rem;
-    height: 24px;
-  }
-
-  .flag-image {
-    height: 50px;
-  }
-
-  /* DONATE SECTION */
-  .donate-container {
+  .team-stats {
     padding: 1rem;
   }
 
+  .team-stats h3 {
+    font-size: 1.25rem;
+  }
+
+  .team-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  .team-stat {
+    padding: 0.5rem;
+  }
+
+  .team-stat-value {
+    font-size: 1.25rem;
+  }
+
+  /* Formation Display */
+  .formation-container {
+    padding: 1.25rem 1rem;
+    margin: 1rem 0;
+    border-radius: 16px;
+  }
+
+  .formation-container::before {
+    height: 1px;
+  }
+
+  .formation-container::after {
+    width: 80px;
+    height: 80px;
+    border-width: 1.5px;
+  }
+
+  .formation-display {
+    gap: 1.25rem;
+  }
+
+  .formation-line {
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .player-position {
+    width: 60px;
+    height: 60px;
+    font-size: 0.6rem;
+    padding: 0.25rem;
+    border-radius: 10px;
+  }
+
+  .player-position .name,
+  .player-position .position-label {
+    font-size: 0.55rem;
+  }
+
+  /* Player Card */
+  .player-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1rem;
+    gap: 0.75rem;
+  }
+
+  .player-rank {
+    font-size: 0.9rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+  }
+
+  .player-info-section {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .stats-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .stat-item {
+    padding: 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .rating-badge {
+    font-size: 1.25rem;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    margin-top: 0.5rem;
+  }
+
+  /* Donate */
   .qr-wrapper {
     flex-direction: column;
     gap: 1rem;
   }
 
   .qr-box img {
-    width: 140px;
+    width: 100%;
+    max-width: 200px;
   }
 
-  .qr-box p {
-    font-size: 0.875rem;
+  /* Modal */
+  #builtTeam {
+    width: 90%;
+    padding: 1rem;
+    font-size: 0.95rem;
   }
 
-  /* PLAYER DETAIL MODAL */
-  .player-detail-card {
-    height: 320px;
-  }
-
-  .overall-rating {
-    width: 32px;
-    height: 32px;
-    font-size: 18px;
-  }
-
-  .player-stat-item {
-    width: 50px;
-    font-size: 10px;
-  }
-
-  .player-info-name {
+  .close-btn {
+    width: 24px;
+    height: 24px;
     font-size: 14px;
   }
-
-  .height-foot {
-    top: 75px;
-    width: 32px;
-  }
-
-  .flag-icon {
-    width: 32px;
-  }
-
-  .position {
-    top: 45px;
-    width: 32px;
-    font-size: 10px;
-  }
-
-  /* TEAM STATS */
-  .team-stats-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .team-stat-value {
-    font-size: 1.25rem;
-  }
 }
-
-
 
   </style>
 </head>
