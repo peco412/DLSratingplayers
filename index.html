@@ -2460,7 +2460,21 @@ function createPlayerCard(player, index) {
     ? ['Control', 'Passing', 'Handling (GK)', 'Tackling']
     : ['Control', 'Passing', 'Shooting', 'Tackling'];
 
-  const statRowHTML = group => {
+  const statShortLabels = {
+  'Speed': 'SPE',
+  'Acceleration': 'ACC',
+  'Reactions (GK)': 'GKR',
+  'Strength': 'STR',
+  'Control': 'CON',
+  'Passing': 'PAS',
+  'Handling (GK)': 'GKH',
+  'Tackling': 'TAC',
+  'Stamina': 'STA',
+  'Shooting': 'SHO'
+};
+
+  
+    const statRowHTML = group => {
     const isMobile = window.innerWidth <= 1000;
     return `
       <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-2">
