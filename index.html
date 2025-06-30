@@ -526,16 +526,16 @@
     }
 
     .player-position {
-      width: 80px;
-      height: 80px;
+      width: 120px;
+      height: 120px;
       border-radius: 12px;
       background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(31, 41, 55, 0.8) 100%);
-      border: 3px solid rgba(34, 197, 94, 0.6);
+      border: 3px solid #fff;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      color: white;
+      color: #EEDC82;
       font-weight: 600;
       font-size: 0.7rem;
       text-align: center;
@@ -555,24 +555,52 @@
     }
 
     .player-position.filled {
-      background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-      border-color: #ffffff;
-    }
+  padding: 0;
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
 
-    .player-position .name {
-      font-size: 0.7rem;
-      font-weight: 700;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      white-space: nowrap;
-      width: 100%;
-      text-align: center;
-      padding: 0 0.25rem;
-      line-height: 1.1;
-    }
+.player-grid {
+  display: grid;
+    grid-template-rows: auto auto;
+    height: 100%;
+    width: 100%;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background-color: #000000aa;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+  
+.flag-image {
+    height: 90px;
+    background-size: cover;
+    background-position: center;
+}
+
+.player-grid .name {
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: center;
+  background-color: #EEDC82;
+  color: #000;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  /* Center text vertically & horizontally */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 30px;
+  padding: 0 4px;
+}
 
     .player-position .position-label {
-      font-size: 0.65rem;
+      font-size:1rem;
       font-weight: 600;
       color: rgba(255, 255, 255, 0.8);
       line-height: 1.1;
@@ -696,7 +724,7 @@
   text-align: center;
   font-family: Arial, sans-serif;
   display: none;
-  background: linear-gradient(to bottom, #f5e050, #d2b400);
+  background: linear-gradient(to bottom, #fceabb, #f8b500);
   color: #000;
   overflow: hidden;
 }
@@ -1214,13 +1242,6 @@
 </select>
   </div>
 
-
-          
-          <div class="criteria-item">
-            <label class="criteria-label">💰 Budget (Millions)</label>
-            <input type="number" id="budgetLimit" placeholder="Enter budget..." class="filter-input" />
-          </div>
-          
           <div class="criteria-item">
             <label class="criteria-label">🌍 Country Preference</label>
             <select id="teamCountryFilter" class="filter-select">
@@ -2320,138 +2341,108 @@ ${club ? `<div class="player-info">
     }
   
     function buildTeam() {
-      const priority = document.getElementById('buildPriority').value;
-      const budget = parseFloat(document.getElementById('budgetLimit').value) || Infinity;
-      const preferredCountry = document.getElementById('teamCountryFilter').value;
-      const preferredClub = document.getElementById('teamClubFilter').value;
-      const preferredContinent = document.getElementById('teamContinentFilter').value;
+  const priority = document.getElementById('buildPriority').value;
+  const preferredCountry = document.getElementById('teamCountryFilter').value;
+  const preferredClub = document.getElementById('teamClubFilter').value;
+  const preferredContinent = document.getElementById('teamContinentFilter').value;
 
-      const formation = formations[currentFormation];
-      const team = [];
-      let totalCost = 0;
+  const formation = formations[currentFormation];
+  const team = [];
 
-      console.log('Building team with formation:', currentFormation, formation);
+  console.log('Building team with formation:', currentFormation, formation);
 
-      // Flatten formation structure for easier processing
-      const allPositions = [];
-      formation.lines.forEach(line => {
-        line.positions.forEach(pos => {
-          allPositions.push(pos);
-        });
-      });
+  const allPositions = [];
+  formation.lines.forEach(line => {
+    line.positions.forEach(pos => allPositions.push(pos));
+  });
 
-      console.log('All positions needed:', allPositions);
+  for (const position of allPositions) {
+    let positionPlayers;
 
-      for (const position of allPositions) {
-        let positionPlayers;
-        
-        // Determine which players to search based on priority
- if ([
-  'most-expensive-exact',
-  'cheapest-exact'
-].includes(priority)) {
-  positionPlayers = getPlayersForExactPosition(position, preferredCountry, preferredClub, preferredContinent);
-} else if ([
-  'most-expensive-sub',
-  'cheapest-sub'
-].includes(priority)) {
-  positionPlayers = getPlayersForPosition(position, preferredCountry, preferredClub, preferredContinent);
-} else {
-  positionPlayers = getPlayersForExactPosition(position, preferredCountry, preferredClub, preferredContinent);
-}
-
-        
-switch (priority) {
-  case 'most-expensive-sub':
-  case 'most-expensive-exact':
-    sortedPlayers = positionPlayers.sort((a, b) => parseFloat(b['Price'] || b['Value'] || '0') - parseFloat(a['Price'] || a['Value'] || '0'));
-    break;
-
-  case 'cheapest-sub':
-  case 'cheapest-exact':
-    sortedPlayers = positionPlayers.sort((a, b) => parseFloat(a['Price'] || a['Value'] || '0') - parseFloat(b['Price'] || b['Value'] || '0'));
-    break;
-
-  case 'tallest':
-    sortedPlayers = positionPlayers.sort((a, b) => parseFloat(b['Height (cm)'] || '0') - parseFloat(a['Height (cm)'] || '0'));
-    break;
-
-  case 'shortest':
-    sortedPlayers = positionPlayers.sort((a, b) => parseFloat(a['Height (cm)'] || '0') - parseFloat(b['Height (cm)'] || '0'));
-    break;
-
-case 'right-foot':
-  sortedPlayers = positionPlayers
-    .filter(p => (p['Foot'] || '').toLowerCase().includes('right'))
-    .sort((a, b) => parseFloat(b['Price'] || b['Value'] || '0') - parseFloat(a['Price'] || a['Value'] || '0'));
-  break;
-
-case 'left-foot':
-  sortedPlayers = positionPlayers
-    .filter(p => (p['Foot'] || '').toLowerCase().includes('left'))
-    .sort((a, b) => parseFloat(b['Price'] || b['Value'] || '0') - parseFloat(a['Price'] || a['Value'] || '0'));
-  break;
-
-case 'both-feet':
-  sortedPlayers = positionPlayers
-    .filter(p => (p['Foot'] || '').toLowerCase().includes('both'))
-    .sort((a, b) => parseFloat(b['Price'] || b['Value'] || '0') - parseFloat(a['Price'] || a['Value'] || '0'));
-  break;
-
-  default:
-    sortedPlayers = positionPlayers.sort((a, b) => {
-      const ratingA = parseFloat(a[ratingField] || '0');
-      const ratingB = parseFloat(b[ratingField] || '0');
-      return ratingB - ratingA;
-    });
-}
-
-
-        let selectedPlayer = null;
-        
-        for (const player of sortedPlayers) {
-          const playerCost = parseFloat(player['Price'] || player['Value'] || '0');
-          
-          // Check if player is already selected
-          if (team.some(p => p[Object.keys(player)[0]] === player[Object.keys(player)[0]])) {
-            continue;
-          }
-
-          if (totalCost + playerCost <= budget) {
-            selectedPlayer = { ...player, assignedPosition: position };
-            totalCost += playerCost;
-            break;
-          }
-        }
-
-        if (selectedPlayer) {
-          team.push(selectedPlayer);
-          console.log(`Selected player for ${position}:`, selectedPlayer[Object.keys(selectedPlayer)[0]]);
-        } else {
-          // Fallback: find cheapest available player for this position
-          const cheapestPlayer = sortedPlayers.find(p => 
-            !team.some(tp => tp[Object.keys(p)[0]] === p[Object.keys(p)[0]])
-          );
-          if (cheapestPlayer) {
-            const playerCost = parseFloat(cheapestPlayer['Price'] || cheapestPlayer['Value'] || '0');
-            const fallbackPlayer = { ...cheapestPlayer, assignedPosition: position };
-            team.push(fallbackPlayer);
-            totalCost += playerCost;
-            console.log(`Selected fallback player for ${position}:`, cheapestPlayer[Object.keys(cheapestPlayer)[0]]);
-          } else {
-            console.log(`No player found for position: ${position}`);
-          }
-        }
-      }
-
-      console.log('Final team:', team);
-      console.log('Team positions:', team.map(p => ({ name: p[Object.keys(p)[0]], position: p.assignedPosition })));
-      
-      builtTeam = team;
-      displayBuiltTeam();
-      updateTeamStats();
-      displayFormation();
+    if (['most-expensive-exact', 'cheapest-exact'].includes(priority)) {
+      positionPlayers = getPlayersForExactPosition(position, preferredCountry, preferredClub, preferredContinent);
+    } else if (['most-expensive-sub', 'cheapest-sub'].includes(priority)) {
+      positionPlayers = getPlayersForPosition(position, preferredCountry, preferredClub, preferredContinent);
+    } else {
+      positionPlayers = getPlayersForExactPosition(position, preferredCountry, preferredClub, preferredContinent);
     }
+
+    let sortedPlayers = [];
+
+    switch (priority) {
+      case 'most-expensive-sub':
+      case 'most-expensive-exact':
+        sortedPlayers = positionPlayers.sort((a, b) => parseFloat(b['Price'] || b['Value'] || '0') - parseFloat(a['Price'] || a['Value'] || '0'));
+        break;
+      case 'cheapest-sub':
+      case 'cheapest-exact':
+        sortedPlayers = positionPlayers.sort((a, b) => parseFloat(a['Price'] || a['Value'] || '0') - parseFloat(b['Price'] || b['Value'] || '0'));
+        break;
+      case 'tallest':
+        sortedPlayers = positionPlayers.sort((a, b) => parseFloat(b['Height (cm)'] || '0') - parseFloat(a['Height (cm)'] || '0'));
+        break;
+      case 'shortest':
+        sortedPlayers = positionPlayers.sort((a, b) => parseFloat(a['Height (cm)'] || '0') - parseFloat(b['Height (cm)'] || '0'));
+        break;
+      case 'right-foot':
+        sortedPlayers = positionPlayers
+          .filter(p => (p['Foot'] || '').toLowerCase().includes('right'))
+          .sort((a, b) => parseFloat(b['Price'] || b['Value'] || '0') - parseFloat(a['Price'] || a['Value'] || '0'));
+        break;
+      case 'left-foot':
+        sortedPlayers = positionPlayers
+          .filter(p => (p['Foot'] || '').toLowerCase().includes('left'))
+          .sort((a, b) => parseFloat(b['Price'] || b['Value'] || '0') - parseFloat(a['Price'] || a['Value'] || '0'));
+        break;
+      case 'both-feet':
+        sortedPlayers = positionPlayers
+          .filter(p => (p['Foot'] || '').toLowerCase().includes('both'))
+          .sort((a, b) => parseFloat(b['Price'] || b['Value'] || '0') - parseFloat(a['Price'] || a['Value'] || '0'));
+        break;
+      default:
+        sortedPlayers = positionPlayers.sort((a, b) => {
+          const ratingA = parseFloat(a[ratingField] || '0');
+          const ratingB = parseFloat(b[ratingField] || '0');
+          return ratingB - ratingA;
+        });
+    }
+
+    const selectedPlayer = sortedPlayers.find(player =>
+      !team.some(p => p[Object.keys(player)[0]] === player[Object.keys(player)[0]])
+    );
+
+    if (selectedPlayer) {
+      team.push({ ...selectedPlayer, assignedPosition: position });
+      console.log(`✅ Selected ${selectedPlayer[Object.keys(selectedPlayer)[0]]} for ${position}`);
+    } else {
+      console.warn(`⚠️ No player found for position: ${position}`);
+    }
+  }
+
+  builtTeam = team;
+  displayBuiltTeam();
+  updateTeamStats();
+  displayFormation();
+}
+
+
+function getFlagURL(countryName) {
+  if (!countryName) return 'https://flagcdn.com/w160/un.png';
+  const normalized = countryName.trim().toLowerCase();
+
+  // Kiểm tra trong countryMap
+  const rawUrl = countryMap[normalized];
+
+  // Nếu không có thì fallback
+  if (!rawUrl) return 'https://flagcdn.com/w160/un.png';
+
+  // Nếu là link từ Wikipedia (ví dụ England, Wales, etc), giữ nguyên
+  if (rawUrl.includes('upload.wikimedia.org')) return rawUrl;
+
+  // Nếu là link từ flagcdn w40 → đổi thành w160
+  return rawUrl.replace('/w40/', '/w160/');
+}
+
 
 function displayFormation() {
   formationDisplay.classList.remove('hidden');
@@ -2459,59 +2450,64 @@ function displayFormation() {
   document.getElementById('currentFormationTitle').textContent = currentFormation;
 
   const formation = formations[currentFormation];
-  
   const positionCounter = {};
-  
-  formation.lines.forEach((line, lineIndex) => {
+
+  formation.lines.forEach(line => {
     const formationLine = document.createElement('div');
     formationLine.className = `formation-line ${line.line}`;
-    
-    line.positions.forEach((position, posIndex) => {
+
+    line.positions.forEach(position => {
       if (!positionCounter[position]) {
         positionCounter[position] = 0;
       }
-      
+
       const playersInPosition = builtTeam.filter(p => p.assignedPosition === position);
       const player = playersInPosition[positionCounter[position]];
       positionCounter[position]++;
-      
+
       const playerPos = document.createElement('div');
       playerPos.className = `player-position ${player ? 'filled' : ''}`;
-      
+
       if (player) {
         const name = player[Object.keys(player)[0]] || 'Unknown';
-        const shortName = name.length > 8 ? 
-          (name.split(' ').length > 1 ? name.split(' ').pop() : name.substring(0, 8)) : 
-          name;
-        
+        const shortName = name.length > 8
+          ? (name.split(' ').length > 1 ? name.split(' ').pop() : name.substring(0, 8))
+          : name;
+
+        const country = player['Country'] || player['Nationality'] || '';
+        const flagUrl = getFlagURL(country);
+
         playerPos.innerHTML = `
-          <div class="name">${shortName}</div>
-        `;
+  <div class="player-grid">
+    <div class="flag-image" style="background-image: url('${flagUrl}')"></div>
+    <div class="name">${shortName}</div>
+  </div>
+`;
+
         playerPos.addEventListener('click', () => {
           displayPlayerDetails(player);
           document.querySelectorAll('.player-position').forEach(p => p.classList.remove('selected'));
           playerPos.classList.add('selected');
         });
-        
+
         console.log(`Hiển thị ${name} (${shortName}) tại vị trí ${position} (lần xuất hiện ${positionCounter[position]-1})`);
       } else {
-        playerPos.innerHTML = `
-          <div class="position-label">${position}</div>
-        `;
+        playerPos.innerHTML = `<div class="position-label">${position}</div>`;
         console.log(`Vị trí trống: ${position} (lần xuất hiện ${positionCounter[position]-1})`);
       }
-      
+
       formationLine.appendChild(playerPos);
     });
-    
+
     formationField.appendChild(formationLine);
   });
-  
-  console.log('Hoàn tất hiển thị đội hình. Đội đã xây:', builtTeam.map(p => ({ 
-    name: p[Object.keys(p)[0]], 
-    position: p.assignedPosition 
+
+  console.log('Hoàn tất hiển thị đội hình. Đội đã xây:', builtTeam.map(p => ({
+    name: p[Object.keys(p)[0]],
+    position: p.assignedPosition
   })));
 }
+
 
 function displayPlayerDetails(player) {
   builtTeamDiv.innerHTML = '';
