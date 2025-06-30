@@ -913,56 +913,6 @@
   z-index: 3; /* Z-index cho vị trí */
 }
 
-.contribution-form-container {
-  background-color: #0f1419;
-  border: 1px solid #222;
-  border-radius: 1rem;
-  padding: 1rem;
-  margin-top: 2rem;
-  box-shadow: 0 0 8px rgba(0, 255, 128, 0.1);
-  color: #000;
-}
-
-.form-title {
-  font-size: 1.25rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-  text-align: center;
-  color: #00ffaa;
-}
-
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1rem;
-}
-
-.form-grid input {
-  background-color: #fff !important;
-  color: #000 !important;
-}
-
-.form-grid input:focus {
-  border-color: #00ffaa;
-  outline: none;
-}
-
-.form-submit-btn {
-  grid-column: span 2;
-  padding: 0.75rem;
-  background-color: #00ffaa;
-  color: #000;
-  border: none;
-  font-weight: bold;
-  border-radius: 0.75rem;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.form-submit-btn:hover {
-  background-color: #00dd88;
-}
-
 
     /* Responsive Design */
 /* Responsive Design - Mobile First */
@@ -1067,8 +1017,8 @@
   }
 
   .player-position {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     font-size: 0.6rem;
     padding: 0.25rem;
     border-radius: 10px;
@@ -1078,6 +1028,27 @@
   .player-position .position-label {
     font-size: 0.55rem;
   }
+
+.flag-image {
+    height: 40px;
+    background-size: cover;
+    background-position: center;
+}
+
+.player-grid .name {
+    font-weight: 700;
+    text-align: center;
+    background-color: #EEDC82;
+    color: #000;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1px;
+    height: 10px;
+}
 
   /* Player Card */
   .player-card {
@@ -1392,35 +1363,6 @@
       </div>
     </div>
   </div>
-  <div id="contribute-form" class="bg-gray-900 text-white p-4 rounded-xl shadow-lg max-w-3xl mx-auto my-6">
-    <h2 class="text-xl font-bold mb-4 text-yellow-400">Đóng góp cầu thủ mới</h2>
-    <form id="playerContributionForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <input type="text" name="Name" placeholder="Tên cầu thủ" required class="input-field">
-      <input type="text" name="Price" placeholder="Giá (triệu)" required class="input-field">
-      <input type="text" name="Nationality" placeholder="Quốc tịch" required class="input-field">
-      <input type="text" name="Club" placeholder="Câu lạc bộ" class="input-field">
-      <input type="text" name="Position" placeholder="Vị trí (e.g., GK, ST)" required class="input-field">
-      <input type="text" name="Foot" placeholder="Chân thuận (left/right/both)" class="input-field">
-      <input type="number" name="Rating" placeholder="Rating" class="input-field">
-      <input type="number" name="Height (cm)" placeholder="Chiều cao (cm)" class="input-field">
-      <input type="number" name="Speed" placeholder="Speed" class="input-field">
-      <input type="number" name="Acceleration" placeholder="Acceleration" class="input-field">
-      <input type="number" name="Stamina" placeholder="Stamina" class="input-field">
-      <input type="number" name="Strength" placeholder="Strength" class="input-field">
-      <input type="number" name="Control" placeholder="Control" class="input-field">
-      <input type="number" name="Passing" placeholder="Passing" class="input-field">
-      <input type="number" name="Shooting" placeholder="Shooting" class="input-field">
-      <input type="number" name="Tackling" placeholder="Tackling" class="input-field">
-      <input type="number" name="Reactions (GK)" placeholder="GK Reactions" class="input-field">
-      <input type="number" name="Handling (GK)" placeholder="GK Handling" class="input-field">
-  
-      <div class="md:col-span-2 text-center mt-2">
-        <button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-xl">
-          Gửi đóng góp
-        </button>
-      </div>
-    </form>
-  </div>
 </div>
   </div>
 
@@ -1429,6 +1371,15 @@
     const apiKey = "AIzaSyCI6bXgK-_l0bU1F0bJaYH-idxAuNQW1YM";
     const range = "players!A1:Z1000";
     const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`;
+    // Đầu file JavaScript (ví dụ: player_popup_normalized.js)
+const script = document.createElement('script');
+script.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js';
+document.head.appendChild(script);
+
+// Đảm bảo Chart.js được tải trước khi gọi hàm vẽ biểu đồ
+script.onload = () => {
+  // Các hàm khác như createPlayerCard, showPlayerPopup, v.v.
+};
   
     let allPlayers = [];
     let filteredPlayers = [];
@@ -2306,9 +2257,176 @@ const matchesClub = (player['Club'] || '').toLowerCase().includes(selectedClub);
       });
     }
   
+// Hàm chuẩn hóa chỉ số về thang 100
+function normalizeStat(value) {
+  const num = parseFloat(value) || 0;
+  return Math.min(Math.max(num, 0), 100); // Đảm bảo giá trị trong khoảng 0-100
+}
+
+function createOctagonChart(ctx, labels, playerData, avgData, isGoalkeeper) {
+  if (!window.Chart) {
+    console.error('Chart.js chưa được tải.');
+    return;
+  }
+  new Chart(ctx, {
+    type: 'radar',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Player Stats',
+          data: playerData,
+          fill: true,
+          backgroundColor: 'rgba(54, 162, 235, 0.2)',
+          borderColor: 'rgb(54, 162, 235)',
+          pointBackgroundColor: 'rgb(54, 162, 235)',
+          pointBorderColor: '#fff',
+          pointHoverBackgroundColor: '#fff',
+          pointHoverBorderColor: 'rgb(54, 162, 235)'
+        },
+        {
+          label: 'Average for Position',
+          data: avgData,
+          fill: false,
+          borderColor: 'rgba(255, 99, 132, 0.8)',
+          borderDash: [5, 5],
+          pointBackgroundColor: 'rgba(255, 99, 132, 0.8)',
+          pointBorderColor: '#fff',
+          pointHoverBackgroundColor: '#fff',
+          pointHoverBorderColor: 'rgba(255, 99, 132, 0.8)'
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      scales: {
+        r: {
+          angleLines: { display: true },
+          suggestedMin: 0,
+          suggestedMax: 100,
+          ticks: { stepSize: 20 }
+        }
+      },
+      plugins: {
+        legend: {
+          display: true,
+          position: 'top',
+          labels: {
+            font: { size: 12 },
+            color: '#333'
+          }
+        }
+      }
+    }
+  });
+}
+
+function calculateAverageStats(players, position, statGroup) {
+  const playersInPosition = players.filter(player => 
+    (player['Position'] || player['Pos'] || '').toUpperCase() === position.toUpperCase()
+  );
+  
+  if (playersInPosition.length === 0) {
+    return statGroup.map(() => 0);
+  }
+
+  const averages = statGroup.map(stat => {
+    const sum = playersInPosition.reduce((acc, player) => {
+      return acc + normalizeStat(player[stat] || 0);
+    }, 0);
+    return normalizeStat((sum / playersInPosition.length).toFixed(1));
+  });
+
+  return averages;
+}
+
+function showPlayerPopup(player, isGoalkeeper, allPlayers) {
+  const statShortLabels = {
+    'Speed': 'SPE',
+    'Acceleration': 'ACC',
+    'Reactions (GK)': 'GKR',
+    'Strength': 'STR',
+    'Control': 'CON',
+    'Passing': 'PAS',
+    'Handling (GK)': 'GKH',
+    'Tackling': 'TAC',
+    'Stamina': 'STA',
+    'Shooting': 'SHO'
+  };
+
+  const statGroup = isGoalkeeper
+    ? ['Speed', 'Acceleration', 'Reactions (GK)', 'Strength', 'Control', 'Passing', 'Handling (GK)', 'Tackling']
+    : ['Speed', 'Acceleration', 'Stamina', 'Strength', 'Control', 'Passing', 'Shooting', 'Tackling'];
+
+  const isMobile = window.innerWidth <= 768;
+  const labels = statGroup.map(stat => isMobile ? (statShortLabels[stat] || stat) : stat.replace('(GK)', '').trim());
+  const playerData = statGroup.map(stat => normalizeStat(player[stat]));
+  const position = player['Position'] || player['Pos'] || '';
+  const avgData = calculateAverageStats(allPlayers, position, statGroup);
+
+  // Lấy danh hiệu từ cột Honours
+  const honours = player['Honours'] || 'Chưa có danh hiệu';
+const honoursList = (honours || '')
+  .split(/\n|•|- |, (?=[A-Z])/)  // Tách theo xuống dòng, bullet, dấu gạch, hoặc phẩy + chữ hoa
+  .map(h => h.trim())
+  .filter(h => h.length > 3);
+
+// Render tối đa 20 dòng danh hiệu
+const honoursHTML = honoursList.length
+  ? `<ul class="list-disc pl-5 text-gray-600">
+      ${honoursList.slice(0, 20).map(honour => `<li class="py-1">${honour}</li>`).join('')}
+     </ul>`
+  : `<p class="text-gray-500 italic">Chưa có danh hiệu</p>`;
+
+
+  const popup = document.createElement('div');
+  popup.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+  popup.id = 'playerPopup';
+  popup.innerHTML = `
+    <div class="bg-white rounded-lg p-6 w-full max-w-3xl mx-4 max-h-[90vh] overflow-y-auto player-popup">
+      <div class="flex justify-between items-center mb-4">
+<h2 class="text-xl font-bold text-gray-800">${player['Name'] || player['Player Name'] || 'Unknown Player'}</h2>
+        <button id="closePopup" class="text-gray-500 hover:text-gray-700 text-2xl font-bold">&times;</button>
+      </div>
+      <div class="flex flex-col md:flex-row gap-4">
+        <!-- Bên trái: Biểu đồ bát giác -->
+        <div class="w-full md:w-1/2 bg-gray-50 p-4 rounded-lg">
+          <canvas id="octagonChart" width="400" height="400"></canvas>
+        </div>
+        <!-- Bên phải: Danh hiệu -->
+        <div class="w-full md:w-1/2">
+          <h3 class="text-lg font-semibold mb-2 text-gray-700">Danh Hiệu</h3>
+          ${honoursList.length > 0 ? `
+            <ul class="list-disc pl-5 text-gray-600">
+              ${honoursList.map(honour => `<li class="py-1">${honour}</li>`).join('')}
+            </ul>
+          ` : `
+            <p class="text-gray-500 italic">Chưa có danh hiệu</p>
+          `}
+        </div>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(popup);
+
+  const ctx = document.getElementById('octagonChart').getContext('2d');
+  createOctagonChart(ctx, labels, playerData, avgData, isGoalkeeper);
+
+  document.getElementById('closePopup').addEventListener('click', () => {
+    popup.remove();
+  });
+
+  popup.addEventListener('click', (e) => {
+    if (e.target === popup) popup.remove();
+  });
+}
+
+// Hàm tạo thẻ cầu thủ với sự kiện nhấp để mở pop-up
 function createPlayerCard(player, index) {
   const card = document.createElement('div');
-  card.className = 'player-card fade-in';
+  card.className = 'player-card fade-in cursor-pointer';
   card.style.animationDelay = `${index * 0.05}s`;
 
   const headers = Object.keys(player);
@@ -2316,7 +2434,7 @@ function createPlayerCard(player, index) {
   const ratingField = getRatingField();
 
   const name = player[nameField] || 'Unknown Player';
-  const rating = player[ratingField] || '0';
+  const rating = normalizeStat(player[ratingField] || '0');
   const numRating = parseFloat(rating);
   const country = player['Nationality'] || player['Country'] || '';
   const flagUrl = countryMap[country.toLowerCase()] || 'https://via.placeholder.com/16/000000/FFFFFF?text=?';
@@ -2342,85 +2460,67 @@ function createPlayerCard(player, index) {
     ? ['Control', 'Passing', 'Handling (GK)', 'Tackling']
     : ['Control', 'Passing', 'Shooting', 'Tackling'];
 
-  // ✅ Thêm bảng viết tắt
-  const statShortLabels = {
-    'Speed': 'SPE',
-    'Acceleration': 'ACC',
-    'Reactions (GK)': 'GKR',
-    'Strength': 'STR',
-    'Control': 'CON',
-    'Passing': 'PAS',
-    'Handling (GK)': 'GKH',
-    'Tackling': 'TAC',
-    'Stamina': 'STA',
-    'Shooting': 'SHO'
+  const statRowHTML = group => {
+    const isMobile = window.innerWidth <= 768;
+    return `
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-2">
+        ${group.map(stat => {
+          const value = normalizeStat(player[stat] || '0');
+          const isGKStat = stat.toLowerCase().includes('gk');
+          const label = isMobile ? (statLabels[stat] || stat) : stat;
+
+          let colorClass = '';
+          if (value >= 90) colorClass = 'text-blue-500';
+          else if (value >= 80) colorClass = 'text-green-500';
+          else if (value >= 70) colorClass = 'text-yellow-400';
+          else if (value >= 60) colorClass = 'text-yellow-200';
+          else colorClass = 'text-red-500';
+
+          return `
+            <div class="stat-item ${isGKStat ? 'gk-stats' : ''}">
+              <span class="stat-name">${label.replace('(GK)', '').trim()}</span>
+              <span class="stat-value ${colorClass}">${value}</span>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    `;
   };
 
-  // ✅ Cập nhật statRowHTML để hỗ trợ mobile
-  const statRowHTML = group => {
-  const isMobile = window.innerWidth <= 768;
-  return `
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-2">
-      ${group.map(stat => {
-        const value = parseFloat(player[stat] || '0');
-        const isGKStat = stat.toLowerCase().includes('gk');
-        const label = isMobile ? (statShortLabels[stat] || stat) : stat;
-
-        let colorClass = '';
-        if (value >= 90) colorClass = 'text-blue-500';
-        else if (value >= 80) colorClass = 'text-green-500';
-        else if (value >= 70) colorClass = 'text-yellow-400';
-        else if (value >= 60) colorClass = 'text-yellow-200';
-        else colorClass = 'text-red-500';
-
-        return `
-          <div class="stat-item ${isGKStat ? 'gk-stats' : ''}">
-            <span class="stat-name">${label.replace('(GK)', '').trim()}</span>
-            <span class="stat-value ${colorClass}">${value}</span>
-          </div>
-        `;
-      }).join('')}
+  card.innerHTML = `
+    <div class="player-rank ${getRankClass(rank)}">#${rank}</div>
+    <div class="player-info-section">
+      <div class="player-name">${name}</div>
+      <div class="player-details">
+        ${position ? `<div class="player-info">📍 ${position}</div>` : ''}
+        ${country ? `<div class="player-info">
+          <img src="${flagUrl}" alt="${country} Flag" class="flag-icon" style="width:16px;height:12px;margin-right:4px;vertical-align:middle;" onerror="this.src='https://via.placeholder.com/16/000000/FFFFFF?text=?'">
+          ${country}
+        </div>` : ''}
+        ${club ? `<div class="player-info">
+          <img src="${clubLogoUrl}" alt="${club} Logo" style="width:16px;height:16px;margin-right:4px;vertical-align:middle;" onerror="this.src='https://via.placeholder.com/16?text=?'">
+          ${club}
+        </div>` : ''}
+      </div>
+    </div>
+    <div class="stats-container">
+      ${statRowHTML(statGroup1)}
+      ${statRowHTML(statGroup2)}
+    </div>
+    <div class="flex flex-col items-center">
+      <div class="rating-badge ${ratingClass}">
+        ${rating}
+      </div>
+      ${price ? `<div class="player-info price">💰 ${price}${price.includes('M') ? '' : 'M'}</div>` : ''}
     </div>
   `;
-};
 
+  card.addEventListener('click', () => {
+    showPlayerPopup(player, isGoalkeeper, allPlayers);
+  });
 
-
-      card.innerHTML = `
-        <div class="player-rank ${getRankClass(rank)}">#${rank}</div>
-
-        <div class="player-info-section">
-          <div class="player-name">${name}</div>
-          <div class="player-details">
-            ${position ? `<div class="player-info">📍 ${position}</div>` : ''}
-            ${country ? `<div class="player-info">
-  <img src="${flagUrl}" alt="${country} Flag" class="flag-icon" style="width:16px;height:12px;margin-right:4px;vertical-align:middle;" onerror="this.src='https://via.placeholder.com/16/000000/FFFFFF?text=?'">
-  ${country}
-</div>` : ''}
-
-${club ? `<div class="player-info">
-  <img src="${clubLogoUrl}" alt="${club} Logo" style="width:16px;height:16px;margin-right:4px;vertical-align:middle;" onerror="this.src='https://via.placeholder.com/16?text=?'">
-  ${club}
-</div>` : ''}
-
-          </div>
-        </div>
-
-        <div class="stats-container">
-          ${statRowHTML(statGroup1)}
-          ${statRowHTML(statGroup2)}
-        </div>
-        
-        <div class="flex flex-col items-center">
-          <div class="rating-badge ${ratingClass}">
-            ${rating}
-          </div>
-           ${price ? `<div class="player-info price">💰 ${price}${price.includes('M') ? '' : 'M'}</div>` : ''}
-        </div>
-      `;
-
-      return card;
-    }
+  return card;
+}
   
     function buildTeam() {
   const priority = document.getElementById('buildPriority').value;
@@ -2874,59 +2974,6 @@ function displayBuiltTeam() {
       playersGrid.classList.add('hidden');
     }
 
-    document.getElementById('playerContributionForm').addEventListener('submit', function (e) {
-  e.preventDefault();
-
-  const formData = new FormData(this);
-  const playerData = {};
-  formData.forEach((value, key) => {
-    playerData[key] = value;
-  });
-
-  fetch('https://script.google.com/macros/s/PASTE_YOUR_DEPLOYED_URL_HERE/exec', {
-    method: 'POST',
-    body: JSON.stringify(playerData),
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-  .then(response => response.json())
-  .then(data => {
-    alert('Cảm ơn bạn đã đóng góp cầu thủ!');
-    document.getElementById('playerContributionForm').reset();
-  })
-  .catch(error => {
-    alert('Gửi thất bại, vui lòng thử lại sau!');
-    console.error(error);
-  });
-});
-
-document.getElementById('playerContributionForm').addEventListener('submit', function (e) {
-  e.preventDefault();
-
-  const formData = new FormData(this);
-  const playerData = {};
-  formData.forEach((value, key) => {
-    playerData[key] = value;
-  });
-
-  fetch('https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbyv4tUloJaDnqkrPPmB9f6KfmqrncYFEW9c2Ntj7vOLV9BascEKXc019fhE4NYkDyAO/exec/exec', {
-    method: 'POST',
-    body: JSON.stringify(playerData),
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-  .then(response => response.json())
-  .then(data => {
-    alert('Cảm ơn bạn đã đóng góp cầu thủ!');
-    document.getElementById('playerContributionForm').reset();
-  })
-  .catch(error => {
-    alert('Gửi thất bại, vui lòng thử lại sau!');
-    console.error(error);
-  });
-});
 
   
     // Event listeners
