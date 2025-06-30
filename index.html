@@ -2461,13 +2461,13 @@ function createPlayerCard(player, index) {
     : ['Control', 'Passing', 'Shooting', 'Tackling'];
 
   const statRowHTML = group => {
-    const isMobile = window.innerWidth <= 768;
+    const isMobile = window.innerWidth <= 1000;
     return `
       <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-2">
         ${group.map(stat => {
           const value = normalizeStat(player[stat] || '0');
           const isGKStat = stat.toLowerCase().includes('gk');
-          const label = isMobile ? (statLabels[stat] || stat) : stat;
+          const label = isMobile ? (statShortLabels[stat] || stat) : stat;
 
           let colorClass = '';
           if (value >= 90) colorClass = 'text-blue-500';
@@ -2486,6 +2486,7 @@ function createPlayerCard(player, index) {
       </div>
     `;
   };
+
 
   card.innerHTML = `
     <div class="player-rank ${getRankClass(rank)}">#${rank}</div>
