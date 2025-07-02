@@ -3238,7 +3238,7 @@
                           </div>
                       </div>
 
-<div class="player-range-group" id="attrGroup1">
+<div class="player-range-group">
   <label id="attrLabel1" for="attrInput1">Stamina</label>
   <div class="player-range-container">
     <input type="range" id="attrInput1" name="stamina" class="player-range-input" min="1" max="100" value="50">
@@ -3270,14 +3270,13 @@
                           </div>
                       </div>
 
-<div class="player-range-group" id="attrGroup2">
+<div class="player-range-group">
   <label id="attrLabel2" for="attrInput2">Shooting</label>
   <div class="player-range-container">
     <input type="range" id="attrInput2" name="shooting" class="player-range-input" min="1" max="100" value="50">
     <div class="player-range-value" id="attrValue2">50</div>
   </div>
 </div>
-
                       <div class="player-range-group">
                           <label for="tackling">Tackling</label>
                           <div class="player-range-container">
@@ -4934,11 +4933,10 @@ const value1 = document.getElementById('attrValue1');
 
 label1.textContent = isGK ? 'Reactions (GK)' : 'Stamina';
 input1.name = isGK ? 'reactions' : 'stamina';
-input1.id = isGK ? 'reactions' : 'stamina';
-value1.id = isGK ? 'reactionsValue' : 'staminaValue';
+// KHÔNG thay đổi input1.id
 
-// Gán hoặc gỡ class màu xanh dương cho GK
-value1.classList.toggle('gk-value', isGK);
+value1.className = isGK ? 'player-range-value gk-value' : 'player-range-value';
+// KHÔNG thay đổi value1.id
 
 // Cặp shooting <-> handling
 const input2 = document.getElementById('attrInput2');
@@ -4947,11 +4945,11 @@ const value2 = document.getElementById('attrValue2');
 
 label2.textContent = isGK ? 'Handling (GK)' : 'Shooting';
 input2.name = isGK ? 'handling' : 'shooting';
-input2.id = isGK ? 'handling' : 'shooting';
-value2.id = isGK ? 'handlingValue' : 'shootingValue';
+// KHÔNG thay đổi input2.id
 
-// Gán hoặc gỡ class màu xanh dương cho GK
-value2.classList.toggle('gk-value', isGK)});
+value2.className = isGK ? 'player-range-value gk-value' : 'player-range-value';
+// KHÔNG thay đổi value2.id
+});
     
     const donateTab = document.getElementById('donateTab');
     if (donateTab) {
@@ -4961,20 +4959,21 @@ value2.classList.toggle('gk-value', isGK)});
     const rangeInputs = document.querySelectorAll('.player-range-input');
     console.log('Found range inputs:', rangeInputs.length);
     
-    rangeInputs.forEach(input => {
-        const valueDisplay = document.getElementById(input.id + 'Value');
-        
-        input.addEventListener('input', function() {
-            if (valueDisplay) {
-                valueDisplay.textContent = this.value;
-            }
-            console.log(`Range ${input.id} changed to:`, this.value);
-        });
-        
+rangeInputs.forEach(input => {
+    const valueDisplay = input.parentElement.querySelector('.player-range-value');
+    
+    input.addEventListener('input', function() {
         if (valueDisplay) {
-            valueDisplay.textContent = input.value;
+            valueDisplay.textContent = this.value;
         }
+        console.log(`Range ${input.id} changed to:`, this.value);
     });
+
+    if (valueDisplay) {
+        valueDisplay.textContent = input.value;
+    }
+});
+
 
     const allInputs = document.querySelectorAll('.player-form-input, .player-form-select, .player-range-input');
     console.log('Found all inputs:', allInputs.length);
