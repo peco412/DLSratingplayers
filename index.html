@@ -104,6 +104,8 @@
       cursor: pointer;
       transition: all 0.3s ease;
       font-weight: 600;
+      width: 230px;
+      text-align: center;
     }
 
     .nav-tab.active {
@@ -1265,6 +1267,15 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        .gk-value {
+  color: #3b82f6;
+  font-weight: 600;
+  border: 1px solid #3b82f6;
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: #3b82f6;
+}
+
 
 /* Responsive cho mobile (<1000px) */
 @media only screen and (max-width: 1000px) {
@@ -1715,7 +1726,7 @@
   .player-form-header p {
     font-size: 0.9rem;
   }
-}
+
 
 /* Giữ nguyên các style gốc không bị ghi đè */
 .hero-section {
@@ -2891,6 +2902,7 @@
     transform: translateX(0);
     opacity: 1;
   }
+  }
 }
 
   </style>
@@ -2914,7 +2926,7 @@
     ⚽ Team Builder
   </div>
   <div class="nav-tab" onclick="switchTab('donate', this)">
-    💖 Donate
+    💖 Input Form
   </div>
 </div>
 
@@ -3141,7 +3153,7 @@
       </div>
       <div class="player-form-container fade-in">
           <div class="player-form-header">
-              <h1>⚽ PLAYER INFORMATION</h1>
+              <h1>⚽ Data contribution form</h1>
               <p>Enter complete information to create player profile</p>
           </div>
 
@@ -3153,7 +3165,7 @@
                   </div>
 
                   <div class="player-form-group">
-                      <label for="price">Price (€)</label>
+                      <label for="price">Price</label>
                       <input type="number" id="price" name="price" class="player-form-input" min="0">
                   </div>
 
@@ -3227,13 +3239,13 @@
                           </div>
                       </div>
 
-                      <div class="player-range-group">
-                          <label for="stamina">Stamina</label>
-                          <div class="player-range-container">
-                              <input type="range" id="stamina" name="stamina" class="player-range-input" min="1" max="100" value="50">
-                              <div class="player-range-value" id="staminaValue">50</div>
-                          </div>
-                      </div>
+<div class="player-range-group" id="attrGroup1">
+  <label id="attrLabel1" for="attrInput1">Stamina</label>
+  <div class="player-range-container">
+    <input type="range" id="attrInput1" name="stamina" class="player-range-input" min="1" max="100" value="50">
+    <div class="player-range-value" id="attrValue1">50</div>
+  </div>
+</div>
 
                       <div class="player-range-group">
                           <label for="strength">Strength</label>
@@ -3259,40 +3271,19 @@
                           </div>
                       </div>
 
-                      <div class="player-range-group">
-                          <label for="shooting">Shooting</label>
-                          <div class="player-range-container">
-                              <input type="range" id="shooting" name="shooting" class="player-range-input" min="1" max="100" value="50">
-                              <div class="player-range-value" id="shootingValue">50</div>
-                          </div>
-                      </div>
+<div class="player-range-group" id="attrGroup2">
+  <label id="attrLabel2" for="attrInput2">Shooting</label>
+  <div class="player-range-container">
+    <input type="range" id="attrInput2" name="shooting" class="player-range-input" min="1" max="100" value="50">
+    <div class="player-range-value" id="attrValue2">50</div>
+  </div>
+</div>
 
                       <div class="player-range-group">
                           <label for="tackling">Tackling</label>
                           <div class="player-range-container">
                               <input type="range" id="tackling" name="tackling" class="player-range-input" min="1" max="100" value="50">
                               <div class="player-range-value" id="tacklingValue">50</div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-
-              <div class="player-stats-section player-gk-section">
-                  <h3>🥅 Goalkeeper Attributes</h3>
-                  <div class="player-stats-grid">
-                      <div class="player-range-group">
-                          <label for="reactions">Reactions (GK)</label>
-                          <div class="player-range-container">
-                              <input type="range" id="reactions" name="reactions" class="player-range-input" min="1" max="100" value="50">
-                              <div class="player-range-value" id="reactionsValue">50</div>
-                          </div>
-                      </div>
-
-                      <div class="player-range-group">
-                          <label for="handling">Handling (GK)</label>
-                          <div class="player-range-container">
-                              <input type="range" id="handling" name="handling" class="player-range-input" min="1" max="100" value="50">
-                              <div class="player-range-value" id="handlingValue">50</div>
                           </div>
                       </div>
                   </div>
@@ -4934,6 +4925,34 @@ function displayBuiltTeam() {
 
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Page loaded, initializing form...');
+document.getElementById('position').addEventListener('change', function () {
+  const isGK = this.value === 'GK';
+
+// Cặp stamina <-> reactions
+const input1 = document.getElementById('attrInput1');
+const label1 = document.getElementById('attrLabel1');
+const value1 = document.getElementById('attrValue1');
+
+label1.textContent = isGK ? 'Reactions (GK)' : 'Stamina';
+input1.name = isGK ? 'reactions' : 'stamina';
+input1.id = isGK ? 'reactions' : 'stamina';
+value1.id = isGK ? 'reactionsValue' : 'staminaValue';
+
+// Gán hoặc gỡ class màu xanh dương cho GK
+value1.classList.toggle('gk-value', isGK);
+
+// Cặp shooting <-> handling
+const input2 = document.getElementById('attrInput2');
+const label2 = document.getElementById('attrLabel2');
+const value2 = document.getElementById('attrValue2');
+
+label2.textContent = isGK ? 'Handling (GK)' : 'Shooting';
+input2.name = isGK ? 'handling' : 'shooting';
+input2.id = isGK ? 'handling' : 'shooting';
+value2.id = isGK ? 'handlingValue' : 'shootingValue';
+
+// Gán hoặc gỡ class màu xanh dương cho GK
+value2.classList.toggle('gk-value', isGK)});
     
     const donateTab = document.getElementById('donateTab');
     if (donateTab) {
@@ -5162,6 +5181,18 @@ function debugFormData() {
     return data;
 }
     
+    document.getElementById('position').addEventListener('change', function () {
+  const isGK = this.value === 'GK';
+
+  // Thủ môn
+  document.getElementById('reactionsGroup').style.display = isGK ? 'block' : 'none';
+  document.getElementById('handlingGroup').style.display = isGK ? 'block' : 'none';
+
+  // Cầu thủ thường
+  document.getElementById('staminaGroup').style.display = isGK ? 'none' : 'block';
+  document.getElementById('shootingGroup').style.display = isGK ? 'none' : 'block';
+});
+
   
     // Event listeners
     searchInput.addEventListener('input', applyFilters);
