@@ -914,6 +914,356 @@
   z-index: 3; /* Z-index cho vị trí */
 }
 
+        /* Form Container Styles */
+        .player-form-container {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 1000px;
+        }
+
+        .player-form-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .player-form-header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #22c55e, #10b981, #059669);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .player-form-header p {
+            font-size: 1.1rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.65);
+        }
+
+        /* Form Grid */
+        .player-form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .player-form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .player-form-group label {
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+        }
+
+        .player-form-input, .player-form-select {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 12px;
+            padding: 0.75rem 1rem;
+            color: white;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            font-size: 1rem;
+            width: 100%;
+            outline: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        .player-form-input:focus, .player-form-select:focus {
+            outline: none;
+            border-color: #22c55e;
+            box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .player-form-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .player-form-input::-webkit-input-placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .player-form-input::-moz-placeholder {
+            color: rgba(255, 255, 255, 0.5);
+            opacity: 1;
+        }
+
+        .player-form-select option {
+            background: #1a1a1a;
+            color: white;
+        }
+
+        /* Stats Section */
+        .player-stats-section {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .player-stats-section h3 {
+            color: #22c55e;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .player-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .player-range-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .player-range-group label {
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.95rem;
+        }
+
+        .player-range-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 0.75rem;
+        }
+
+        .player-range-input {
+            flex: 1;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .player-range-input::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid white;
+            box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
+        }
+
+        .player-range-input::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid white;
+            box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
+        }
+
+        .player-range-value {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+            font-weight: 700;
+            font-size: 0.9rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 8px;
+            min-width: 40px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
+        }
+
+        /* GK Section */
+        .player-gk-section {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .player-gk-section h3 {
+            color: #3b82f6;
+        }
+
+        .player-gk-section .player-range-input::-webkit-slider-thumb {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+        }
+
+        .player-gk-section .player-range-input::-moz-range-thumb {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+        }
+
+        .player-gk-section .player-range-value {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Submit Button */
+        .player-submit-btn {
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            padding: 1rem 2rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 1rem;
+            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.3);
+        }
+
+        .player-submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(34, 197, 94, 0.4);
+        }
+
+        .player-submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Hidden class */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Notification Styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10000;
+            animation: slideInRight 0.3s ease-out;
+        }
+        
+        .notification-content {
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(20px);
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            min-width: 300px;
+        }
+        
+        .notification-success .notification-content {
+            border-color: rgba(34, 197, 94, 0.3);
+            background: rgba(0, 0, 0, 0.9);
+        }
+        
+        .notification-error .notification-content {
+            border-color: rgba(239, 68, 68, 0.3);
+            background: rgba(0, 0, 0, 0.9);
+        }
+        
+        .notification-icon {
+            font-size: 1.2rem;
+        }
+        
+        .notification-message {
+            color: white;
+            font-weight: 500;
+            flex: 1;
+        }
+        
+        .notification-close {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+        
+        .notification-close:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Submit Button Loading State */
+        .player-submit-btn:disabled {
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .player-form-container {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+
+            .player-form-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .player-stats-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .player-form-header h1 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Animation */
+        .fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
     /* Responsive Design */
 /* Responsive Design - Mobile First */
@@ -1344,20 +1694,185 @@
     </div>
 
     <div id="donateTab" class="hidden">
-  <div class="donate-container">
-    <h2 class="donate-title">Love the updates?
-    <br>Drop a donation if you wanna support me — helps me keep this going and take care of my fam.
-    <br>Appreciate you, bros!</h2>
-    <div class="qr-wrapper">
-      <div class="qr-box">
-        <img src="momo-qr.jpg" alt="QR MoMo" />
-        <p>MoMo</p>
+      <div class="donate-container">
+        <h2 class="donate-title">Love the updates?
+        <br>Drop a donation if you wanna support me — helps me keep this going and take care of my fam.
+        <br>Appreciate you, bros!</h2>
+        <div class="qr-wrapper">
+          <div class="qr-box">
+            <img src="momo-qr.jpg" alt="QR MoMo" />
+            <p>MoMo</p>
+          </div>
+          <div class="qr-box">
+            <img src="bank-qr.jpg" alt="QR Banking" />
+            <p>Visa Banking</p>
+          </div>
+        </div>
       </div>
-      <div class="qr-box">
-        <img src="bank-qr.jpg" alt="QR Banking" />
-        <p>Visa Banking</p>
+      <div class="player-form-container fade-in">
+          <div class="player-form-header">
+              <h1>⚽ PLAYER INFORMATION</h1>
+              <p>Enter complete information to create player profile</p>
+          </div>
+
+          <form id="playerForm">
+              <div class="player-form-grid">
+                  <div class="player-form-group">
+                      <label for="name">Player Name</label>
+                      <input type="text" id="name" name="name" class="player-form-input" required>
+                  </div>
+
+                  <div class="player-form-group">
+                      <label for="price">Price (€)</label>
+                      <input type="number" id="price" name="price" class="player-form-input" min="0">
+                  </div>
+
+                  <div class="player-form-group">
+                      <label for="nationality">Nationality</label>
+                      <input type="text" id="nationality" name="nationality" class="player-form-input">
+                  </div>
+
+                  <div class="player-form-group">
+                      <label for="club">Club</label>
+                      <input type="text" id="club" name="club" class="player-form-input">
+                  </div>
+
+                  <div class="player-form-group">
+                      <label for="position">Position</label>
+                      <select id="position" name="position" class="player-form-select" required>
+                          <option value="">Select Position</option>
+                          <option value="GK">Goalkeeper (GK)</option>
+                          <option value="CB">Center Back (CB)</option>
+                          <option value="LB">Left Back (LB)</option>
+                          <option value="RB">Right Back (RB)</option>
+                          <option value="DM">Defensive Midfielder (DM)</option>
+                          <option value="CM">Central Midfielder (CM)</option>
+                          <option value="AM">Attacking Midfielder (AM)</option>
+                          <option value="LM">Left Midfielder (LM)</option>
+                          <option value="RM">Right Midfielder (RM)</option>
+                          <option value="LW">Left Winger (LW)</option>
+                          <option value="RW">Right Winger (RW)</option>
+                          <option value="SS">Second Striker (SS)</option>
+                          <option value="CF">Center Forward (CF)</option>
+                      </select>
+                  </div>
+
+                  <div class="player-form-group">
+                      <label for="foot">Preferred Foot</label>
+                      <select id="foot" name="foot" class="player-form-select">
+                          <option value="">Select Foot</option>
+                          <option value="Left">Left Foot</option>
+                          <option value="Right">Right Foot</option>
+                          <option value="Both">Both Feet</option>
+                      </select>
+                  </div>
+
+                  <div class="player-form-group">
+                      <label for="height">Height (cm)</label>
+                      <input type="number" id="height" name="height" class="player-form-input" min="150" max="220">
+                  </div>
+
+                  <div class="player-form-group">
+                      <label for="rating">Overall Rating</label>
+                      <input type="number" id="rating" name="rating" class="player-form-input" min="1" max="100">
+                  </div>
+              </div>
+
+              <div class="player-stats-section">
+                  <h3>⚡ Technical Attributes</h3>
+                  <div class="player-stats-grid">
+                      <div class="player-range-group">
+                          <label for="speed">Speed</label>
+                          <div class="player-range-container">
+                              <input type="range" id="speed" name="speed" class="player-range-input" min="1" max="100" value="50">
+                              <div class="player-range-value" id="speedValue">50</div>
+                          </div>
+                      </div>
+
+                      <div class="player-range-group">
+                          <label for="acceleration">Acceleration</label>
+                          <div class="player-range-container">
+                              <input type="range" id="acceleration" name="acceleration" class="player-range-input" min="1" max="100" value="50">
+                              <div class="player-range-value" id="accelerationValue">50</div>
+                          </div>
+                      </div>
+
+                      <div class="player-range-group">
+                          <label for="stamina">Stamina</label>
+                          <div class="player-range-container">
+                              <input type="range" id="stamina" name="stamina" class="player-range-input" min="1" max="100" value="50">
+                              <div class="player-range-value" id="staminaValue">50</div>
+                          </div>
+                      </div>
+
+                      <div class="player-range-group">
+                          <label for="strength">Strength</label>
+                          <div class="player-range-container">
+                              <input type="range" id="strength" name="strength" class="player-range-input" min="1" max="100" value="50">
+                              <div class="player-range-value" id="strengthValue">50</div>
+                          </div>
+                      </div>
+
+                      <div class="player-range-group">
+                          <label for="control">Ball Control</label>
+                          <div class="player-range-container">
+                              <input type="range" id="control" name="control" class="player-range-input" min="1" max="100" value="50">
+                              <div class="player-range-value" id="controlValue">50</div>
+                          </div>
+                      </div>
+
+                      <div class="player-range-group">
+                          <label for="passing">Passing</label>
+                          <div class="player-range-container">
+                              <input type="range" id="passing" name="passing" class="player-range-input" min="1" max="100" value="50">
+                              <div class="player-range-value" id="passingValue">50</div>
+                          </div>
+                      </div>
+
+                      <div class="player-range-group">
+                          <label for="shooting">Shooting</label>
+                          <div class="player-range-container">
+                              <input type="range" id="shooting" name="shooting" class="player-range-input" min="1" max="100" value="50">
+                              <div class="player-range-value" id="shootingValue">50</div>
+                          </div>
+                      </div>
+
+                      <div class="player-range-group">
+                          <label for="tackling">Tackling</label>
+                          <div class="player-range-container">
+                              <input type="range" id="tackling" name="tackling" class="player-range-input" min="1" max="100" value="50">
+                              <div class="player-range-value" id="tacklingValue">50</div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="player-stats-section player-gk-section">
+                  <h3>🥅 Goalkeeper Attributes</h3>
+                  <div class="player-stats-grid">
+                      <div class="player-range-group">
+                          <label for="reactions">Reactions (GK)</label>
+                          <div class="player-range-container">
+                              <input type="range" id="reactions" name="reactions" class="player-range-input" min="1" max="100" value="50">
+                              <div class="player-range-value" id="reactionsValue">50</div>
+                          </div>
+                      </div>
+
+                      <div class="player-range-group">
+                          <label for="handling">Handling (GK)</label>
+                          <div class="player-range-container">
+                              <input type="range" id="handling" name="handling" class="player-range-input" min="1" max="100" value="50">
+                              <div class="player-range-value" id="handlingValue">50</div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+              <button type="submit" class="player-submit-btn">
+                  Create Player Profile
+              </button>
+          </form>
       </div>
-    </div>
   </div>
 </div>
   </div>
@@ -2985,7 +3500,199 @@ function displayBuiltTeam() {
       playersGrid.classList.add('hidden');
     }
 
+        // JavaScript để cập nhật giá trị range sliders
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show form (remove hidden class for demo)
+            document.getElementById('donateTab').classList.remove('hidden');
+            
+            // Setup range inputs
+            const rangeInputs = document.querySelectorAll('.player-range-input');
+            rangeInputs.forEach(input => {
+                const valueDisplay = document.getElementById(input.id + 'Value');
+                
+                input.addEventListener('input', function() {
+                    if (valueDisplay) {
+                        valueDisplay.textContent = this.value;
+                    }
+                });
+            });
 
+            // Test input functionality
+            const testInputs = document.querySelectorAll('.player-form-input, .player-form-select');
+            testInputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    console.log('Input focused:', this.id);
+                });
+                
+                input.addEventListener('input', function() {
+                    console.log('Input changed:', this.id, this.value);
+                });
+            });
+        });
+
+        // Form submission handler
+        document.getElementById('playerForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.querySelector('.player-submit-btn');
+            const originalText = submitBtn.textContent;
+            
+            // Show loading state
+            submitBtn.textContent = 'Creating Player...';
+            submitBtn.disabled = true;
+            submitBtn.style.opacity = '0.7';
+            
+            try {
+                // Collect form data
+                const formData = new FormData(this);
+                const playerData = {
+                    timestamp: new Date().toLocaleString('vi-VN'),
+                };
+                
+                for (let [key, value] of formData.entries()) {
+                    playerData[key] = value || '';
+                }
+                
+                console.log('Sending player data:', playerData);
+                
+                // Google Apps Script web app URL
+                const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx9qqs8ABaGnJP95r6U3RKdk6mx8N8ww7SX5YYztbmwjxTfgmJxpHtq2KrU08zFXu3N/exec';
+                
+                // Try multiple fetch methods for CORS issues
+                let success = false;
+                
+                try {
+                    // Method 1: No-cors mode (recommended for Google Apps Script)
+                    console.log('Trying no-cors mode...');
+                    const noCorsResponse = await fetch(SCRIPT_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(playerData)
+                    });
+                    
+                    console.log('No-cors response type:', noCorsResponse.type);
+                    
+                    // With no-cors, we get opaque response, assume success if no error
+                    if (noCorsResponse.type === 'opaque') {
+                        success = true;
+                        console.log('✅ No-cors request sent successfully');
+                    }
+                    
+                } catch (noCorsError) {
+                    console.log('No-cors failed:', noCorsError);
+                    
+                    try {
+                        // Method 2: FormData approach
+                        console.log('Trying FormData approach...');
+                        const formDataPayload = new FormData();
+                        formDataPayload.append('data', JSON.stringify(playerData));
+                        
+                        const formResponse = await fetch(SCRIPT_URL, {
+                            method: 'POST',
+                            mode: 'no-cors',
+                            body: formDataPayload
+                        });
+                        
+                        if (formResponse.type === 'opaque') {
+                            success = true;
+                            console.log('✅ FormData request sent successfully');
+                        }
+                        
+                    } catch (formError) {
+                        console.log('FormData also failed:', formError);
+                        throw new Error('All fetch methods failed. Check Apps Script URL and deployment settings.');
+                    }
+                }
+                
+                if (success) {
+                    // Success handling
+                    submitBtn.textContent = 'Player Created! ✅';
+                    submitBtn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+                    
+                    // Reset form
+                    this.reset();
+                    
+                    // Reset all range values to 50
+                    const rangeInputs = document.querySelectorAll('.player-range-input');
+                    rangeInputs.forEach(input => {
+                        input.value = 50;
+                        const valueDisplay = document.getElementById(input.id + 'Value');
+                        if (valueDisplay) {
+                            valueDisplay.textContent = '50';
+                        }
+                    });
+                    
+                    showNotification('Player profile created and sent to Google Sheets!', 'success');
+                } else {
+                    throw new Error('Request sent but status unclear');
+                }
+                
+            } catch (error) {
+                console.error('=== ERROR DETAILS ===');
+                console.error('Error type:', error.name);
+                console.error('Error message:', error.message);
+                console.error('Full error:', error);
+                
+                submitBtn.textContent = 'Error! Try Again';
+                submitBtn.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
+                
+                // Show detailed error message
+                let errorMessage = 'Error creating player. ';
+                if (error.message.includes('Failed to fetch')) {
+                    errorMessage += 'Network error - check your internet connection.';
+                } else if (error.message.includes('CORS')) {
+                    errorMessage += 'CORS error - using alternative method.';
+                } else if (error.message.includes('All fetch methods failed')) {
+                    errorMessage = 'Cannot connect to Google Sheets. Please check the setup.';
+                } else {
+                    errorMessage += error.message;
+                }
+                
+                showNotification(errorMessage, 'error');
+            }
+            
+            // Reset button after 3 seconds
+            setTimeout(() => {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = '1';
+                submitBtn.style.background = 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)';
+            }, 3000);
+        });
+        
+        // Notification function
+        function showNotification(message, type = 'success') {
+            // Remove existing notification
+            const existingNotification = document.querySelector('.notification');
+            if (existingNotification) {
+                existingNotification.remove();
+            }
+            
+            // Create notification
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <span class="notification-icon">${type === 'success' ? '✅' : '❌'}</span>
+                    <span class="notification-message">${message}</span>
+                    <button class="notification-close" onclick="this.parentElement.parentElement.remove()">×</button>
+                </div>
+            `;
+            
+            // Add to body
+            document.body.appendChild(notification);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
+                }
+            }, 5000);
+        }
+    
   
     // Event listeners
     searchInput.addEventListener('input', applyFilters);
